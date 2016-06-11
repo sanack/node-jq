@@ -5,6 +5,12 @@ const isJSON = (file) => {
   return /\.json$/.test(file)
 }
 
+/**
+ * run
+ * @param  {string} query Filter that jq will apply to the json
+ * @param  {string} file  Path to the json
+ * @return {Promise}
+ */
 export const run = (query, file) => {
   return new Promise((resolve, reject) => {
     if (typeof file !== 'string') {

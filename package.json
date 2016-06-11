@@ -7,10 +7,11 @@
     "test": "mocha --compilers js:babel-register",
     "test:watch": "npm test -- --watch",
     "lint": "standard --versbose | snazzy",
-    "build": "babel -d src lib"
+    "build": "babel src -d lib"
   },
   "keywords": [
-    "jq"
+    "jq",
+    "json"
   ],
   "author": "davesnx",
   "license": "MIT",

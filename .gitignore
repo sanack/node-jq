@@ -48,4 +48,4 @@ coverage
 # nodemon
 .monitor
 
-lib
+lib/

@@ -1,4 +1,6 @@
-import { expect, assert } from 'chai'
+import chai, { expect, assert } from 'chai'
+import chaiAsPromised from 'chai-as-promised'
+chai.use(chaiAsPromised)
 import { run } from '../src/jq'
 import path from 'path'
 

@@ -21,11 +21,11 @@ const jq = require('node-jq')
 
 /**
  * run
- * @param  {string} query Filter
- * @param  {string} file  Path to the json
+ * @param  {string} filter Filter
+ * @param  {string} jsonPath  Path to the json
  * @return {Promise}
  */
-jq.run(query, file)
+jq.run(filter, jsonPath)
   .then((output) => {
     // something with the output
   })

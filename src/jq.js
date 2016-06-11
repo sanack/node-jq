@@ -1,10 +1,6 @@
 import execa from 'execa'
 import isValid from 'is-valid-path'
 
-const beautify = (json) => {
-  return JSON.stringify(JSON.parse(json), null, 4)
-}
-
 const isJSON = (file) => {
   return /\.json$/.test(file)
 }

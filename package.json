@@ -4,7 +4,7 @@
   "description": "jq in nodejs",
   "main": "src/index.js",
   "scripts": {
-    "test": "ava",
+    "test": "mocha --compilers js:babel-register",
     "test:watch": "npm test -- --watch",
     "lint": "standard --versbose | snazzy",
     "build": "babel -d src lib"
@@ -19,28 +19,28 @@
     "lib"
   ],
   "dependencies": {
-    "execa": "^0.4.0"
+    "execa": "^0.4.0",
+    "is-valid-path": "^0.1.1"
   },
   "devDependencies": {
-    "ava": "^0.15.2",
-    "babel-core": "^6.9.1",
+    "babel-preset-es2015": "^6.9.0",
+    "babel-preset-stage-1": "^6.5.0",
+    "chai": "^3.5.0",
+    "mocha": "^2.5.3",
     "snazzy": "^4.0.0",
     "standard": "^7.1.2",
     "tap-diff": "^0.1.1"
   },
-  "standard": {
-    "globals": [
-      "atom"
+  "babel": {
+    "presets": [
+      "es2015",
+      "stage-1"
     ]
   },
-  "ava": {
-    "files": [
-      "test/*.js"
-    ],
-    "failFast": true,
-    "tap": true,
-    "require": [
-      "babel-core/register"
+  "standard": {
+    "globals": [
+      "describe",
+      "it"
     ]
   }
 }

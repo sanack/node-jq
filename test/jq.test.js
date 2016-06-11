@@ -1,14 +1,44 @@
-import test from 'ava'
-import Jq from '../src/jq'
-// const path = require('path')
+import chai, { expect, assert } from 'chai'
+import { run } from '../src/jq'
+import path from 'path'
 
-// const ROOT_PATH = path.join(__dirname, '..', '..')
-// const testp = path.join(ROOT_PATH, 'test.json')
+const FIXTURES_PATH = path.join(__dirname, 'fixtures')
+const ROOT_PATH = path.join(__dirname, '..')
+const jsonExample = path.join(FIXTURES_PATH, '1.json')
+const query = '. | map(select(.a == .id))'
 
-test('whatever', t => {
-  t.plan(1)
+describe('jq runs a cli', () => {
+  it('should return a stdout object', (done) => {
+    run(query, jsonExample)
+      .then((result) => {
+        expect(result).to.be.instanceof(Object)
+        done()
+      })
+      .catch((err) => {
+        done(err)
+      })
+  })
 
-  return Promise.resolve(3).then(n => {
-    t.is(n, 3)
+  it('should fail on a non valid query', () => {
+    return assert.isRejected(
+      run('lola', jsonExample),
+      Error
+    )
+  })
+
+  it('should fail on a non valid path', () => {
+    return assert.isRejected(
+      run(query, path.join(ROOT_PATH, 'src', '*.js')),
+      Error,
+      'Is a invalid path'
+    )
+  })
+
+  it('should fail on a non valid json', () => {
+    return assert.isRejected(
+      run(query, path.join(ROOT_PATH, 'src', 'js.js')),
+      Error,
+      'Isn`t a JSON'
+    )
   })
 })

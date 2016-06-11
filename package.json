@@ -1,0 +1,46 @@
+{
+  "name": "node-jq",
+  "version": "0.0.1",
+  "description": "jq in nodejs",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "ava",
+    "test:watch": "npm test -- --watch",
+    "lint": "standard --versbose | snazzy",
+    "build": "babel -d src lib"
+  },
+  "keywords": [
+    "jq"
+  ],
+  "author": "davesnx",
+  "license": "ISC",
+  "files": [
+    "src",
+    "lib"
+  ],
+  "dependencies": {
+    "execa": "^0.4.0"
+  },
+  "devDependencies": {
+    "ava": "^0.15.2",
+    "babel-core": "^6.9.1",
+    "snazzy": "^4.0.0",
+    "standard": "^7.1.2",
+    "tap-diff": "^0.1.1"
+  },
+  "standard": {
+    "globals": [
+      "atom"
+    ]
+  },
+  "ava": {
+    "files": [
+      "test/*.js"
+    ],
+    "failFast": true,
+    "tap": true,
+    "require": [
+      "babel-core/register"
+    ]
+  }
+}

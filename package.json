@@ -26,6 +26,7 @@
     "babel-preset-es2015": "^6.9.0",
     "babel-preset-stage-1": "^6.5.0",
     "chai": "^3.5.0",
+    "ghooks": "^1.2.3",
     "mocha": "^2.5.3",
     "snazzy": "^4.0.0",
     "standard": "^7.1.2",
@@ -42,5 +43,11 @@
       "describe",
       "it"
     ]
+  },
+  "config": {
+    "ghooks": {
+      "pre-commit": "npm run lint",
+      "pre-push": "npm test"
+    }
   }
 }

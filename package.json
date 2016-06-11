@@ -13,7 +13,7 @@
     "jq"
   ],
   "author": "davesnx",
-  "license": "ISC",
+  "license": "MIT",
   "files": [
     "src",
     "lib"

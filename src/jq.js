@@ -1,36 +1,32 @@
 import execa from 'execa'
 import isValid from 'is-valid-path'
 
-const isJSON = (file) => {
-  return /\.json$/.test(file)
+const isJSON = (path) => {
+  return /\.json$/.test(path)
 }
 
 /**
  * run
- * @param  {string} query Filter that jq will apply to the json
- * @param  {string} file  Path to the json
+ * @param  {string} filter Filter that jq will apply to the json
+ * @param  {string} jsonPath  Path to the json
  * @return {Promise}
  */
-export const run = (query, file) => {
+export const run = (filter, jsonPath) => {
   return new Promise((resolve, reject) => {
-    if (typeof file !== 'string') {
-      file = file.toString()
+    if (typeof jsonPath !== 'string') {
+      jsonPath = jsonPath.toString()
     }
 
-    if (!isValid(file)) {
+    if (!isValid(jsonPath)) {
       reject(Error('Is a invalid path'))
     }
 
-    if (!isJSON(file)) {
+    if (!isJSON(jsonPath)) {
       reject(Error('Isn`t a JSON'))
     }
 
-    execa('jq', [query, file])
-      .then((result) => {
-        resolve(result)
-      })
-      .catch((err) => {
-        reject(err)
-      })
+    execa('jq', [filter, jsonPath])
+      .then(resolve)
+      .catch(reject)
   })
 }

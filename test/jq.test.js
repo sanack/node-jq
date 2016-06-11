@@ -7,11 +7,11 @@ import path from 'path'
 const FIXTURES_PATH = path.join(__dirname, 'fixtures')
 const ROOT_PATH = path.join(__dirname, '..')
 const jsonExample = path.join(FIXTURES_PATH, '1.json')
-const query = '. | map(select(.a == .id))'
+const filter = '. | map(select(.a == .id))'
 
 describe('jq runs a cli', () => {
   it('should return a stdout object', (done) => {
-    run(query, jsonExample)
+    run(filter, jsonExample)
       .then((result) => {
         expect(result).to.be.instanceof(Object)
         done()
@@ -21,7 +21,7 @@ describe('jq runs a cli', () => {
       })
   })
 
-  it('should fail on a non valid query', () => {
+  it('should fail on a non valid filter', () => {
     return assert.isRejected(
       run('lola', jsonExample),
       Error
@@ -30,7 +30,7 @@ describe('jq runs a cli', () => {
 
   it('should fail on a non valid path', () => {
     return assert.isRejected(
-      run(query, path.join(ROOT_PATH, 'src', '*.js')),
+      run(filter, path.join(ROOT_PATH, 'src', '*.js')),
       Error,
       'Is a invalid path'
     )
@@ -38,7 +38,7 @@ describe('jq runs a cli', () => {
 
   it('should fail on a non valid json', () => {
     return assert.isRejected(
-      run(query, path.join(ROOT_PATH, 'src', 'js.js')),
+      run(filter, path.join(ROOT_PATH, 'src', 'js.js')),
       Error,
       'Isn`t a JSON'
     )

@@ -15,7 +15,9 @@ npm install atom-jq --save
 ## Usage
 
 ```javascript
-import { run } from 'node-jq'
+import * as jq from 'node-jq'
+// or
+const jq = require('node-jq')
 
 /**
  * run
@@ -23,7 +25,7 @@ import { run } from 'node-jq'
  * @param  {string} file  Path to the json
  * @return {Promise}
  */
-run(query, file)
+jq.run(query, file)
   .then((output) => {
     // something with the output
   })

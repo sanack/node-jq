@@ -7,7 +7,8 @@
     "test": "mocha --compilers js:babel-register",
     "test:watch": "npm test -- --watch",
     "lint": "standard --versbose | snazzy",
-    "build": "babel src -d lib"
+    "build": "babel src -d lib",
+    "prepublish": "npm run build"
   },
   "keywords": [
     "jq",
@@ -48,7 +49,7 @@
   "config": {
     "ghooks": {
       "pre-commit": "npm run lint",
-      "pre-push": "npm test && npm run build"
+      "pre-push": "npm test"
     }
   }
 }

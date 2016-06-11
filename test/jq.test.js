@@ -1,4 +1,4 @@
-import chai, { expect, assert } from 'chai'
+import { expect, assert } from 'chai'
 import { run } from '../src/jq'
 import path from 'path'
 

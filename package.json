@@ -48,7 +48,7 @@
   "config": {
     "ghooks": {
       "pre-commit": "npm run lint",
-      "pre-push": "npm test"
+      "pre-push": "npm test && npm run build"
     }
   }
 }

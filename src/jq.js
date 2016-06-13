@@ -5,12 +5,6 @@ const isJSON = (path) => {
   return /\.json$/.test(path)
 }
 
-/**
- * run
- * @param  {string} filter Filter that jq will apply to the json
- * @param  {string} jsonPath  Path to the json
- * @return {Promise}
- */
 export const run = (filter, jsonPath) => {
   return new Promise((resolve, reject) => {
     if (typeof jsonPath !== 'string') {

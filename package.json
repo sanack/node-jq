@@ -1,8 +1,9 @@
 {
   "name": "node-jq",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "jq in nodejs",
   "main": "lib/jq.js",
+  "repository": "https://github.com/davesnx/node-jq",
   "scripts": {
     "test": "mocha --compilers js:babel-register",
     "test:watch": "npm test -- --watch",

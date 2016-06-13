@@ -15,17 +15,14 @@ npm install atom-jq --save
 ## Usage
 
 ```javascript
-import * as jq from 'node-jq'
+import { run } from 'node-jq'
 // or
-const jq = require('node-jq')
+const run = require('node-jq').run
 
-/**
- * run
- * @param  {string} query Filter
- * @param  {string} file  Path to the json
- * @return {Promise}
- */
-jq.run(query, file)
+const filter = '. | map(select(.foo > 10))'
+const jsonPath = path.join(__dirname, 'path', 'to', 'json')
+
+run(filter, jsonPath)
   .then((output) => {
     // something with the output
   })

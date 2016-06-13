@@ -8,7 +8,7 @@
     "test:watch": "npm test -- --watch",
     "lint": "standard --versbose | snazzy",
     "build": "babel src -d lib",
-    "prepublish": "npm run build"
+    "prepublish": "npm test && npm run lint && npm run build"
   },
   "keywords": [
     "jq",

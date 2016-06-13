@@ -9,7 +9,7 @@
 Need to have [`jq`](https://stedolan.github.io/jq/download/) installed.
 
 ```bash
-npm install atom-jq --save
+npm install node-jq --save
 ```
 
 ## Usage

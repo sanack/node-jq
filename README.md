@@ -1,10 +1,11 @@
-# node-jq [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
+# node-jq [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
 
-[`jq`](https://stedolan.github.io/jq/) is a lightweight and flexible command-line JSON processor.
+[`jq`](https://stedolan.github.io/jq/) is a lightweight and flexible
+    command-line JSON processor.
 
 > Work in progress...
 
-## Install
+## Installation
 
 Need to have [`jq`](https://stedolan.github.io/jq/download/) installed.
 
@@ -29,8 +30,8 @@ run(filter, jsonPath)
   .catch((err) => {
     // something with the error
   })
-
 ```
 
 ## License
+
 MIT

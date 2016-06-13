@@ -68,4 +68,20 @@ describe('jq runs a cli', () => {
       'Isn`t a JSON'
     )
   })
+
+  it('should run the filter inline with null-input', (done) => {
+    const jsonFixtureToString = JSON.stringify(jsonFixture)
+    run(
+      '.',
+      jsonFixtureToString,
+      { nullInput: true }
+    )
+    .then((result) => {
+      expect(result).to.be.equal(jsonFixtureToString)
+      done()
+    })
+    .catch((err) => {
+      done(err)
+    })
+  })
 })

@@ -33,16 +33,29 @@ const validateJsonPath = (json) => {
 
 const runJqNullInput = (filter, json) => {
   return new Promise((resolve, reject) => {
-    execa(`jq --null-input '${json} | ${filter}`)
-    .then(resolve)
+    execa(
+      'jq',
+      [
+        '--null-input',
+        `${filter} | ${JSON.stringify(json)}`
+      ]
+    )
+    .then(({ stdout }) => {
+      resolve(JSON.parse(stdout))
+    })
     .catch(reject)
   })
 }
 
 const runJq = (filter, jsonPath) => {
   return new Promise((resolve, reject) => {
-    execa('jq', [filter, jsonPath])
-    .then(resolve)
+    execa(
+      'jq',
+      [filter, jsonPath]
+    )
+    .then(({ stdout }) => {
+      resolve(JSON.parse(stdout))
+    })
     .catch(reject)
   })
 }

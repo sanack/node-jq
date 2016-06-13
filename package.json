@@ -1,7 +1,7 @@
 {
   "name": "node-jq",
-  "version": "0.0.5",
-  "description": "jq in nodejs",
+  "version": "0.0.6",
+  "description": "Run jq in node",
   "main": "lib/jq.js",
   "repository": "https://github.com/davesnx/node-jq",
   "scripts": {

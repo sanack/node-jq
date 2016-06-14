@@ -20,17 +20,7 @@ export const validateJsonPath = (jsonPath) => {
     throw (Error('Is a invalid path'))
   }
 
-  if (!isAJson(jsonPath)) {
+  if (!isAJsonPath(jsonPath)) {
     throw (Error('Is not a JSON file'))
   }
 }
-
-// FIXME: (?)
-// export const validateJsonPath = (json) => {
-//   if (!isPathValid(json)) {
-//     if (!isAJsonPath(json)) {
-//       throw (Error('Isn`t a JSON'))
-//     }
-//     throw (Error('Is a invalid path'))
-//   }
-// }

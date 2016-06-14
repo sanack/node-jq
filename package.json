@@ -43,7 +43,7 @@
     ]
   },
   "standard": {
-    "globals": [
+    "global": [
       "describe",
       "it"
     ]

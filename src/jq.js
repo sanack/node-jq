@@ -31,29 +31,42 @@ const validateJsonPath = (json) => {
   return json
 }
 
-const runJqNullInput = (filter, json) => {
-  return new Promise((resolve, reject) => {
-    execa(`jq --null-input '${json} | ${filter}`)
-    .then(resolve)
-    .catch(reject)
-  })
+const buildNullInputParams = (filter, json) => {
+  return [
+    '--null-input',
+    `${filter} | ${JSON.stringify(json)}`
+  ]
 }
 
-const runJq = (filter, jsonPath) => {
+const createJqCommand = (filter, json, options = {}) => {
+  const command = {
+    cmd: 'jq',
+    params: []
+  }
+
+  if (options.nullInput === true) {
+    command.params = buildNullInputParams(filter, json)
+  } else {
+    validateJsonPath(json)
+    command.params = [filter, json]
+  }
+
+  return command
+}
+
+const runJq = (filter, json, options) => {
   return new Promise((resolve, reject) => {
-    execa('jq', [filter, jsonPath])
-    .then(resolve)
+    const { cmd, params } = createJqCommand(filter, json, options)
+    execa(cmd, params)
+    .then(({ stdout }) => {
+      resolve(JSON.parse(stdout))
+    })
     .catch(reject)
   })
 }
 
 export const run = (filter, json, options = {}) => {
   return new Promise((resolve, reject) => {
-    if (options.nullInput === true) {
-      runJqNullInput(filter, json).then(resolve).catch(reject)
-    } else {
-      const jsonPath = validateJsonPath(json)
-      runJq(filter, jsonPath).then(resolve).catch(reject)
-    }
+    runJq(filter, json, options).then(resolve).catch(reject)
   })
 }

@@ -4,7 +4,7 @@ import { validateJsonPath } from './utils'
 const buildNullInputParams = (filter, json) => {
   return [
     '--null-input',
-    `${filter} | ${JSON.stringify(json)}`
+    `${JSON.stringify(json)} | ${filter}`
   ]
 }
 

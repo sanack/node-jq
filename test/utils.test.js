@@ -10,7 +10,7 @@ const FIXTURES_PATH = path.join(__dirname, 'fixtures')
 const jsonPathFixture = path.join(FIXTURES_PATH, '1.json')
 const jsPathFixture = path.join(FIXTURES_PATH, '1.js')
 
-describe('path', () => {
+describe('utils', () => {
   describe('#isAJsonPath', () => {
     it('should return true when u give a jsonpath', () => {
       expect(isAJsonPath(jsonPathFixture)).to.be.equal(true)

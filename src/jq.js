@@ -1,12 +1,6 @@
 import execa from 'execa'
 import { validateJsonPath } from './utils'
-
-const buildNullInputParams = (filter, json) => {
-  return [
-    '--null-input',
-    `${JSON.stringify(json)} | ${filter}`
-  ]
-}
+import { buildNullInputParams } from './options'
 
 const createJqCommand = (filter, json, options = {}) => {
   const command = {
@@ -24,7 +18,7 @@ const createJqCommand = (filter, json, options = {}) => {
   return command
 }
 
-const runJq = (filter, json, options) => {
+export const run = (filter, json, options = {}) => {
   return new Promise((resolve, reject) => {
     const { cmd, params } = createJqCommand(filter, json, options)
     execa(cmd, params)
@@ -32,11 +26,5 @@ const runJq = (filter, json, options) => {
       resolve(JSON.parse(stdout))
     })
     .catch(reject)
-  })
-}
-
-export const run = (filter, json, options = {}) => {
-  return new Promise((resolve, reject) => {
-    runJq(filter, json, options).then(resolve).catch(reject)
   })
 }

@@ -1,6 +1,6 @@
 # node-jq
 
-[![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/) [![Travis Build](https://img.shields.io/travis/sanack/node-jq/master.svg?maxAge=2592000)](https://travis-ci.org/sanack/node-jq)  [![npm release](https://img.shields.io/npm/v/node-jq.svg?maxAge=2592000)](https://github.com/sanack/node-jq/releases/latest)  [![npm downloads](https://img.shields.io/npm/dm/node-jq.svg?maxAge=2592000)](https://www.npmjs.com/package/node-jq) [![Gitter](https://badges.gitter.im/davesnx/node-jq.svg)](https://gitter.im/davesnx/node-jq?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+[![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/) [![Travis Build](https://img.shields.io/travis/sanack/node-jq/master.svg)](https://travis-ci.org/sanack/node-jq)  [![npm release](https://img.shields.io/npm/v/node-jq.svg)](https://www.npmjs.com/package/node-jq)  [![npm downloads](https://img.shields.io/npm/dm/node-jq.svg)](https://www.npmjs.com/package/node-jq) [![Gitter](https://badges.gitter.im/davesnx/node-jq.svg)](https://gitter.im/davesnx/node-jq?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
 [`jq`](https://stedolan.github.io/jq/) is a lightweight and flexible
     command-line JSON processor.

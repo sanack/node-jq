@@ -12,10 +12,11 @@ const asteriskPathFixture = path.join(ROOT_PATH, 'src', '*.js')
 const filter = '. | map(select(.a == .id))'
 
 describe('jq core', () => {
-  it('should return a stdout object', () => {
-    return expect(
-      run(filter, jsonPathFixture)
-    ).to.eventually.be.instanceof(Object)
+  it('should return an stdout object', (done) => {
+    run(filter, jsonPathFixture)
+    .then((obj) => {
+      done()
+    })
   })
 
   it('should fail on a non valid filter', () => {

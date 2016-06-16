@@ -4,14 +4,26 @@ chai.use(chaiAsPromised)
 import { run } from '../src/jq'
 import jsonFixture from './fixtures/1.json'
 
-const jsonFixtureToString = JSON.stringify(jsonFixture)
-
 describe('options', () => {
-  describe('--null-input', () => {
-    it('should run the filter inline with null-input', () => {
+  describe('input: json', () => {
+    it('should run the filter inline with --null-input', () => {
       return expect(
-        run('.', jsonFixtureToString, { nullInput: true })
-      ).to.eventually.become(jsonFixtureToString)
+        run('.', jsonFixture, {
+          input: 'json',
+          output: 'json'
+        })
+      ).to.eventually.become(jsonFixture)
+    })
+  })
+
+  describe('compactOutput', () => {
+    it('should run the filter inline with --compact-output', () => {
+      return expect(
+        run('.', jsonFixture, {
+          compactOutput: true,
+          input: 'json'
+        })
+      ).to.eventually.become(JSON.stringify(jsonFixture))
     })
   })
 })

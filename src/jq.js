@@ -29,7 +29,7 @@ const runJq = (filter, json, options) => {
     const { cmd, params } = createJqCommand(filter, json, options)
     execa(cmd, params)
     .then(({ stdout }) => {
-      resolve(JSON.parse(stdout))
+      return resolve(JSON.parse(stdout))
     })
     .catch(reject)
   })

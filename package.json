@@ -18,8 +18,12 @@
     "jq",
     "json"
   ],
-  "author": "davesnx <dsnxmoreno@gmail.com>",
+  "author": "sanack",
   "contributors": [
+    {
+      "name": "davesnx",
+      "email": "dsnxmoreno@gmail.com"
+    },
     {
       "name": "mackermans",
       "email": "maarten.ackermans@gmail.com"

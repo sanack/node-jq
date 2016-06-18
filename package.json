@@ -3,7 +3,10 @@
   "version": "0.0.9",
   "description": "Run jq in node",
   "main": "lib/jq.js",
-  "repository": "https://github.com/davesnx/node-jq",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sanack/node-jq"
+  },
   "scripts": {
     "test": "mocha --compilers js:babel-register",
     "test:watch": "npm test -- --watch",
@@ -18,7 +21,17 @@
     "jq",
     "json"
   ],
-  "author": "davesnx",
+  "author": "sanack",
+  "contributors": [
+    {
+      "name": "davesnx",
+      "email": "dsnxmoreno@gmail.com"
+    },
+    {
+      "name": "mackermans",
+      "email": "maarten.ackermans@gmail.com"
+    }
+  ],
   "license": "MIT",
   "files": [
     "src",

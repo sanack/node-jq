@@ -13,21 +13,21 @@ const jsPathFixture = path.join(FIXTURES_PATH, '1.js')
 describe('utils', () => {
   describe('#isAJsonPath', () => {
     it('should return true when u give a jsonpath', () => {
-      expect(isAJsonPath(jsonPathFixture)).to.be.equal(true)
+      expect(isAJsonPath(jsonPathFixture)).to.be.true
     })
 
     it('should return false when u give a non-jsonpath', () => {
-      expect(isAJsonPath(jsPathFixture)).to.be.equal(false)
+      expect(isAJsonPath(jsPathFixture)).to.be.false
     })
   })
 
   describe('#isAJson', () => {
     it('should return true when u give a json', () => {
-      expect(isAJson(jsonFixtureToString)).to.be.equal(true)
+      expect(isAJson(jsonFixtureToString)).to.be.true
     })
 
     it('should return false when u give a non-json', () => {
-      expect(isAJson('lola')).to.be.equal(false)
+      expect(isAJson('lola')).to.be.false
     })
   })
 })

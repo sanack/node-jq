@@ -12,26 +12,25 @@ const asteriskPathFixture = path.join(ROOT_PATH, 'src', '*.js')
 const filter = '. | map(select(.a == .id))'
 
 describe('jq core', () => {
-  it('should return an stdout object', (done) => {
-    run(filter, jsonPathFixture)
-    .then((obj) => {
-      done()
-    })
+  it('should fulfill its promise', () => {
+    return expect(
+      run(filter, jsonPathFixture)
+    ).to.eventually.be.fulfilled
   })
 
-  it('should fail on a non valid filter', () => {
+  it('should fail on an invalid filter', () => {
     return expect(
       run('lola', jsonPathFixture)
     ).to.eventually.be.rejectedWith(Error)
   })
 
-  it('should fail on a non valid path', () => {
+  it('should fail on an invalid path', () => {
     return expect(
       run(filter, asteriskPathFixture)
     ).to.eventually.be.rejectedWith(Error)
   })
 
-  it('should fail on a non valid json', () => {
+  it('should fail on an invalid json', () => {
     return expect(
       run(filter, jsPathFixture)
     ).to.eventually.be.rejectedWith(Error)

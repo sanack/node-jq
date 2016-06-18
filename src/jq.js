@@ -6,9 +6,7 @@ const createJqCommand = (filter, json, options = {}) => {
     cmd: 'jq',
     params: []
   }
-
   command.params = parseOptions(filter, json, options)
-
   return command
 }
 

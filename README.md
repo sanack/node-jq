@@ -30,9 +30,11 @@ const jsonPath = '/path/to/json'
 
 run(filter, jsonPath, options = {})
   .then((output) => {
+    console.log(output)
     // something with the output
   })
   .catch((err) => {
+    console.error(err)
     // something with the error
   })
 ```
@@ -42,7 +44,7 @@ run(filter, jsonPath, options = {})
 | Option   | Type     | Default    | Values                        | Description                |
 |----------|----------|------------|-------------------------------|----------------------------|
 | `input`  | *String* | `'file'`   | `'file', 'json', 'string'`    | Specify the type of input  |
-| `output` | *String* | `'string'` | `'string', 'json', 'compact'` | Specify the type of output |
+| `output` | *String* | `'pretty'` | `'json', 'string', 'pretty'`  | Specify the type of output |
 
 ## License
 

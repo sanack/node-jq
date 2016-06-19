@@ -19,25 +19,25 @@ const ERROR_INVALID_PATH = 'Invalid path'
 const ERROR_INVALID_JSON_PATH = 'Not a .json file'
 
 describe('jq core', () => {
-  it('should return a stdout object', () => {
+  it('should fulfill its promise', () => {
     return expect(
       run(FILTER_VALID, PATH_JSON_FIXTURE)
     ).to.eventually.be.fulfilled
   })
 
-  it('should fail on a non valid filter', () => {
+  it('should fail on an invalid filter', () => {
     return expect(
       run(FILTER_INVALID, PATH_JSON_FIXTURE)
     ).to.eventually.be.rejectedWith(Error, ERROR_INVALID_FILTER)
   })
 
-  it('should fail on a non valid path', () => {
+  it('should fail on an invalid path', () => {
     return expect(
       run(FILTER_VALID, PATH_ASTERISK_FIXTURE)
     ).to.eventually.be.rejectedWith(Error, ERROR_INVALID_PATH)
   })
 
-  it('should fail on a non valid json', () => {
+  it('should fail on an invalid json', () => {
     return expect(
       run(FILTER_VALID, PATH_JS_FIXTURE)
     ).to.eventually.be.rejectedWith(Error, ERROR_INVALID_JSON_PATH)

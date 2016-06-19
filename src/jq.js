@@ -1,20 +1,12 @@
 import execa from 'execa'
-import { validateJsonPath } from './utils'
-import { buildNullInputParams } from './options'
+import { parseOptions } from './options'
 
 const createJqCommand = (filter, json, options = {}) => {
   const command = {
     cmd: 'jq',
     params: []
   }
-
-  if (options.nullInput === true) {
-    command.params = buildNullInputParams(filter, json)
-  } else {
-    validateJsonPath(json)
-    command.params = [filter, json]
-  }
-
+  command.params = parseOptions(filter, json, options)
   return command
 }
 
@@ -23,7 +15,11 @@ export const run = (filter, json, options = {}) => {
     const { cmd, params } = createJqCommand(filter, json, options)
     execa(cmd, params)
     .then(({ stdout }) => {
-      return resolve(JSON.parse(stdout))
+      if (options.output === 'json') {
+        return resolve(JSON.parse(stdout))
+      } else {
+        return resolve(stdout)
+      }
     })
     .catch(reject)
   })

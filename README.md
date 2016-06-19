@@ -27,8 +27,9 @@ const { run } = require('node-jq')
 
 const filter = '. | map(select(.foo > 10))'
 const jsonPath = '/path/to/json'
+const options = {}
 
-run(filter, jsonPath, options = {})
+run(filter, jsonPath, options)
   .then((output) => {
     console.log(output)
     // something with the output

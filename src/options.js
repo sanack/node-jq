@@ -29,8 +29,16 @@ const optionMap = {
   }
 }
 
+const mergeOptionDefaults = (options = {}) => {
+  Object.keys(optionDefaults).forEach((key) => {
+    if (options[key] === undefined) {
+      options[key] = optionDefaults[key]
+    }
+  })
+}
+
 export const parseOptions = (filter, json, options = {}) => {
-  options = Object.assign(optionDefaults, options)
+  mergeOptionDefaults(options)
   return Object.keys(options).reduce(
     (params, key, index, array) => {
       if (optionMap[key] !== undefined) {

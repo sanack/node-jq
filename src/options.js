@@ -20,9 +20,9 @@ const optionMap = {
       }
     }
   },
-  compactOutput: {
+  output: {
     buildParams: (filter, json, params, value) => {
-      if (value === true) {
+      if (value === 'compact') {
         params.unshift('--compact-output')
       }
     }

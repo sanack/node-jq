@@ -5,6 +5,7 @@ chai.use(chaiAsPromised)
 import { run } from '../src/jq'
 
 import FIXTURE_JSON from './fixtures/1.json'
+const FIXTURE_JSON_STRING = JSON.stringify(FIXTURE_JSON)
 
 describe('options', () => {
   describe('input: json', () => {
@@ -18,14 +19,14 @@ describe('options', () => {
     })
   })
 
-  describe('compactOutput', () => {
+  describe('output: compact', () => {
     it('should run the filter inline with --compact-output', () => {
       return expect(
         run('.', FIXTURE_JSON, {
-          compactOutput: true,
-          input: 'json'
+          input: 'json',
+          output: 'compact'
         })
-      ).to.eventually.become(JSON.stringify(FIXTURE_JSON))
+      ).to.eventually.become(FIXTURE_JSON_STRING)
     })
   })
 })

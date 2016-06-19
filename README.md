@@ -21,14 +21,14 @@ npm install node-jq --save
 ## Usage
 
 ```javascript
-import jq from 'node-jq'
+import { run } from 'node-jq'
 // or
-const jq = require('node-jq')
+const { run } = require('node-jq')
 
 const filter = '. | map(select(.foo > 10))'
 const jsonPath = '/path/to/json'
 
-jq.run(filter, jsonPath, options = {})
+run(filter, jsonPath, options = {})
   .then((output) => {
     // something with the output
   })

@@ -1,4 +1,5 @@
 import childProcess from 'child_process'
+import stripEof from 'strip-eof'
 
 const TEN_MEBIBYTE = 1024 * 1024 * 10
 
@@ -11,7 +12,7 @@ const exec = (cmd, params) => {
         if (error) {
           return reject(Error(stderr))
         }
-        resolve(stdout.trim())
+        resolve(stripEof(stdout))
       }
     )
   })

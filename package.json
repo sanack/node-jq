@@ -38,6 +38,7 @@
     "lib"
   ],
   "dependencies": {
+    "strip-eof": "^1.0.0",
     "is-valid-path": "^0.1.1"
   },
   "devDependencies": {

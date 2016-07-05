@@ -14,7 +14,7 @@ const PATH_ASTERISK_FIXTURE = path.join(PATH_ROOT, 'src', '*.js')
 const FILTER_VALID = '. | map(select(.a == .id))'
 const FILTER_INVALID = 'invalid'
 
-const ERROR_INVALID_FILTER = /Command failed: jq invalid/
+const ERROR_INVALID_FILTER = /Error: jq: error: invalid/
 const ERROR_INVALID_PATH = 'Invalid path'
 const ERROR_INVALID_JSON_PATH = 'Not a .json file'
 

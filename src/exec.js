@@ -11,7 +11,7 @@ const exec = (cmd, params) => {
         if (error) {
           return reject(Error(stderr))
         }
-        stdout = resolve(stdout.trim())
+        resolve(stdout.trim())
       }
     )
   })

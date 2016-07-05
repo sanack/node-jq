@@ -1,4 +1,4 @@
-# node-jq
+![node-jq](http://i.imgur.com/OrMlUlB.png)
 
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?maxAge=3600)](http://standardjs.com/) [![npm release](https://img.shields.io/npm/v/node-jq.svg?maxAge=3600)](https://www.npmjs.com/package/node-jq)  [![Travis Build](https://img.shields.io/travis/sanack/node-jq/master.svg?maxAge=3600)](https://travis-ci.org/sanack/node-jq) [![Coverage Status](https://coveralls.io/repos/github/sanack/node-jq/badge.svg?branch=master)](https://coveralls.io/github/sanack/node-jq?branch=master) [![npm downloads](https://img.shields.io/npm/dm/node-jq.svg?maxAge=3600)](https://www.npmjs.com/package/node-jq) [![Gitter](https://badges.gitter.im/davesnx/node-jq.svg)](https://gitter.im/davesnx/node-jq?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 

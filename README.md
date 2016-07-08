@@ -1,5 +1,5 @@
 <p align="center">
-  <img width="300" alt="node-jq logo" src="docs/assets/logo.png" />
+  <img width="300" alt="node-jq logo" src="docs/assets/logo-with-margin.png" />
 </p>
 
 <p align="center">

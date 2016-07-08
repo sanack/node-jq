@@ -18,31 +18,23 @@ const exec = (cmd, params) => {
   })
 }
 
-const escapeArg = (arg, quote) => {
-  // Convert to string
-  arg = '' + arg
-  // If we are not going to quote the argument,
-  // escape shell metacharacters, including double and single quotes:
-  if (!quote) {
-    arg = arg.replace(/([\(\)%!\^<>&|;,"'\s])/g, '^$1')
-  } else {
-    // Sequence of backslashes followed by a double quote:
-    // double up all the backslashes and escape the double quote
-    arg = arg.replace(/(\\*)"/g, '$1$1\\"')
-    // Sequence of backslashes followed by the end of the string
-    // (which will become a double quote later):
-    // double up all the backslashes
-    arg = arg.replace(/(\\*)$/, '$1$1')
-    // All other backslashes occur literally
-    // Quote the whole thing:
-    arg = '"' + arg + '"'
-  }
+const escapeArg = (arg) => {
+  arg = arg.toString()
+
+  // Double up all the backslashes and escape the double quote
+  arg = arg.replace(/(\\*)"/g, '$1$1\\"')
+
+  // Escape the backslashes that would escape the double quote that's added
+  // later to the end of the string
+  arg = arg.replace(/(\\*)$/, '$1$1')
+
+  arg = '"' + arg + '"'
   return arg
 }
 
 const buildParams = (params) => {
   return params.reduce((previous, current) => {
-    return previous + ' ' + escapeArg(current, true)
+    return previous + ' ' + escapeArg(current)
   }, '')
 }
 

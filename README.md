@@ -2,6 +2,9 @@
   <img width="300" alt="node-jq logo" src="docs/assets/logo-with-margin.png" />
 </p>
 
+[`jq`](https://stedolan.github.io/jq/) is a lightweight and flexible
+    command-line JSON processor.
+
 <p align="center">
   <a href="http://standardjs.com/"><img src="https://img.shields.io/badge/code%20style-standard-brightgreen.svg?maxAge=3600"></a>
   <a href="https://www.npmjs.com/package/node-jq"><img src="https://img.shields.io/npm/v/node-jq.svg?maxAge=3600"></a>
@@ -11,17 +14,11 @@
   <a href="https://www.npmjs.com/package/node-jq"><img src="https://img.shields.io/npm/dm/node-jq.svg?maxAge=3600"></a>
 </p>
 
--
-
-[`jq`](https://stedolan.github.io/jq/) is a lightweight and flexible
-    command-line JSON processor.
-
-> Work in progress....
+---
 
 ## Prerequisites
 
-You will need [`jq`](https://stedolan.github.io/jq/download/) installed before
-you can do anything with this package.
+You need [`jq installed`](https://stedolan.github.io/jq/download/)  before you can do anything with this package.
 
 ## Installation
 
@@ -57,6 +54,10 @@ run(filter, jsonPath, options)
 |----------|----------|------------|-------------------------------|----------------------------|
 | `input`  | *String* | `'file'`   | `'file', 'json', 'string'`    | Specify the type of input  |
 | `output` | *String* | `'pretty'` | `'json', 'string', 'pretty'`  | Specify the type of output |
+
+## How use this?
+
+Atleast ourselves in a atom plugin: [atom-jq](https://github.com/sanack/atom-jq)
 
 ## License
 

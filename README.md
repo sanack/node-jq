@@ -2,8 +2,10 @@
   <img width="300" alt="node-jq logo" src="docs/assets/logo-with-margin.png" />
 </p>
 
-[`jq`](https://stedolan.github.io/jq/) is a lightweight and flexible
-    command-line JSON processor.
+<p align="center">
+<a href="https://stedolan.github.io/jq/">jq</a> is a lightweight and flexible
+    command-line JSON processor, <a href="https://github.com/sanack/node-jq">node-jq</a> is running it on node.
+</p>
 
 <p align="center">
   <a href="http://standardjs.com/"><img src="https://img.shields.io/badge/code%20style-standard-brightgreen.svg?maxAge=3600"></a>

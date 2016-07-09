@@ -49,3 +49,5 @@ coverage
 .monitor
 
 lib/
+
+.npmrc

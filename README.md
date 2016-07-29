@@ -20,7 +20,7 @@
 
 ## Prerequisites
 
-You need [`jq installed`](https://stedolan.github.io/jq/download/)  before you can do anything with this package.
+You need [jq](https://stedolan.github.io/jq/download/) installed before you can do anything with this package.
 
 ## Installation
 
@@ -57,10 +57,10 @@ run(filter, jsonPath, options)
 | `input`  | *String* | `'file'`   | `'file', 'json', 'string'`    | Specify the type of input  |
 | `output` | *String* | `'pretty'` | `'json', 'string', 'pretty'`  | Specify the type of output |
 
-## How use this?
+## How to use this?
 
-Atleast ourselves in a atom plugin: [atom-jq](https://github.com/sanack/atom-jq)
+We use it ourselves in an [Atom](https://atom.io/) plugin. Check it out: [atom-jq](https://github.com/sanack/atom-jq)
 
 ## License
 
-MIT
+[MIT](https://tldrlegal.com/license/mit-license)

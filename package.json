@@ -1,6 +1,6 @@
 {
   "name": "node-jq",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Run jq in node",
   "main": "lib/jq.js",
   "repository": {
@@ -13,6 +13,7 @@
     "lint": "standard --verbose | snazzy",
     "build": "babel src -d lib",
     "prepublish": "npm test && npm run lint && npm run build",
+    "postpublish": "node scripts/install-jq",
     "coverage": "babel-node ./node_modules/.bin/isparta cover _mocha",
     "precoveralls": "npm run coverage",
     "coveralls": "coveralls < coverage/lcov.info"
@@ -35,11 +36,14 @@
   "license": "MIT",
   "files": [
     "src",
-    "lib"
+    "lib",
+    "scripts"
   ],
   "dependencies": {
+    "download": "^5.0.2",
+    "is-valid-path": "^0.1.1",
     "strip-eof": "^1.0.0",
-    "is-valid-path": "^0.1.1"
+    "which": "^1.2.10"
   },
   "devDependencies": {
     "babel-cli": "^6.10.1",

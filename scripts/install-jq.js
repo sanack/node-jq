@@ -2,22 +2,22 @@
 
 'use strict'
 
-const which = require('which')
-const wget = require('download')
-const fs = require('fs')
-const path = require('path')
+var which = require('which')
+var wget = require('download')
+var fs = require('fs')
+var path = require('path')
 
-const JQ_NAME = 'jq'
+var JQ_NAME = 'jq'
 
-const JQ_RELEASE_INFO = {
+var JQ_RELEASE_INFO = {
   url: 'http://github.com/stedolan/jq/releases/download/',
   version: 'jq-1.5'
 }
 
-const DOWNLOAD_URL = JQ_RELEASE_INFO.url + JQ_RELEASE_INFO.version + '/jq-'
-const ROOT_PATH = path.join(__dirname, '..')
-const BINARY_PATH = path.join(ROOT_PATH, 'node_modules/.bin/')
-const ORIGINAL_PATH = process.env.PATH
+var DOWNLOAD_URL = JQ_RELEASE_INFO.url + JQ_RELEASE_INFO.version + '/jq-'
+var ROOT_PATH = path.join(__dirname, '..')
+var BINARY_PATH = path.join(ROOT_PATH, 'node_modules/.bin/')
+var ORIGINAL_PATH = process.env.PATH
 
 /**
  * Returns a clean path that helps avoid `which` finding bin files installed

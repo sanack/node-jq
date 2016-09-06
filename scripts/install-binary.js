@@ -78,7 +78,7 @@ function saveAndRenameToJq (data) {
 }
 
 function tryJqGlobally () {
-  if (!isInstalledGlobally(JQ_NAME)) {
+  if (isInstalledGlobally(JQ_NAME)) {
     console.log('Using jq global on ' + getBinaryLocation(JQ_NAME))
     process.exit(0)
   } else if (!isInstalledLocally(BINARY_PATH + JQ_NAME)) {

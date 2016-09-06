@@ -34,12 +34,17 @@ function cleanPath (path) {
       .replace(/:+$/, '')
 }
 
-function findWhereIsInstalled (binary) {
-  return which.sync(binary)
+function getBinaryLocation (binary) {
+  try {
+    return which.sync(binary)
+  } catch (err) {
+    console.log('Error: ', err)
+    process.exit(1)
+  }
 }
 
-function findGlobaly (binary) {
-  return !!findWhereIsInstalled(binary)
+function isInstalledGlobally (binary) {
+  return !!getBinaryLocation(binary)
 }
 
 function downloadJqBinary (platform, arch) {
@@ -75,8 +80,8 @@ function saveAndRename (data) {
 }
 
 function tryJqGlobaly () {
-  if (!findGlobaly(JQ_NAME)) {
-    console.log('Using jq global on ' + findWhereIsInstalled(JQ_NAME))
+  if (!isInstalledGlobally(JQ_NAME)) {
+    console.log('Using jq global on ' + getBinaryLocation(JQ_NAME))
     process.exit(0)
   } else if (!isInstalledLocally(BINARY_PATH + JQ_NAME)) {
     return true
@@ -90,5 +95,5 @@ Promise.resolve(true)
   .then(downloadJqBinary)
   .then(saveAndRename)
   .catch(function (err) {
-    console.log('Error', err)
+    console.log('Error: ', err)
   })

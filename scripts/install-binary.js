@@ -17,7 +17,7 @@ var JQ_RELEASE_INFO = {
 var DOWNLOAD_URL = JQ_RELEASE_INFO.url + JQ_RELEASE_INFO.version + '/jq-'
 var ROOT_PATH = path.join(__dirname, '..')
 var BINARY_PATH = path.join(ROOT_PATH, 'node_modules/.bin/')
-var ORIGINAL_PATH = process.env.PATH
+var SYSTEM_PATH = process.env.PATH
 
 /**
  * Returns a clean path that helps avoid `which` finding bin files installed
@@ -83,7 +83,7 @@ function tryJqGlobaly () {
   }
 }
 
-process.env.PATH = cleanPath(ORIGINAL_PATH)
+process.env.PATH = cleanPath(SYSTEM_PATH)
 
 Promise.resolve(true)
   .then(tryJqGlobaly)

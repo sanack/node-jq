@@ -34,8 +34,6 @@ function cleanPath (path) {
       .replace(/:+$/, '')
 }
 
-process.env.PATH = cleanPath(ORIGINAL_PATH)
-
 function findWhereIsInstalled (binary) {
   return which.sync(binary)
 }
@@ -84,6 +82,8 @@ function tryJqGlobaly () {
     return true
   }
 }
+
+process.env.PATH = cleanPath(ORIGINAL_PATH)
 
 Promise.resolve(true)
   .then(tryJqGlobaly)

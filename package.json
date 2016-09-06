@@ -13,7 +13,7 @@
     "lint": "standard --verbose | snazzy",
     "build": "babel src -d lib",
     "prepublish": "npm test && npm run lint && npm run build",
-    "postpublish": "node scripts/install-binary",
+    "postinstall": "node scripts/install-binary",
     "coverage": "babel-node ./node_modules/.bin/isparta cover _mocha",
     "precoveralls": "npm run coverage",
     "coveralls": "coveralls < coverage/lcov.info"

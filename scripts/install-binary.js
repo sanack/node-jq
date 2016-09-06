@@ -95,3 +95,8 @@ Promise.resolve(true)
   .catch(function (err) {
     console.log('Error: ', err)
   })
+
+if (!isInstalledLocally(JQ_NAME) && !isInstalledGlobally(JQ_NAME)) {
+  console.log('  Something bad happened with the installation of jq')
+  process.exit(1)
+}

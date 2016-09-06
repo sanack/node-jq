@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 var which = require('which')
-var wget = require('download')
+var request = require('request-promise')
 var fs = require('fs')
 var path = require('path')
 
@@ -65,19 +65,19 @@ function downloadJqBinary (platform, arch) {
   }
 
   console.log('Downloading from... \n', DOWNLOAD_URL + distribution)
-  return wget(DOWNLOAD_URL + distribution, 'node_modules/.bin')
+  return request(DOWNLOAD_URL + distribution, 'node_modules/.bin')
 }
 
 function isInstalledLocally (path) {
   return fs.existsSync(path)
 }
 
-function saveAndRename (data) {
+function saveAndRenameToJq (data) {
   console.log('Done!')
   return fs.writeFile(BINARY_PATH + 'jq', data)
 }
 
-function tryJqGlobaly () {
+function tryJqGlobally () {
   if (!isInstalledGlobally(JQ_NAME)) {
     console.log('Using jq global on ' + getBinaryLocation(JQ_NAME))
     process.exit(0)
@@ -89,9 +89,9 @@ function tryJqGlobaly () {
 process.env.PATH = cleanPath(SYSTEM_PATH)
 
 Promise.resolve(true)
-  .then(tryJqGlobaly)
+  .then(tryJqGlobally)
   .then(downloadJqBinary)
-  .then(saveAndRename)
+  .then(saveAndRenameToJq)
   .catch(function (err) {
     console.log('Error: ', err)
   })

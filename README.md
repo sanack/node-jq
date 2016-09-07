@@ -10,7 +10,7 @@
 <p align="center">
   <a href="http://standardjs.com/"><img src="https://img.shields.io/badge/code%20style-standard-brightgreen.svg?maxAge=3600"></a>
   <a href="https://www.npmjs.com/package/node-jq"><img src="https://img.shields.io/npm/v/node-jq.svg?maxAge=3600"></a>
-  <a href="https://travis-ci.org/sanack/node-jq"><img src="https://img.shields.io/travis/sanack/node-jq/master.svg?maxAge=3600"></a>
+  <a href="https://circleci.com/gh/sanack/node-jq"><img src="https://img.shields.io/circleci/project/sanack/node-jq.svg?maxAge=3600"></a>
   <a href="https://coveralls.io/github/sanack/node-jq?branch=master"><img src="https://coveralls.io/repos/github/sanack/node-jq/badge.svg?branch=master"></a>
   <a href="https://gitter.im/davesnx/node-jq?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge"><img src="https://badges.gitter.im/davesnx/node-jq.svg"></a>
   <a href="https://www.npmjs.com/package/node-jq"><img src="https://img.shields.io/npm/dm/node-jq.svg?maxAge=3600"></a>

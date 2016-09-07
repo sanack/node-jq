@@ -37,12 +37,12 @@ function getBinaryLocation (binary) {
     return which.sync(binary)
   } catch (err) {
     console.log('Error: ', err)
-    process.exit(1)
+    return ''
   }
 }
 
 function isInstalledGlobally (binary) {
-  return !!getBinaryLocation(binary)
+  return getBinaryLocation(binary) !== ''
 }
 
 function downloadJqBinary (platform, arch) {

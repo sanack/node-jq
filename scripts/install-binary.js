@@ -36,7 +36,6 @@ function getBinaryLocation (binary) {
   try {
     return which.sync(binary)
   } catch (err) {
-    console.log('Error: ', err)
     return ''
   }
 }

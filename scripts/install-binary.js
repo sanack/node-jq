@@ -80,8 +80,18 @@ function tryJqGlobally () {
   if (isInstalledGlobally(JQ_NAME)) {
     console.log('Using jq global on ' + getBinaryLocation(JQ_NAME))
     process.exit(0)
-  } else if (!isInstalledLocally(BINARY_PATH + JQ_NAME)) {
+  } else if (isInstalledLocally(BINARY_PATH + JQ_NAME)) {
+    console.log('Already installed on ' + BINARY_PATH)
+    process.exit(0)
+  } else {
     return true
+  }
+}
+
+function assertLocalOrGlobal () {
+  if (isInstalledLocally(JQ_NAME) || isInstalledGlobally(JQ_NAME)) {
+    console.log('  Something bad happened with the installation of jq')
+    process.exit(1)
   }
 }
 
@@ -91,11 +101,7 @@ Promise.resolve(true)
   .then(tryJqGlobally)
   .then(downloadJqBinary)
   .then(saveAndRenameToJq)
+  .then(assertLocalOrGlobal)
   .catch(function (err) {
     console.log('Error: ', err)
   })
-
-if (!isInstalledLocally(JQ_NAME) && !isInstalledGlobally(JQ_NAME)) {
-  console.log('  Something bad happened with the installation of jq')
-  process.exit(1)
-}

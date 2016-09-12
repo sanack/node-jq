@@ -3,6 +3,9 @@
   "version": "0.2.0",
   "description": "Run jq in node",
   "main": "lib/jq.js",
+  "bin": {
+    "jq": "node_modules/.bin/jq"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/sanack/node-jq"

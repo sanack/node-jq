@@ -1,21 +1,21 @@
 #!/usr/bin/env node
 
-var which = require('which')
-var request = require('request-promise')
-var fs = require('fs')
-var path = require('path')
+const which = require('which')
+const fs = require('fs')
+const path = require('path')
+const download = require('download')
 
-var JQ_NAME = 'jq'
+const JQ_NAME = 'jq'
 
-var JQ_RELEASE_INFO = {
-  url: 'http://github.com/stedolan/jq/releases/download/',
+const JQ_RELEASE_INFO = {
+  url: 'https://github.com/stedolan/jq/releases/download/',
   version: 'jq-1.5'
 }
 
-var DOWNLOAD_URL = JQ_RELEASE_INFO.url + JQ_RELEASE_INFO.version + '/jq-'
-var ROOT_PATH = path.join(__dirname, '..')
-var BINARY_PATH = path.join(ROOT_PATH, 'node_modules/.bin/')
-var SYSTEM_PATH = process.env.PATH
+const DOWNLOAD_URL = JQ_RELEASE_INFO.url + JQ_RELEASE_INFO.version + '/jq-'
+const ROOT_PATH = path.join(__dirname, '..')
+const BINARY_PATH = path.join(ROOT_PATH, 'node_modules/.bin/')
+const SYSTEM_PATH = process.env.PATH
 
 /**
  * Returns a clean path that helps avoid `which` finding bin files installed
@@ -47,7 +47,7 @@ function isInstalledGlobally (binary) {
 function downloadJqBinary (platform, arch) {
   platform = process.platform || platform
   arch = process.arch || arch
-  var distribution
+  let distribution
 
   if (platform === 'linux' && arch === 'x64') {
     distribution = 'linux32'
@@ -64,7 +64,7 @@ function downloadJqBinary (platform, arch) {
   }
 
   console.log('Downloading from... \n', DOWNLOAD_URL + distribution)
-  return request(DOWNLOAD_URL + distribution, 'node_modules/.bin')
+  return download(DOWNLOAD_URL + distribution, 'node_modules/.bin')
 }
 
 function isInstalledLocally (path) {
@@ -73,7 +73,7 @@ function isInstalledLocally (path) {
 
 function saveAndRenameToJq (data) {
   console.log('Done!')
-  return fs.writeFile(BINARY_PATH + 'jq', data)
+  return fs.writeFile(BINARY_PATH + 'jq', data, { mode: 0o777, encoding: 'binary' })
 }
 
 function tryJqGlobally () {

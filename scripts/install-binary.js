@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+'use strict'
+
 const which = require('which')
 const fs = require('fs')
 const path = require('path')

@@ -3,8 +3,8 @@
 </p>
 
 <p align="center">
-<a href="https://stedolan.github.io/jq/">jq</a> is a lightweight and flexible
-    command-line JSON processor, <a href="https://github.com/sanack/node-jq">node-jq</a> is running it on node.
+<a href="https://stedolan.github.io/jq/">jq</a> is a lightweight and flexible command-line JSON processor
+    <a href="https://github.com/sanack/node-jq">node-jq</a> just a wrapper for running it on node.
 </p>
 
 <p align="center">
@@ -18,15 +18,15 @@
 
 ---
 
-## Prerequisites
-
-You need [jq](https://stedolan.github.io/jq/download/) installed before you can do anything with this package.
-
 ## Installation
 
 ```bash
 npm install node-jq --save
 ```
+
+> Isn't necesary to have jq installed on the system
+We install the latest jq in the `node_modules/.bin/` folder
+
 
 ## Usage
 
@@ -56,6 +56,7 @@ run(filter, jsonPath, options)
 |----------|----------|------------|-------------------------------|----------------------------|
 | `input`  | *String* | `'file'`   | `'file', 'json', 'string'`    | Specify the type of input  |
 | `output` | *String* | `'pretty'` | `'json', 'string', 'pretty'`  | Specify the type of output |
+
 
 ## How to use this?
 

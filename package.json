@@ -1,18 +1,24 @@
 {
   "name": "node-jq",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Run jq in node",
   "main": "lib/jq.js",
+  "bin": {
+    "jq": "node_modules/.bin/jq"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/sanack/node-jq"
   },
   "scripts": {
+    "install-binary": "node scripts/install-binary.js",
+    "pretest": "npm run install-binary",
     "test": "mocha --compilers js:babel-register",
     "test:watch": "npm test -- --watch",
     "lint": "standard --verbose | snazzy",
     "build": "babel src -d lib",
     "prepublish": "npm test && npm run lint && npm run build",
+    "postinstall": "npm run install-binary",
     "coverage": "babel-node ./node_modules/.bin/isparta cover _mocha",
     "precoveralls": "npm run coverage",
     "coveralls": "coveralls < coverage/lcov.info"
@@ -35,11 +41,15 @@
   "license": "MIT",
   "files": [
     "src",
-    "lib"
+    "lib",
+    "scripts"
   ],
   "dependencies": {
+    "is-valid-path": "^0.1.1",
+    "request": "^2.74.0",
+    "request-promise": "^4.1.1",
     "strip-eof": "^1.0.0",
-    "is-valid-path": "^0.1.1"
+    "which": "^1.2.10"
   },
   "devDependencies": {
     "babel-cli": "^6.10.1",

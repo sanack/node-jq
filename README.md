@@ -3,8 +3,7 @@
 </p>
 
 <p align="center">
-<a href="https://stedolan.github.io/jq/">jq</a> is a lightweight and flexible command-line JSON processor
-    <a href="https://github.com/sanack/node-jq">node-jq</a> just a wrapper for running it on node.
+    <a href="https://github.com/sanack/node-jq">node-jq</a> is a wrapper for <a href="https://stedolan.github.io/jq/">jq</a> - a lightweight and flexible command-line JSON processor.
 </p>
 
 <p align="center">
@@ -24,8 +23,7 @@
 npm install node-jq --save
 ```
 
-> Isn't necesary to have jq installed on the system
-We install the latest jq in the `node_modules/.bin/` folder
+> `jq` is not required. If it doesn't exist, the latest version of `jq` is installed in the `node_modules/.bin/` folder.
 
 
 ## Usage

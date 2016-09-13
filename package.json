@@ -1,6 +1,6 @@
 {
   "name": "node-jq",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Run jq in node",
   "main": "lib/jq.js",
   "bin": {

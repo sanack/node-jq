@@ -73,9 +73,37 @@ function isInstalledLocally (path) {
   return fs.existsSync(path)
 }
 
+/**
+ * Finds the pathname of the parent module's package descriptor file. If the
+ * directory is undefined (the default case), then it is set to the directory
+ * name of the parent module's filename. If no package.json file is found, then
+ * the parent directories are recursively searched until the file is found or
+ * the root directory is reached. Returns the pathname if found or null if not.
+ */
+
+function findParentPackage (directory) {
+  if (!directory) {
+    directory = path.dirname(module.parent.filename)
+  }
+
+  const file = path.resolve(directory, 'package.json')
+  if (fs.existsSync(file) && fs.statSync(file).isFile()) {
+    return file
+  }
+
+  const parent = path.resolve(directory, '..')
+  if (parent === directory) {
+    return null
+  }
+
+  return findParentPackage(parent)
+}
+
 function saveAndRenameToJq (data) {
   console.log('Done!')
-  return fs.writeFile(BINARY_PATH + 'jq', data, { mode: 0o777, encoding: 'binary' })
+  const binaryPath = findParentPackage()
+  console.log('binaryPath', binaryPath)
+  return fs.writeFile(binaryPath + 'jq', data, { mode: 0o777, encoding: 'binary' })
 }
 
 function tryJqGlobally () {

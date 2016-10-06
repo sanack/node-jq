@@ -101,8 +101,12 @@ function findParentPackage (directory) {
 
 function saveAndRenameToJq (data) {
   console.log('Done!')
-  const binaryPath = findParentPackage()
-  console.log('binaryPath', binaryPath)
+  let binaryPath
+  try {
+    binaryPath = findParentPackage()
+  } catch (e) {
+    binaryPath = BINARY_PATH
+  }
   return fs.writeFile(binaryPath + 'jq', data, { mode: 0o777, encoding: 'binary' })
 }
 

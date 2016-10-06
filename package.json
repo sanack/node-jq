@@ -1,6 +1,6 @@
 {
   "name": "node-jq",
-  "version": "0.3.11",
+  "version": "0.3.12",
   "description": "Run jq in node",
   "main": "lib/jq.js",
   "repository": {
@@ -42,6 +42,7 @@
     "scripts"
   ],
   "dependencies": {
+    "bin-build": "^2.2.0",
     "is-valid-path": "^0.1.1",
     "strip-eof": "^1.0.0"
   },

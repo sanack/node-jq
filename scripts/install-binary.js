@@ -18,6 +18,9 @@ const DOWNLOAD_URL = JQ_RELEASE_INFO.url + JQ_RELEASE_INFO.version + '/jq-'
 const BINARY_PATH = path.join(process.cwd(), 'node_modules/.bin/')
 const SYSTEM_PATH = process.env.PATH
 
+console.log('process.cwd', process.cwd())
+console.log('__dirname', __dirname)
+
 /**
  * Returns a clean path that helps avoid `which` finding bin files installed
  * by NPM for this repo.
@@ -27,10 +30,10 @@ const SYSTEM_PATH = process.env.PATH
 
 function cleanPath (path) {
   return path
-      .replace(/:[^:]*node_modules[^:]*/g, '')
-      .replace(/(^|:)\.\/bin(:|$)/g, ':')
-      .replace(/^:+/, '')
-      .replace(/:+$/, '')
+    .replace(/:[^:]*node_modules[^:]*/g, '')
+    .replace(/(^|:)\.\/bin(:|$)/g, ':')
+    .replace(/^:+/, '')
+    .replace(/:+$/, '')
 }
 
 function getBinaryLocation (binary) {
@@ -98,11 +101,11 @@ function assertLocalOrGlobal () {
 
 process.env.PATH = cleanPath(SYSTEM_PATH)
 
-Promise.resolve(true)
-  .then(tryJqGlobally)
-  .then(downloadJqBinary)
-  .then(saveAndRenameToJq)
-  .then(assertLocalOrGlobal)
-  .catch(function (err) {
-    console.log('Error: ', err)
-  })
+// Promise.resolve(true)
+//   .then(tryJqGlobally)
+//   .then(downloadJqBinary)
+//   .then(saveAndRenameToJq)
+//   .then(assertLocalOrGlobal)
+//   .catch(function (err) {
+//     console.log('Error: ', err)
+//   })

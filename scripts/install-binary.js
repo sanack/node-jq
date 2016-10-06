@@ -15,8 +15,7 @@ const JQ_RELEASE_INFO = {
 }
 
 const DOWNLOAD_URL = JQ_RELEASE_INFO.url + JQ_RELEASE_INFO.version + '/jq-'
-const ROOT_PATH = path.join(__dirname, '..')
-const BINARY_PATH = path.join(ROOT_PATH, 'node_modules/.bin/')
+const BINARY_PATH = path.join(process.cwd(), 'node_modules/.bin/')
 const SYSTEM_PATH = process.env.PATH
 
 /**
@@ -73,41 +72,9 @@ function isInstalledLocally (path) {
   return fs.existsSync(path)
 }
 
-/**
- * Finds the pathname of the parent module's package descriptor file. If the
- * directory is undefined (the default case), then it is set to the directory
- * name of the parent module's filename. If no package.json file is found, then
- * the parent directories are recursively searched until the file is found or
- * the root directory is reached. Returns the pathname if found or null if not.
- */
-
-function findParentPackage (directory) {
-  if (!directory) {
-    directory = path.dirname(module.parent.filename)
-  }
-
-  const file = path.resolve(directory, 'package.json')
-  if (fs.existsSync(file) && fs.statSync(file).isFile()) {
-    return file
-  }
-
-  const parent = path.resolve(directory, '..')
-  if (parent === directory) {
-    return null
-  }
-
-  return findParentPackage(parent)
-}
-
 function saveAndRenameToJq (data) {
   console.log('Done!')
-  let binaryPath
-  try {
-    binaryPath = findParentPackage()
-  } catch (e) {
-    binaryPath = BINARY_PATH
-  }
-  return fs.writeFile(binaryPath + 'jq', data, { mode: 0o777, encoding: 'binary' })
+  return fs.writeFile(BINARY_PATH + 'jq', data, { mode: 0o777, encoding: 'binary' })
 }
 
 function tryJqGlobally () {

@@ -17,6 +17,8 @@ const build = new BinBuild()
   .cmd('make install')
 
 build.run((err) => {
-  console.log('err', err)
+  if (err) {
+    console.log('err', err)
+  }
   console.log('jq built successfully')
 })

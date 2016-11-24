@@ -24,8 +24,6 @@
 npm install node-jq --save
 ```
 
-> `jq` is not required. If it doesn't exist, the latest version of `jq` is installed in the `node_modules/.bin/` folder.
-
 
 ## Usage
 

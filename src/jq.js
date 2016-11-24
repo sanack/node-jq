@@ -1,9 +1,10 @@
 import exec from './exec'
 import { parseOptions } from './options'
+import path from 'path'
 
 const createJqCommand = (filter, json, options = {}) => {
   const command = {
-    cmd: 'jq',
+    cmd: path.join(__dirname, '../bin/jq'),
     params: []
   }
   command.params = parseOptions(filter, json, options)

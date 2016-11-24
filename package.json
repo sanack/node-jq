@@ -8,8 +8,8 @@
     "url": "https://github.com/sanack/node-jq"
   },
   "scripts": {
-    "install-binary": "node scripts/install-binary.js",
     "pretest": "npm run install-binary",
+    "install-binary": "node scripts/install-binary.js",
     "test": "mocha --compilers js:babel-register",
     "test:watch": "npm test -- --watch",
     "lint": "standard --verbose | snazzy",
@@ -45,7 +45,8 @@
   "dependencies": {
     "bin-build": "^2.2.0",
     "is-valid-path": "^0.1.1",
-    "strip-eof": "^1.0.0"
+    "strip-eof": "^1.0.0",
+    "tempfile": "^1.1.1"
   },
   "devDependencies": {
     "babel-cli": "^6.10.1",

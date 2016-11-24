@@ -24,8 +24,8 @@ const jqExists = () => {
 }
 
 if (jqExists()) {
-  process.exit(0)
   console.log('jq is already installed')
+  process.exit(0)
 }
 
 const build = new BinBuild()

@@ -8,6 +8,7 @@
     "url": "https://github.com/sanack/node-jq"
   },
   "scripts": {
+    "pretest": "npm run install-binary",
     "install-binary": "node scripts/install-binary.js",
     "test": "mocha --compilers js:babel-register",
     "test:watch": "npm test -- --watch",

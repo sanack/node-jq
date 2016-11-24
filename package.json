@@ -59,7 +59,8 @@
     "mocha": "^2.5.3",
     "snazzy": "^4.0.0",
     "standard": "^7.1.2",
-    "tap-diff": "^0.1.1"
+    "tap-diff": "^0.1.1",
+    "validate-commit-msg": "^2.8.2"
   },
   "babel": {
     "presets": [
@@ -75,6 +76,7 @@
   },
   "config": {
     "ghooks": {
+      "commit-msg": "validate-commit-msg",
       "pre-commit": "npm run lint",
       "pre-push": "npm test"
     }

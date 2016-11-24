@@ -9,7 +9,6 @@
   },
   "scripts": {
     "install-binary": "node scripts/install-binary.js",
-    "pretest": "npm run install-binary",
     "test": "mocha --compilers js:babel-register",
     "test:watch": "npm test -- --watch",
     "lint": "standard --verbose | snazzy",

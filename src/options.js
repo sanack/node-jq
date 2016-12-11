@@ -1,4 +1,4 @@
-import { validateJsonPath } from './utils'
+import { validateJSONPath } from './utils'
 
 export const optionDefaults = {
   input: 'file',
@@ -9,7 +9,7 @@ const optionMap = {
   input: {
     buildParams: (filter, json, params, value) => {
       if (value === 'file') {
-        validateJsonPath(params[params.length - 1])
+        validateJSONPath(params[params.length - 1])
       } else {
         params.pop()
         params.unshift('--null-input')

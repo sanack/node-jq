@@ -1,6 +1,7 @@
 import chai, { expect } from 'chai'
 import promised from 'chai-as-promised'
 import path from 'path'
+require('json5/lib/require')
 
 import { run } from '../src/jq'
 import { optionDefaults } from '../src/options'
@@ -9,8 +10,10 @@ chai.use(promised)
 
 const PATH_FIXTURES = path.join('test', 'fixtures')
 const PATH_JSON_FIXTURE = path.join(PATH_FIXTURES, '1.json')
+const PATH_JSON5_FIXTURE = path.join(PATH_FIXTURES, '1.json5')
 
-const FIXTURE_JSON = require('./fixtures/1.json')
+const FIXTURE_JSON = require(PATH_JSON_FIXTURE)
+const FIXTURE_JSON5 = require(PATH_JSON5_FIXTURE)
 const FIXTURE_JSON_STRING = JSON.stringify(FIXTURE_JSON)
 const FIXTURE_JSON_PRETTY = JSON.stringify(FIXTURE_JSON, null, 2)
 
@@ -40,6 +43,16 @@ describe('options', () => {
     it('should accept a json object as input', () => {
       return expect(
         run('.', FIXTURE_JSON, { input: 'json' })
+      ).to.eventually.be.fulfilled
+    })
+  })
+
+  describe('input: json5', () => {
+    it('should accept a json object as input', () => {
+      return expect(
+        run('.', FIXTURE_JSON5, {
+          input: 'json5'
+        })
       ).to.eventually.be.fulfilled
     })
   })

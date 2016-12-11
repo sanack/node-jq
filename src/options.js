@@ -1,4 +1,5 @@
 import { validateJSONPath } from './utils'
+import JSON5 from 'json5'
 
 export const optionDefaults = {
   input: 'file',
@@ -8,15 +9,22 @@ export const optionDefaults = {
 const optionMap = {
   input: {
     buildParams: (filter, json, params, value) => {
-      if (value === 'file') {
-        validateJSONPath(params[params.length - 1])
-      } else {
-        params.pop()
-        params.unshift('--null-input')
-        if (value === 'json') {
-          json = JSON.stringify(json)
-        }
-        params[params.length - 1] = `${json} | ${filter}`
+      switch (value) {
+        case 'file':
+          validateJSONPath(params[params.length - 1])
+          break
+
+        default:
+          params.pop()
+          params.unshift('--null-input')
+          if (value === 'json') {
+            json = JSON.stringify(json)
+          }
+          if (value === 'json5') {
+            json = JSON5.stringify(json)
+          }
+          params[params.length - 1] = `${json} | ${filter}`
+          break
       }
     }
   },

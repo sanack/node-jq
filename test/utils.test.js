@@ -11,11 +11,11 @@ const PATH_JS_FIXTURE = path.join(PATH_FIXTURES, '1.js')
 
 describe('utils', () => {
   describe('#isJSONPath', () => {
-    it('should return true when u give a json file', () => {
+    it('should return true when you give a json file', () => {
       expect(isJSONPath(PATH_JSON_FIXTURE)).to.be.true
     })
 
-    it('should return false when u give a non-json file', () => {
+    it('should return false when you a non-json file', () => {
       expect(isJSONPath(PATH_JS_FIXTURE)).to.be.false
     })
   })

@@ -47,7 +47,7 @@ describe('options', () => {
     })
   })
 
-  describe.only('output: json', () => {
+  describe('output: json', () => {
     it('should return a json', () => {
       return expect(
         run('.', PATH_JSON_FIXTURE, { output: 'json' })

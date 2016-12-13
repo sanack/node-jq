@@ -24,7 +24,7 @@ const jqExists = () => {
 }
 
 if (jqExists()) {
-  console.log('jq is already installed')
+  console.log('jq is already installed here:', path.join(OUTPUT_DIR, 'jq'))
   process.exit(0)
 }
 
@@ -34,9 +34,17 @@ const build = new BinBuild()
   .cmd('make')
   .cmd('make install')
 
+if (process.platform === 'win32' && process.platform === 'win64') {
+  // TODO: Install binary from
+  // https://github.com/stedolan/jq/releases/download/jq-1.5/jq-win64.exe
+  // or https://github.com/stedolan/jq/releases/download/jq-1.5/jq-win32.exe
+  console.log('Using global jq installation on Windows')
+  process.exit(0)
+}
+
 build.run((err) => {
   if (err) {
-    console.log(`Err: ${err}`)
+    console.log(err)
   }
   console.log(`jq installed successfully on ${OUTPUT_DIR}`)
 })

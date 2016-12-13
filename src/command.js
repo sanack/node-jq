@@ -1,7 +1,13 @@
 import path from 'path'
 import { parseOptions } from './options'
 
-const JQ_PATH = path.join(__dirname, '../bin/jq')
+let JQ_PATH
+// TODO: Install binary globally and use global on windows
+if (process.platform === 'win32' && process.platform === 'win64') {
+  JQ_PATH = 'jq'
+} else {
+  JQ_PATH = path.join(__dirname, '../bin/jq')
+}
 
 const escapeArg = (arg) => {
   arg = arg.toString()

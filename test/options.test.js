@@ -19,18 +19,14 @@ const OPTION_DEFAULTS = {
 }
 
 describe('options', () => {
-  describe('defaults', () => {
-    it('should be as expected', () => {
-      return expect(optionDefaults).to.deep.equal(OPTION_DEFAULTS)
-    })
+  it('defaults should be as expected', () => {
+    expect(optionDefaults).to.deep.equal(OPTION_DEFAULTS)
   })
 
   describe('input: file', () => {
     it('should accept a file path as input', () => {
       return expect(
-        run('.', PATH_JSON_FIXTURE, {
-          input: 'file'
-        })
+        run('.', PATH_JSON_FIXTURE, { input: 'file' })
       ).to.eventually.be.fulfilled
     })
   })
@@ -38,9 +34,7 @@ describe('options', () => {
   describe('input: json', () => {
     it('should accept a json object as input', () => {
       return expect(
-        run('.', FIXTURE_JSON, {
-          input: 'json'
-        })
+        run('.', FIXTURE_JSON, { input: 'json' })
       ).to.eventually.be.fulfilled
     })
   })
@@ -48,29 +42,33 @@ describe('options', () => {
   describe('input: string', () => {
     it('should accept a json string as input', () => {
       return expect(
-        run('.', FIXTURE_JSON_STRING, {
-          input: 'string'
-        })
+        run('.', FIXTURE_JSON_STRING, { input: 'string' })
       ).to.eventually.be.fulfilled
     })
   })
 
-  describe('output: json', () => {
-    it('should return a minified json string', () => {
+  describe.only('output: json', () => {
+    it('should return a json', () => {
       return expect(
-        run('.', PATH_JSON_FIXTURE, {
-          output: 'json'
-        })
+        run('.', PATH_JSON_FIXTURE, { output: 'json' })
       ).to.eventually.become(FIXTURE_JSON)
+    })
+
+    it('should return a json in case of filter fail', () => {
+      return expect(
+        run('.contributors[]', PATH_JSON_FIXTURE, { output: 'json' })
+      ).to.eventually.become(
+        JSON.stringify(FIXTURE_JSON.contributors[0], null, 2) +
+        '\n' +
+        JSON.stringify(FIXTURE_JSON.contributors[1], null, 2)
+      )
     })
   })
 
   describe('output: string', () => {
     it('should return a minified json string', () => {
       return expect(
-        run('.', PATH_JSON_FIXTURE, {
-          output: 'string'
-        })
+        run('.', PATH_JSON_FIXTURE, { output: 'string' })
       ).to.eventually.become(FIXTURE_JSON_STRING)
     })
   })
@@ -78,9 +76,7 @@ describe('options', () => {
   describe('output: pretty', () => {
     it('should return a prettified json string', () => {
       return expect(
-        run('.', PATH_JSON_FIXTURE, {
-          output: 'pretty'
-        })
+        run('.', PATH_JSON_FIXTURE, { output: 'pretty' })
       ).to.eventually.become(FIXTURE_JSON_PRETTY)
     })
   })

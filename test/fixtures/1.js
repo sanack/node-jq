@@ -1,6 +1,6 @@
-const shiet = {
-  lola: 'lola',
-  flores: 'flores'
+const json = {
+  foo: 'bar',
+  random: 123
 }
 
-console.log(shiet)
+console.log(json)

@@ -1,6 +1,6 @@
 import chai, { expect } from 'chai'
-import chaiAsPromised from 'chai-as-promised'
-chai.use(chaiAsPromised)
+import promised from 'chai-as-promised'
+chai.use(promised)
 import path from 'path'
 
 import { run } from '../src/jq'

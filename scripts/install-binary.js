@@ -34,8 +34,14 @@ if (jqExists()) {
 }
 
 if (process.platform === 'win32' || process.platform === 'win64') {
-  download(`${JQ_INFO.url}/${JQ_INFO.version}/jq-${process.platform}.exe`)
-  .pipe(fs.createWriteStream(`${FILE_PATH}`))
+  download(`${JQ_INFO.url}/${JQ_INFO.version}/jq-${process.platform}.exe`, OUTPUT_DIR)
+  .then(() => {
+    fs.renameSync(path.join(OUTPUT_DIR, `jq-${process.platform}.exe`), FILE_PATH)
+  })
+  .catch((err) => {
+    console.error(err)
+    process.exit(1)
+  })
 } else {
   new BinBuild().src(`${JQ_INFO.url}/${JQ_INFO.version}/${JQ_INFO.version}.tar.gz`)
   .cmd(`./configure --disable-maintainer-mode --bindir=${OUTPUT_DIR} --libdir=${tempfile()}`)
@@ -43,7 +49,8 @@ if (process.platform === 'win32' || process.platform === 'win64') {
   .cmd('make install')
   .run((err) => {
     if (err) {
-      console.log(err)
+      console.error(err)
+      process.exit(1)
     }
   })
 }

@@ -1,10 +1,7 @@
 import path from 'path'
 import { parseOptions } from './options'
 
-let JQ_PATH = path.join(__dirname, '../bin/jq')
-if (process.platform === 'win32' || process.platform === 'win64') {
-  JQ_PATH = JQ_PATH + '.exe'
-}
+let JQ_PATH = path.join(__dirname, '..', 'bin', 'jq')
 
 const escapeArg = (arg) => {
   arg = arg.toString()

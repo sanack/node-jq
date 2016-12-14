@@ -15,27 +15,27 @@ const JQ_INFO = {
 }
 
 const OUTPUT_DIR = path.join(__dirname, '..', 'bin')
+let FILE_PATH = path.join(OUTPUT_DIR, 'jq')
+if (process.platform === 'win32' || process.platform === 'win64') {
+  FILE_PATH += '.exe'
+}
 
 const jqExists = () => {
   try {
-    return fs.statSync((path.join(OUTPUT_DIR, 'jq'))).isFile()
+    return fs.statSync(FILE_PATH).isFile()
   } catch (err) {
     return false
   }
 }
 
 if (jqExists()) {
-  console.log('jq is already installed here:', path.join(OUTPUT_DIR, 'jq'))
+  console.log('jq is already installed here:', FILE_PATH)
   process.exit(0)
 }
 
 if (process.platform === 'win32' || process.platform === 'win64') {
-  var platform = 'win32'
-  if (process.arch === 'x64' || process.env.hasOwnProperty('PROCESSOR_ARCHITEW6432')) {
-    platform = 'win64'
-  }
-
-  download(`${JQ_INFO.url}/${JQ_INFO.version}/jq-${platform}.exe`, `${OUTPUT_DIR}\\jq.exe`)
+  download(`${JQ_INFO.url}/${JQ_INFO.version}/jq-${process.platform}.exe`)
+  .pipe(fs.createWriteStream(`${FILE_PATH}`))
   .catch((err) => {
     console.log(err)
   })

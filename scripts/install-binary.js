@@ -44,7 +44,7 @@ if (process.platform === 'win32' || process.platform === 'win64') {
   })
 } else {
   new BinBuild().src(`${JQ_INFO.url}/${JQ_INFO.version}/${JQ_INFO.version}.tar.gz`)
-  .cmd(`./configure --disable-maintainer-mode --bindir=${OUTPUT_DIR} --libdir=${tempfile()}`)
+  .cmd(`./configure --disable-maintainer-mode --prefix=${tempfile()} --bindir=${OUTPUT_DIR}`)
   .cmd('make')
   .cmd('make install')
   .run((err) => {

@@ -36,9 +36,6 @@ if (jqExists()) {
 if (process.platform === 'win32' || process.platform === 'win64') {
   download(`${JQ_INFO.url}/${JQ_INFO.version}/jq-${process.platform}.exe`)
   .pipe(fs.createWriteStream(`${FILE_PATH}`))
-  .catch((err) => {
-    console.log(err)
-  })
 } else {
   new BinBuild().src(`${JQ_INFO.url}/${JQ_INFO.version}/${JQ_INFO.version}.tar.gz`)
   .cmd(`./configure --disable-maintainer-mode --bindir=${OUTPUT_DIR} --libdir=${tempfile()}`)

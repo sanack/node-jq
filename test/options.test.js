@@ -6,12 +6,12 @@ import path from 'path'
 import { run } from '../src/jq'
 import { optionDefaults } from '../src/options'
 
-const PATH_FIXTURES = path.join(__dirname, 'fixtures')
+const PATH_FIXTURES = path.join('test', 'fixtures')
 const PATH_JSON_FIXTURE = path.join(PATH_FIXTURES, '1.json')
 
-const FIXTURE_JSON = require(PATH_JSON_FIXTURE)
+const FIXTURE_JSON = require('./fixtures/1.json')
 const FIXTURE_JSON_STRING = JSON.stringify(FIXTURE_JSON)
-const FIXTURE_JSON_PRETTY = JSON.stringify(FIXTURE_JSON, null, 2)
+const FIXTURE_JSON_PRETTY = JSON.stringify(FIXTURE_JSON, null, 2).replace(/\n/g, '\r\n')
 
 const OPTION_DEFAULTS = {
   input: 'file',

@@ -11,7 +11,7 @@ const PATH_JSON_FIXTURE = path.join(PATH_FIXTURES, '1.json')
 
 const FIXTURE_JSON = require('./fixtures/1.json')
 const FIXTURE_JSON_STRING = JSON.stringify(FIXTURE_JSON)
-const FIXTURE_JSON_PRETTY = JSON.stringify(FIXTURE_JSON, null, 2).replace(/\n/g, '\r\n')
+const FIXTURE_JSON_PRETTY = JSON.stringify(FIXTURE_JSON, null, 2)
 
 const OPTION_DEFAULTS = {
   input: 'file',
@@ -77,7 +77,7 @@ describe('options', () => {
     it('should return a prettified json string', () => {
       return expect(
         run('.', PATH_JSON_FIXTURE, { output: 'pretty' })
-      ).to.eventually.become(FIXTURE_JSON_PRETTY)
+      ).to.eventually.deep.oneOf([FIXTURE_JSON_PRETTY, FIXTURE_JSON_PRETTY.replace(/\n/g, '\r\n')])
     })
   })
 })

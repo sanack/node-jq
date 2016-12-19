@@ -54,7 +54,7 @@ describe('options', () => {
       ).to.eventually.become(FIXTURE_JSON)
     })
 
-    it('should return a json in case of filter fail', () => {
+    it('it should return a string if the filter calls an array', () => {
       return expect(
         run('.contributors[]', PATH_JSON_FIXTURE, { output: 'json' })
       ).to.eventually.become(

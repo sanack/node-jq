@@ -11,7 +11,7 @@ const PATH_JSON_FIXTURE = path.join(PATH_FIXTURES, '1.json')
 const PATH_JS_FIXTURE = path.join(PATH_FIXTURES, '1.js')
 const PATH_ASTERISK_FIXTURE = path.join(PATH_ROOT, 'src', '*.js')
 
-const FILTER_VALID = '. | map(select(.a == .id))'
+const FILTER_VALID = '.repository.type'
 const FILTER_INVALID = 'invalid'
 
 const ERROR_INVALID_FILTER = /error: invalid/

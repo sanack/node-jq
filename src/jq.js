@@ -7,7 +7,13 @@ export const run = (filter, json, options = {}) => {
     exec(command)
       .then((stdout) => {
         if (options.output === 'json') {
-          return resolve(JSON.parse(stdout))
+          let result
+          try {
+            result = JSON.parse(stdout)
+          } catch (error) {
+            result = stdout
+          }
+          return resolve(result)
         } else {
           return resolve(stdout)
         }

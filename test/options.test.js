@@ -48,7 +48,7 @@ describe('options', () => {
   })
 
   describe('output: json', () => {
-    it('should return a json', () => {
+    it('should return a stringified json', () => {
       return expect(
         run('.', PATH_JSON_FIXTURE, { output: 'json' })
       ).to.eventually.become(FIXTURE_JSON)

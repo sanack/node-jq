@@ -1,6 +1,6 @@
 {
   "name": "node-jq",
-  "version": "0.0.0-semantic-release",
+  "version": "0.4.2",
   "description": "Run jq in node",
   "main": "lib/jq.js",
   "repository": {

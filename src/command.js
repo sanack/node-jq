@@ -1,7 +1,7 @@
 import path from 'path'
 import { parseOptions } from './options'
 
-const JQ_PATH = path.join(__dirname, '../bin/jq')
+let JQ_PATH = path.join(__dirname, '..', 'bin', 'jq')
 
 const escapeArg = (arg) => {
   arg = arg.toString()

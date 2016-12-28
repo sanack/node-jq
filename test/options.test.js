@@ -18,6 +18,10 @@ const OPTION_DEFAULTS = {
   output: 'pretty'
 }
 
+const multiEOL = (text) => {
+  return [text, text.replace(/\n/g, '\r\n')]
+}
+
 describe('options', () => {
   it('defaults should be as expected', () => {
     expect(optionDefaults).to.deep.equal(OPTION_DEFAULTS)
@@ -57,11 +61,11 @@ describe('options', () => {
     it('it should return a string if the filter calls an array', () => {
       return expect(
         run('.contributors[]', PATH_JSON_FIXTURE, { output: 'json' })
-      ).to.eventually.become(
+      ).to.eventually.deep.oneOf(multiEOL(
         JSON.stringify(FIXTURE_JSON.contributors[0], null, 2) +
         '\n' +
         JSON.stringify(FIXTURE_JSON.contributors[1], null, 2)
-      )
+      ))
     })
   })
 
@@ -77,7 +81,7 @@ describe('options', () => {
     it('should return a prettified json string', () => {
       return expect(
         run('.', PATH_JSON_FIXTURE, { output: 'pretty' })
-      ).to.eventually.deep.oneOf([FIXTURE_JSON_PRETTY, FIXTURE_JSON_PRETTY.replace(/\n/g, '\r\n')])
+      ).to.eventually.deep.oneOf(multiEOL(FIXTURE_JSON_PRETTY))
     })
   })
 })

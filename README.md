@@ -19,7 +19,7 @@
     </a>
 </p>
 
-<h2 align="center">Run jq in node</h2>
+<h2>Run jq in node</h2>
 <h4 align="center"><a href="https://github.com/sanack/node-jq">node-jq</a> is a wrapper for <a href="https://stedolan.github.io/jq/">jq</a> - a lightweight and flexible command-line JSON processor.</h4>
 
 ## Installation
@@ -85,22 +85,56 @@ jq.run(filter, jsonPath, options)
 
 ## Options
 
+`input`: Specify the type of input
+*String*: `'file', 'json', 'string'`
+default: `'file'` 
 
-`input`:
-Specify the type of input
-*String*
-`'file'`  
-`'file', 'json', 'string'`   
-
+`input: 'file'`
+Run the jq query against a **JSON file**.
 ```js
-  
+jq.run('.', 'path_to.json').then(console.log)
 ```
 
-`output`:
-Specify the type of output
-*String*
-`'pretty'`
-`'json', 'string', 'pretty'`
+`input: 'json'`
+Run the jq query against a **Object**.
+```js
+jq.run('.', { lola: "flores" }, { input: 'json' }).then(console.log)
+// { lola: "flores" }
+```
+
+`input: 'string'`
+Run the jq query against a **String**.
+```js
+jq.run('.', '{ lola: "flores" }', { input: 'string' }).then(console.log)
+// { lola: "flores" }
+```
+
+`output`: Specify the type of output
+*String*: `'json', 'string', 'pretty'`
+default: `'pretty'`
+
+`output: 'pretty'`
+Return the output as a **String**.
+```js
+jq.run('.', 'path_to.json', { output: 'string' }).then(console.log)
+// {
+//   lola: "flores"
+// }
+```
+
+`output: 'json'`
+Return the output as a **Object**.
+```js
+jq.run('.', 'path_to.json', { output: 'json' }).then(console.log)
+// { lola: "flores" }
+```
+
+`output: 'string'`
+Return the output as a **String**.
+```js
+jq.run('.', 'path_to.json', { output: 'string' }).then(console.log)
+// '{ lola: "flores" }'
+```
 
 ## Who use this?
 

@@ -4,7 +4,7 @@ dependencies:
 
 test:
   post:
-    - npm run coveralls
+    - npm run coveralls || true
     - npm run semantic-release || true
 
 notify:

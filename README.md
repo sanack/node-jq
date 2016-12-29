@@ -85,7 +85,7 @@ jq.run(filter, jsonPath, options)
 
 ## Options
 
-`input`: Specify the type of input
+### `input`: Specify the type of input
 *String*: `'file', 'json', 'string'`
 default: `'file'` 
 
@@ -109,7 +109,7 @@ jq.run('.', '{ lola: "flores" }', { input: 'string' }).then(console.log)
 // { lola: "flores" }
 ```
 
-`output`: Specify the type of output
+### `output`: Specify the type of output
 *String*: `'json', 'string', 'pretty'`
 default: `'pretty'`
 

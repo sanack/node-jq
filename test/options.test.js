@@ -6,16 +6,20 @@ import path from 'path'
 import { run } from '../src/jq'
 import { optionDefaults } from '../src/options'
 
-const PATH_FIXTURES = path.join(__dirname, 'fixtures')
+const PATH_FIXTURES = path.join('test', 'fixtures')
 const PATH_JSON_FIXTURE = path.join(PATH_FIXTURES, '1.json')
 
-const FIXTURE_JSON = require(PATH_JSON_FIXTURE)
+const FIXTURE_JSON = require('./fixtures/1.json')
 const FIXTURE_JSON_STRING = JSON.stringify(FIXTURE_JSON)
 const FIXTURE_JSON_PRETTY = JSON.stringify(FIXTURE_JSON, null, 2)
 
 const OPTION_DEFAULTS = {
   input: 'file',
   output: 'pretty'
+}
+
+const multiEOL = (text) => {
+  return [text, text.replace(/\n/g, '\r\n')]
 }
 
 describe('options', () => {
@@ -57,11 +61,11 @@ describe('options', () => {
     it('it should return a string if the filter calls an array', () => {
       return expect(
         run('.contributors[]', PATH_JSON_FIXTURE, { output: 'json' })
-      ).to.eventually.become(
+      ).to.eventually.deep.oneOf(multiEOL(
         JSON.stringify(FIXTURE_JSON.contributors[0], null, 2) +
         '\n' +
         JSON.stringify(FIXTURE_JSON.contributors[1], null, 2)
-      )
+      ))
     })
   })
 
@@ -77,7 +81,7 @@ describe('options', () => {
     it('should return a prettified json string', () => {
       return expect(
         run('.', PATH_JSON_FIXTURE, { output: 'pretty' })
-      ).to.eventually.become(FIXTURE_JSON_PRETTY)
+      ).to.eventually.deep.oneOf(multiEOL(FIXTURE_JSON_PRETTY))
     })
   })
 })

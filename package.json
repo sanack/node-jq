@@ -19,7 +19,10 @@
     "coverage": "babel-node ./node_modules/.bin/isparta cover _mocha",
     "precoveralls": "npm run coverage",
     "coveralls": "coveralls < coverage/lcov.info",
-    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post",
+    "commitmsg": "validate-commit-msg",
+    "precommit": "npm run lint",
+    "prepush": "npm test"
   },
   "keywords": [
     "jq",
@@ -58,7 +61,7 @@
     "chai-as-promised": "^6.0.0",
     "condition-circle": "^1.5.0",
     "coveralls": "^2.11.9",
-    "ghooks": "^2.0.0",
+    "husky": "^0.12.0",
     "isparta": "^4.0.0",
     "mocha": "^3.2.0",
     "semantic-release": "^6.3.2",
@@ -78,13 +81,6 @@
       "describe",
       "it"
     ]
-  },
-  "config": {
-    "ghooks": {
-      "commit-msg": "validate-commit-msg",
-      "pre-commit": "npm run lint",
-      "pre-push": "npm test"
-    }
   },
   "release": {
     "verifyConditions": "condition-circle",

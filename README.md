@@ -16,6 +16,16 @@
   <a href="https://github.com/semantic-release/semantic-release"><img src="https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg"></a>
 </p>
 
+<h3 align="center">OSX/Linux</h3>
+<p align="center">
+  <a href="https://circleci.com/gh/sanack/node-jq"><img src="https://circleci.com/gh/sanack/node-jq.png?style=shield"></a>
+</p>
+
+<h3 align="center">Windows</h3>
+<p align="center">
+  <a href="https://ci.appveyor.com/project/mackermans/node-jq"><img src="https://ci.appveyor.com/api/projects/status/32r7s2skrgm9ubva?svg=true"></a>
+</p>
+
 ---
 
 ## Installation

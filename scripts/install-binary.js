@@ -62,7 +62,7 @@ if (platform in DOWNLOAD_MAP) {
 
   const build = new BinBuild()
     .src(`${JQ_INFO.url}/${JQ_INFO.version}/${JQ_INFO.version}.tar.gz`)
-    .cmd(`./configure --disable-maintainer-mode --bindir=${OUTPUT_DIR} --libdir=${tempfile()}`)
+    .cmd(`./configure --disable-maintainer-mode --prefix=${tempfile()} --bindir=${OUTPUT_DIR}`)
     .cmd('make')
     .cmd('make install')
 

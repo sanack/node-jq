@@ -2,28 +2,35 @@
   <img width="300" alt="node-jq logo" src="docs/assets/logo-with-margin.png" />
 </p>
 
-<div align="center">
+<p style="width:100%;" align="center">
   <a href="http://standardjs.com/"><img src="https://img.shields.io/badge/code%20style-standard-brightgreen.svg?maxAge=3600"></a>
   <a href="https://coveralls.io/github/sanack/node-jq?branch=master"><img src="https://coveralls.io/repos/github/sanack/node-jq/badge.svg?branch=master"></a>
   <a href="https://github.com/semantic-release/semantic-release"><img src="https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg"></a>
   <br>
+  <a href="https://www.npmjs.com/package/node-jq"><img src="https://img.shields.io/npm/dm/node-jq.svg?maxAge=3600"></a>
   <a href="https://www.npmjs.com/package/node-jq"><img src="https://img.shields.io/npm/v/node-jq.svg?maxAge=3600"></a>
   <a href="https://gitter.im/davesnx/node-jq?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge"><img src="https://badges.gitter.im/davesnx/node-jq.svg"></a>
-  <a href="https://www.npmjs.com/package/node-jq"><img src="https://img.shields.io/npm/dm/node-jq.svg?maxAge=3600"></a>
   <table align="center">
     <tr>
       <th>OSX/LINUX</th>
       <th>WINDOWS</th> 
     </tr>
     <tr>
-      <td><a href="https://circleci.com/gh/sanack/node-jq"><img src="https://circleci.com/gh/sanack/node-jq.png?style=shield"></a></td>
-      <td><a href="https://ci.appveyor.com/project/mackermans/node-jq"><img src="https://ci.appveyor.com/api/projects/status/32r7s2skrgm9ubva?svg=true"></a></td></td>
+      <td>
+        <a href="https://circleci.com/gh/sanack/node-jq">
+          <img src="https://circleci.com/gh/sanack/node-jq.png?style=shield">
+        </a>
+      </td>
+      <td>
+        <a href="https://ci.appveyor.com/project/mackermans/node-jq">
+          <img src="https://ci.appveyor.com/api/projects/status/32r7s2skrgm9ubva?svg=true">
+        </a>
+      </td>
     </tr>
   </table>
 <h2>Run jq in node</h2>
-<hr>
-</div>
-<h3 align="center"><a href="https://github.com/sanack/node-jq">node-jq</a> is a wrapper for <a href="https://stedolan.github.io/jq/">jq</a> - a lightweight and flexible command-line JSON processor.</h3>
+</p>
+<h4 align="center"><a href="https://github.com/sanack/node-jq">node-jq</a> is a wrapper for <a href="https://stedolan.github.io/jq/">jq</a> - a lightweight and flexible command-line JSON processor.</h4>
 
 ## Installation
 

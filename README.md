@@ -85,28 +85,28 @@ jq.run(filter, jsonPath, options)
 
 ## Options
 
-### `input`: Specify the type of input
+### `input`
+Specify the type of input
 
-*String*: `'file', 'json', 'string'`
+String: `'file', 'json', 'string'`
 
 default: `'file'` 
 
-`input: 'file'`
+#### `input: 'file'`
 
 Run the jq query against a **JSON file**.
 ```js
 jq.run('.', 'path_to.json').then(console.log)
 ```
 
-`input: 'json'`
+#### `input: 'json'`
 
 Run the jq query against a **Object**.
 ```js
 jq.run('.', { lola: "flores" }, { input: 'json' }).then(console.log)
 // { lola: "flores" }
 ```
-
-`input: 'string'`
+#### `input: 'string'`
 
 Run the jq query against a **String**.
 ```js
@@ -114,11 +114,16 @@ jq.run('.', '{ lola: "flores" }', { input: 'string' }).then(console.log)
 // { lola: "flores" }
 ```
 
-### `output`: Specify the type of output
-*String*: `'json', 'string', 'pretty'`
+---
+
+### output
+Specify the type of output
+
+String: `'json'`, `'string'`, `'pretty'`
+
 default: `'pretty'`
 
-`output: 'pretty'`
+#### `output: 'pretty'`
 
 Return the output as a **String**.
 ```js
@@ -128,7 +133,7 @@ jq.run('.', 'path_to.json', { output: 'string' }).then(console.log)
 // }
 ```
 
-`output: 'json'`
+#### `output: 'json'`
 
 Return the output as a **Object**.
 ```js
@@ -136,7 +141,7 @@ jq.run('.', 'path_to.json', { output: 'json' }).then(console.log)
 // { lola: "flores" }
 ```
 
-`output: 'string'`
+#### `output: 'string'`
 
 Return the output as a **String**.
 ```js

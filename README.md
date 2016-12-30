@@ -1,4 +1,4 @@
-<p style="width:100%;" align="center">
+<p align="center">
   <img width="300" alt="node-jq logo" src="docs/assets/logo-with-margin.png" />
   <br>
   <a href="http://standardjs.com/"><img src="https://img.shields.io/badge/code%20style-standard-brightgreen.svg?maxAge=3600"></a>
@@ -17,8 +17,11 @@
     </a>
 </p>
 
-<h2>Run jq in node</h2>
-<h4 align="center"><a href="https://github.com/sanack/node-jq">node-jq</a> is a wrapper for <a href="https://stedolan.github.io/jq/">jq</a> - a lightweight and flexible command-line JSON processor.</h4>
+<p align="center">
+  <a href="https://github.com/sanack/node-jq">node-jq</a> is a wrapper for <a href="https://stedolan.github.io/jq/">jq</a> - a lightweight and flexible command-line JSON processor.
+</p>
+
+---
 
 ## Installation
 

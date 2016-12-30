@@ -1,8 +1,6 @@
-<p align="center">
-  <img width="300" alt="node-jq logo" src="docs/assets/logo-with-margin.png" />
-</p>
-
 <p style="width:100%;" align="center">
+  <img width="300" alt="node-jq logo" src="docs/assets/logo-with-margin.png" />
+  <br>
   <a href="http://standardjs.com/"><img src="https://img.shields.io/badge/code%20style-standard-brightgreen.svg?maxAge=3600"></a>
   <a href="https://coveralls.io/github/sanack/node-jq?branch=master"><img src="https://coveralls.io/repos/github/sanack/node-jq/badge.svg?branch=master"></a>
   <a href="https://github.com/semantic-release/semantic-release"><img src="https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg"></a>

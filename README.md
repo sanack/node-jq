@@ -31,11 +31,14 @@ npm install node-jq --save
 
 ## Usage
 
-Usually in your CLI with jq you run:
+#### jq example
+
+Usually in your CLI with `jq` you would run:
+
 ```bash
-jq ".abilities[].moves" bulbasur.json
+jq ".abilities[].moves" bulbasaur.json
 ```
-and you get
+and you would get
 ```bash
 {
   "name": "heartgold-soulsilver",
@@ -51,13 +54,15 @@ and you get
 }
 ```
 
-with node-jq you could run it programatically and operate with the output as a [JavaScript Object](http://javascript.info/tutorial/objects):
+#### node-jq equivalent
+
+With `node-jq` you could run it programmatically and interact with the output as a [JavaScript Object](http://javascript.info/tutorial/objects):
 
 ```javascript
 const jq = require('node-jq')
 
 const filter = '.abilities[].moves'
-const jsonPath = '/path/to/bulbasur.json'
+const jsonPath = '/path/to/bulbasaur.json'
 const options = {}
 
 jq.run(filter, jsonPath, options)
@@ -80,103 +85,110 @@ jq.run(filter, jsonPath, options)
   })
   .catch((err) => {
     console.error(err)
-    // Something when wrong...
+    // Something went wrong...
   })
 ```
 
 ## Options
 
-### `input`
+### input
 |        Description        |              List              |  Default |
-|:-------------------------:|:------------------------------:|---------:|
+|:-------------------------:|:------------------------------:|:--------:|
 | Specify the type of input | `'file'`, `'json'`, `'string'` | `'file'` |
 #### `input: 'file'`
 
 Run the jq query against a **JSON file**.
 ```js
-jq.run('.', 'path_to.json').then(console.log)
+jq.run('.', '/path/to/file.json').then(console.log)
+// {
+//   "foo": "bar"
+// }
 ```
 
 #### `input: 'json'`
 
-Run the jq query against a **Object**.
+Run the jq query against an **Object**.
 ```js
-jq.run('.', { lola: "flores" }, { input: 'json' }).then(console.log)
-// { lola: "flores" }
+jq.run('.', { foo: 'bar' }, { input: 'json' }).then(console.log)
+// {
+//   "foo": "bar"
+// }
 ```
 #### `input: 'string'`
 
 Run the jq query against a **String**.
 ```js
-jq.run('.', '{ lola: "flores" }', { input: 'string' }).then(console.log)
-// { lola: "flores" }
+jq.run('.', '{ foo: "bar" }', { input: 'string' }).then(console.log)
+// {
+//   "foo": "bar"
+// }
 ```
 
 ---
 
 ### output
-|        Description        |              List              |  Default |
-|:-------------------------:|:------------------------------:|---------:|
+|        Description         |              List                |   Default  |
+|:--------------------------:|:--------------------------------:|:----------:|
 | Specify the type of output | `'pretty'`, `'json'`, `'string'` | `'pretty'` |
 
 #### `output: 'pretty'`
 
 Return the output as a **String**.
 ```js
-jq.run('.', 'path_to.json', { output: 'string' }).then(console.log)
+jq.run('.', '/path/to/file.json', { output: 'string' }).then(console.log)
 // {
-//   lola: "flores"
+//   "foo": "bar"
 // }
 ```
 
 #### `output: 'json'`
 
-Return the output as a **Object**.
+Return the output as an **Object**.
 ```js
-jq.run('.', 'path_to.json', { output: 'json' }).then(console.log)
-// { lola: "flores" }
+jq.run('.', '/path/to/file.json', { output: 'json' }).then(console.log)
+// { foo: 'bar' }
 ```
 
 #### `output: 'string'`
 
 Return the output as a **String**.
 ```js
-jq.run('.', 'path_to.json', { output: 'string' }).then(console.log)
-// '{ lola: "flores" }'
+jq.run('.', '/path/to/file.json', { output: 'string' }).then(console.log)
+// {"foo":"bar"}
 ```
 
-## Who use this?
+## Projects using **node-jq**
 
-- **[atom-jq](https://github.com/sanack/atom-jq)**: an [Atom](https://atom.io/) plugin for play arround jq.
-- **[JSON-Splora](https://github.com/wellsjo/JSON-Splora)**: GUI for editing, visualizing, and manipulating JSON
+- **[atom-jq](https://github.com/sanack/atom-jq)**: an [Atom](https://atom.io/) package for manipulating JSON
+- **[json-splora](https://github.com/wellsjo/JSON-Splora)**: an [Electron](http://electron.atom.io/) implementation for manipulating JSON
 
 ## Why?
 
-A normal thought could be: why you want to trait JavaScript Objects with jq syntax on a Node App? (Having tools like [lodash](lodash.com)).
-Basically I wanted to port jq in node for being able to run it as it is. node-jq doesn't try to replace Object fitlers/maps/transformations.
+Why would you want to manipulate JavaScript Objects with `jq` syntax in a node app, when there are tools like [lodash](lodash.com)?
+The idea was to port `jq` in node to be able to run it as-is. `node-jq` doesn't try to replace `Object` filters, maps, or transformations.
 
-Given a little bit of context, what are the use cases of jq.
-I found interesting jq for read fast the response of an API in mi CLI. 
-Something like that:
+Our primary goal was to make `jq` syntax available in [Atom](https://atom.io/) with [atom-jq](https://github.com/sanack/atom-jq).
+
+Other than that, `jq` is an interesting CLI tool to quickly parse the response of an API, such as:
+
 ```bash
 curl 'https://jsonplaceholder.typicode.com/comments' | jq '.[].postId'
 ```
-but also there are alot of people fighting with complex responses like AWS:
+
+There are also people dealing with complex responses:
 
 - [ilya-sher.org/2016/05/11/most-jq-you-will-ever-need](https://ilya-sher.org/2016/05/11/most-jq-you-will-ever-need/)
 - [cloudadvantage.com.au/new-aws-command-line-tool-and-jq](http://www.cloudadvantage.com.au/new-aws-command-line-tool-and-jq/)
 
-But at the end my objective with this module was for create [atom-jq](https://github.com/sanack/atom-jq) and be able to run it 'inside' atom.
-
 ## Want to learn `jq`?
 
-Seems hard to learn, but it isn't.
+Seems hard to learn, but it really isn't.
 
-jq is like `sed` for JSON. *Slice*, *filter*, *map* and *transform* structured data in a **simple** way and **powerful**.
+`jq` is like `sed` for `JSON`. *Slice*, *filter*, *map* and *transform* structured data in a **simple** and **powerful** way.
 
-Take a look into [this](https://robots.thoughtbot.com/jq-is-sed-for-json) great introduction or more [detailed](http://programminghistorian.org/lessons/json-and-jq).
+Take a look at [this great introduction](https://robots.thoughtbot.com/jq-is-sed-for-json) or a [jq lesson](http://programminghistorian.org/lessons/json-and-jq).
 
-You can check out the [official manual](https://stedolan.github.io/jq/manual) and play online in [jqplay.org](https://jqplay.org).
+You can check out the [official manual](https://stedolan.github.io/jq/manual) and fiddle around in the online playground [jqplay.org](https://jqplay.org).
 
 ## License
 

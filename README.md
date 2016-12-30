@@ -86,12 +86,9 @@ jq.run(filter, jsonPath, options)
 ## Options
 
 ### `input`
-Specify the type of input
-
-String: `'file', 'json', 'string'`
-
-default: `'file'` 
-
+|        Description        |              List              |  Default |
+|:-------------------------:|:------------------------------:|---------:|
+| Specify the type of input | `'file'`, `'json'`, `'string'` | `'file'` |
 #### `input: 'file'`
 
 Run the jq query against a **JSON file**.
@@ -117,11 +114,9 @@ jq.run('.', '{ lola: "flores" }', { input: 'string' }).then(console.log)
 ---
 
 ### output
-Specify the type of output
-
-String: `'json'`, `'string'`, `'pretty'`
-
-default: `'pretty'`
+|        Description        |              List              |  Default |
+|:-------------------------:|:------------------------------:|---------:|
+| Specify the type of output | `'pretty'`, `'json'`, `'string'` | `'pretty'` |
 
 #### `output: 'pretty'`
 

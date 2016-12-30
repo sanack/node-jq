@@ -2,7 +2,6 @@
   "name": "node-jq",
   "version": "0.0.0-automated-versioning",
   "description": "Run jq in node",
-  "version": "0.0.0-development",
   "main": "lib/jq.js",
   "repository": {
     "type": "git",

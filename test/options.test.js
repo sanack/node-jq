@@ -22,7 +22,7 @@ const OPTION_DEFAULTS = {
   output: 'pretty'
 }
 
-const multiEOL = (text) => {
+const multiEOL = text => {
   return [text, text.replace(/\n/g, '\r\n')]
 }
 
@@ -33,17 +33,15 @@ describe('options', () => {
 
   describe('input: file', () => {
     it('should accept a file path as input', () => {
-      return expect(
-        run('.', PATH_JSON_FIXTURE, { input: 'file' })
-      ).to.eventually.be.fulfilled
+      return expect(run('.', PATH_JSON_FIXTURE, { input: 'file' })).to
+        .eventually.be.fulfilled
     })
   })
 
   describe('input: json', () => {
     it('should accept a json object as input', () => {
-      return expect(
-        run('.', FIXTURE_JSON, { input: 'json' })
-      ).to.eventually.be.fulfilled
+      return expect(run('.', FIXTURE_JSON, { input: 'json' })).to.eventually.be
+        .fulfilled
     })
   })
 
@@ -59,9 +57,8 @@ describe('options', () => {
 
   describe('input: string', () => {
     it('should accept a json string as input', () => {
-      return expect(
-        run('.', FIXTURE_JSON_STRING, { input: 'string' })
-      ).to.eventually.be.fulfilled
+      return expect(run('.', FIXTURE_JSON_STRING, { input: 'string' })).to
+        .eventually.be.fulfilled
     })
   })
 
@@ -75,11 +72,13 @@ describe('options', () => {
     it('it should return a string if the filter calls an array', () => {
       return expect(
         run('.contributors[]', PATH_JSON_FIXTURE, { output: 'json' })
-      ).to.eventually.deep.oneOf(multiEOL(
-        JSON.stringify(FIXTURE_JSON.contributors[0], null, 2) +
-        '\n' +
-        JSON.stringify(FIXTURE_JSON.contributors[1], null, 2)
-      ))
+      ).to.eventually.deep.oneOf(
+        multiEOL(
+          JSON.stringify(FIXTURE_JSON.contributors[0], null, 2) +
+            '\n' +
+            JSON.stringify(FIXTURE_JSON.contributors[1], null, 2)
+        )
+      )
     })
   })
 

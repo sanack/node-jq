@@ -1,19 +1,24 @@
 <p align="center">
   <img width="300" alt="node-jq logo" src="docs/assets/logo-with-margin.png" />
-</p>
-
-<p align="center">
-    <a href="https://github.com/sanack/node-jq">node-jq</a> is a wrapper for <a href="https://stedolan.github.io/jq/">jq</a> - a lightweight and flexible command-line JSON processor.
-</p>
-
-<p align="center">
+  <br>
   <a href="http://standardjs.com/"><img src="https://img.shields.io/badge/code%20style-standard-brightgreen.svg?maxAge=3600"></a>
-  <a href="https://www.npmjs.com/package/node-jq"><img src="https://img.shields.io/npm/v/node-jq.svg?maxAge=3600"></a>
-  <a href="https://circleci.com/gh/sanack/node-jq"><img src="https://img.shields.io/circleci/project/sanack/node-jq.svg?maxAge=3600"></a>
   <a href="https://coveralls.io/github/sanack/node-jq?branch=master"><img src="https://coveralls.io/repos/github/sanack/node-jq/badge.svg?branch=master"></a>
-  <a href="https://gitter.im/davesnx/node-jq?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge"><img src="https://badges.gitter.im/davesnx/node-jq.svg"></a>
-  <a href="https://www.npmjs.com/package/node-jq"><img src="https://img.shields.io/npm/dm/node-jq.svg?maxAge=3600"></a>
   <a href="https://github.com/semantic-release/semantic-release"><img src="https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg"></a>
+  <br>
+  <a href="https://www.npmjs.com/package/node-jq"><img src="https://img.shields.io/npm/dm/node-jq.svg?maxAge=3600"></a>
+  <a href="https://www.npmjs.com/package/node-jq"><img src="https://img.shields.io/npm/v/node-jq.svg?maxAge=3600"></a>
+  <a href="https://gitter.im/davesnx/node-jq?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge"><img src="https://badges.gitter.im/davesnx/node-jq.svg"></a>
+  <br>
+    <a href="https://circleci.com/gh/sanack/node-jq">
+      <img src="https://circleci.com/gh/sanack/node-jq.png?style=shield">
+    </a>
+    <a href="https://ci.appveyor.com/project/mackermans/node-jq">
+      <img src="https://ci.appveyor.com/api/projects/status/32r7s2skrgm9ubva?svg=true">
+    </a>
+</p>
+
+<p align="center">
+  <a href="https://github.com/sanack/node-jq">node-jq</a> is a wrapper for <a href="https://stedolan.github.io/jq/">jq</a> - a lightweight and flexible command-line JSON processor.
 </p>
 
 ---
@@ -24,40 +29,166 @@
 npm install node-jq --save
 ```
 
-
 ## Usage
 
-```javascript
-import { run } from 'node-jq'
-// or
-const { run } = require('node-jq')
+#### jq example
 
-const filter = '. | map(select(.foo > 10))'
-const jsonPath = '/path/to/json'
+Usually in your CLI with `jq` you would run:
+
+```bash
+jq ".abilities[].moves" bulbasaur.json
+```
+and you would get
+```bash
+{
+  "name": "heartgold-soulsilver",
+  "power": "10"
+}
+{
+  "name": "platinum",
+  "power": "50"
+}
+{
+  "name": "diamond-pearl",
+  "power": "99"
+}
+```
+
+#### node-jq equivalent
+
+With `node-jq` you could run it programmatically and interact with the output as a [JavaScript Object](http://javascript.info/tutorial/objects):
+
+```javascript
+const jq = require('node-jq')
+
+const filter = '.abilities[].moves'
+const jsonPath = '/path/to/bulbasaur.json'
 const options = {}
 
-run(filter, jsonPath, options)
+jq.run(filter, jsonPath, options)
   .then((output) => {
     console.log(output)
-    // something with the output
+    /*
+      {
+        "name": "heartgold-soulsilver",
+        "power": "10"
+      },
+      {
+        "name": "platinum",
+        "power": "50"
+      },
+      {
+        "name": "diamond-pearl",
+        "power": "99"
+      }
+    */
   })
   .catch((err) => {
     console.error(err)
-    // something with the error
+    // Something went wrong...
   })
 ```
 
 ## Options
 
-| Option   | Type     | Default    | Values                        | Description                |
-|----------|----------|------------|-------------------------------|----------------------------|
-| `input`  | *String* | `'file'`   | `'file', 'json', 'string'`    | Specify the type of input  |
-| `output` | *String* | `'pretty'` | `'json', 'string', 'pretty'`  | Specify the type of output |
+### input
+|        Description        |              List              |  Default |
+|:-------------------------:|:------------------------------:|:--------:|
+| Specify the type of input | `'file'`, `'json'`, `'string'` | `'file'` |
+#### `input: 'file'`
 
+Run the jq query against a **JSON file**.
+```js
+jq.run('.', '/path/to/file.json').then(console.log)
+// {
+//   "foo": "bar"
+// }
+```
 
-## How to use this?
+#### `input: 'json'`
 
-We use it ourselves in an [Atom](https://atom.io/) plugin. Check it out: [atom-jq](https://github.com/sanack/atom-jq)
+Run the jq query against an **Object**.
+```js
+jq.run('.', { foo: 'bar' }, { input: 'json' }).then(console.log)
+// {
+//   "foo": "bar"
+// }
+```
+#### `input: 'string'`
+
+Run the jq query against a **String**.
+```js
+jq.run('.', '{ foo: "bar" }', { input: 'string' }).then(console.log)
+// {
+//   "foo": "bar"
+// }
+```
+
+---
+
+### output
+|        Description         |              List                |   Default  |
+|:--------------------------:|:--------------------------------:|:----------:|
+| Specify the type of output | `'pretty'`, `'json'`, `'string'` | `'pretty'` |
+
+#### `output: 'pretty'`
+
+Return the output as a **String**.
+```js
+jq.run('.', '/path/to/file.json', { output: 'string' }).then(console.log)
+// {
+//   "foo": "bar"
+// }
+```
+
+#### `output: 'json'`
+
+Return the output as an **Object**.
+```js
+jq.run('.', '/path/to/file.json', { output: 'json' }).then(console.log)
+// { foo: 'bar' }
+```
+
+#### `output: 'string'`
+
+Return the output as a **String**.
+```js
+jq.run('.', '/path/to/file.json', { output: 'string' }).then(console.log)
+// {"foo":"bar"}
+```
+
+## Projects using **node-jq**
+
+- **[atom-jq](https://github.com/sanack/atom-jq)**: an [Atom](https://atom.io/) package for manipulating JSON
+- **[json-splora](https://github.com/wellsjo/JSON-Splora)**: an [Electron](http://electron.atom.io/) implementation for manipulating JSON
+
+## Why?
+
+Why would you want to manipulate JavaScript Objects with `jq` syntax in a node app, when there are tools like [lodash](lodash.com)?
+The idea was to port `jq` in node to be able to run it as-is. `node-jq` doesn't try to replace `Object` filters, maps, or transformations.
+
+Our primary goal was to make `jq` syntax available in [Atom](https://atom.io/) with [atom-jq](https://github.com/sanack/atom-jq).
+
+Other than that, `jq` is an interesting CLI tool to quickly parse the response of an API, such as:
+
+```bash
+curl 'https://jsonplaceholder.typicode.com/comments' | jq '.[].postId'
+```
+
+There are also people dealing with complex responses:
+
+- [ilya-sher.org/2016/05/11/most-jq-you-will-ever-need](https://ilya-sher.org/2016/05/11/most-jq-you-will-ever-need/)
+- [cloudadvantage.com.au/new-aws-command-line-tool-and-jq](http://www.cloudadvantage.com.au/new-aws-command-line-tool-and-jq/)
+
+## Want to learn `jq`?
+
+Seems hard to learn, but it really isn't.
+
+`jq` is like `sed` for `JSON`. *Slice*, *filter*, *map* and *transform* structured data in a **simple** and **powerful** way.
+
+Take a look at [this great introduction](https://robots.thoughtbot.com/jq-is-sed-for-json) or a [jq lesson](http://programminghistorian.org/lessons/json-and-jq).
+
+You can check out the [official manual](https://stedolan.github.io/jq/manual) and fiddle around in the online playground [jqplay.org](https://jqplay.org).
 
 ## License
 

@@ -43,7 +43,8 @@
   "files": [
     "src",
     "lib",
-    "scripts"
+    "scripts",
+    "docs"
   ],
   "dependencies": {
     "bin-build": "^2.2.0",

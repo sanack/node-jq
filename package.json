@@ -69,7 +69,7 @@
     "snazzy": "^6.0.0",
     "standard": "^8.6.0",
     "tap-diff": "^0.1.1",
-    "validate-commit-msg": "^2.8.2"
+    "validate-commit-msg": "^2.10.1"
   },
   "babel": {
     "presets": [

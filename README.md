@@ -12,8 +12,8 @@
     <a href="https://circleci.com/gh/sanack/node-jq">
       <img src="https://circleci.com/gh/sanack/node-jq.png?style=shield">
     </a>
-    <a href="https://ci.appveyor.com/project/mackermans/node-jq">
-      <img src="https://ci.appveyor.com/api/projects/status/32r7s2skrgm9ubva?svg=true">
+    <a href="https://ci.appveyor.com/project/sanack/node-jq">
+      <img src="https://ci.appveyor.com/api/projects/status/tll1w031cecou4dq?svg=true">
     </a>
 </p>
 

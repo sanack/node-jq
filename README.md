@@ -13,7 +13,7 @@
       <img src="https://circleci.com/gh/sanack/node-jq.png?style=shield">
     </a>
     <a href="https://ci.appveyor.com/project/sanack/node-jq">
-      <img src="https://ci.appveyor.com/api/projects/status/tll1w031cecou4dq?svg=true">
+      <img src="https://ci.appveyor.com/api/projects/status/tll1w031cecou4dq/branch/master?svg=true">
     </a>
 </p>
 

@@ -67,7 +67,7 @@
     "mocha": "^3.2.0",
     "semantic-release": "^6.3.2",
     "snazzy": "^6.0.0",
-    "standard": "^8.6.0",
+    "standard": "^9.0.0",
     "tap-diff": "^0.1.1",
     "validate-commit-msg": "^2.10.1"
   },

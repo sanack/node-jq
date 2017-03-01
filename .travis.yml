@@ -14,6 +14,7 @@ after_install: npm run lint
 
 after_script:
   - npm run coveralls || true
+  - npm prune --production --loglevel=warn
 
 after_success:
   - curl -Lo travis_after_all.py https://git.io/vLSON

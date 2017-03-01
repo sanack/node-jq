@@ -60,7 +60,6 @@
     "babel-register": "^6.9.0",
     "chai": "^3.5.0",
     "chai-as-promised": "^6.0.0",
-    "condition-circle": "^1.5.0",
     "coveralls": "^2.11.9",
     "dirty-chai": "^1.2.2",
     "husky": "^0.13.1",
@@ -83,9 +82,5 @@
       "describe",
       "it"
     ]
-  },
-  "release": {
-    "verifyConditions": "condition-circle",
-    "branch": "master"
   }
 }

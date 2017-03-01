@@ -1,0 +1,21 @@
+language: node_js
+node_js:
+  - "node"
+  - "6"
+  - "4"
+
+branches:
+  only:
+    - master
+
+cache: yarn
+
+after_install: npm run lint
+
+after_success:
+  - curl -Lo travis_after_all.py https://git.io/vLSON
+  - python travis_after_all.py
+  - npm run coveralls || true
+  - npm prune --production --loglevel=warn
+  - rm yarn.lock
+  - npm run semantic-release || true

@@ -68,6 +68,7 @@
     "snazzy": "^6.0.0",
     "standard": "^8.6.0",
     "tap-diff": "^0.1.1",
+    "travis-after-all": "^1.4.4",
     "validate-commit-msg": "^2.10.1"
   },
   "babel": {

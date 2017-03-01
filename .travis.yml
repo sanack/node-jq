@@ -1,0 +1,22 @@
+language: node_js
+node_js:
+  - "node"
+  - "6"
+  - "4"
+
+branches:
+  only:
+    - master
+
+cache: yarn
+
+after_install: npm run lint
+
+after_script:
+  - |
+      $(npm bin)/travis-after-all
+
+      if [ $? -eq 0 ]; then
+        npm run coveralls || true
+        npm run semantic-release || true
+      fi

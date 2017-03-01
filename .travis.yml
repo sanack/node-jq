@@ -12,11 +12,10 @@ cache: yarn
 
 after_install: npm run lint
 
-after_script:
-  - npm run coveralls || true
-  - npm prune --production --loglevel=warn
-
 after_success:
   - curl -Lo travis_after_all.py https://git.io/vLSON
   - python travis_after_all.py
+  - npm run coveralls || true
+  - npm prune --production --loglevel=warn
+  - rm yarn.lock
   - npm run semantic-release || true

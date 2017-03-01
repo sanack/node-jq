@@ -4160,10 +4160,6 @@ tough-cookie@~2.3.0:
   dependencies:
     punycode "^1.4.1"
 
-travis-after-all@^1.4.4:
-  version "1.4.4"
-  resolved "https://registry.yarnpkg.com/travis-after-all/-/travis-after-all-1.4.4.tgz#c5a396f18404af634a65057b2c071da58923e49b"
-
 travis-ci@^2.1.1:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/travis-ci/-/travis-ci-2.1.1.tgz#98696265af827ae3576f31aa06d876e74b4b082e"

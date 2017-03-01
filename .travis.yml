@@ -13,10 +13,9 @@ cache: yarn
 after_install: npm run lint
 
 after_script:
-  - |
-      $(npm bin)/travis-after-all
+  - npm run coveralls || true
 
-      if [ $? -eq 0 ]; then
-        npm run coveralls || true
-        npm run semantic-release || true
-      fi
+after_success:
+  - curl -Lo travis_after_all.py https://git.io/vLSON
+  - python travis_after_all.py
+  - npm run semantic-release || true

@@ -9,8 +9,8 @@
   <a href="https://www.npmjs.com/package/node-jq"><img src="https://img.shields.io/npm/v/node-jq.svg?maxAge=3600"></a>
   <a href="https://gitter.im/davesnx/node-jq?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge"><img src="https://badges.gitter.im/davesnx/node-jq.svg"></a>
   <br>
-    <a href="https://circleci.com/gh/sanack/node-jq">
-      <img src="https://circleci.com/gh/sanack/node-jq.png?style=shield">
+    <a href="https://travis-ci.org/sanack/node-jq">
+      <img src="https://img.shields.io/travis/sanack/node-jq/master.svg?label=travis-ci">
     </a>
     <a href="https://ci.appveyor.com/project/sanack/node-jq">
       <img src="https://ci.appveyor.com/api/projects/status/tll1w031cecou4dq/branch/master?svg=true">

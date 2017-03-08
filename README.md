@@ -2,8 +2,8 @@
   <img width="300" alt="node-jq logo" src="docs/assets/logo-with-margin.png" />
   <br>
   <a href="http://standardjs.com/"><img src="https://img.shields.io/badge/code%20style-standard-brightgreen.svg?maxAge=3600"></a>
-  <a href="https://coveralls.io/github/sanack/node-jq?branch=master"><img src="https://coveralls.io/repos/github/sanack/node-jq/badge.svg?branch=master"></a>
-  <a href="https://github.com/semantic-release/semantic-release"><img src="https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg"></a>
+  <a href="https://lima.codeclimate.com/github/sanack/node-jq/coverage"><img src="https://lima.codeclimate.com/github/sanack/node-jq/badges/coverage.svg" /></a>
+  <a href="https://lima.codeclimate.com/github/sanack/node-jq"><img src="https://lima.codeclimate.com/github/sanack/node-jq/badges/gpa.svg" /></a>
   <br>
   <a href="https://www.npmjs.com/package/node-jq"><img src="https://img.shields.io/npm/dm/node-jq.svg?maxAge=3600"></a>
   <a href="https://www.npmjs.com/package/node-jq"><img src="https://img.shields.io/npm/v/node-jq.svg?maxAge=3600"></a>

@@ -4,6 +4,10 @@ node_js:
   - "6"
   - "4"
 
+addons:
+  code_climate:
+    repo_token: b4ef7769e0f8f04456e8e1168b4beb44561bd5ce9ca216458a164e19c4cf7308
+
 branches:
   only:
     - master
@@ -15,6 +19,6 @@ after_install: npm run lint
 after_success:
   - curl -Lo travis_after_all.py https://git.io/vLSON
   - python travis_after_all.py
-  - npm run coveralls || true
+  - npm run codeclimate
   - rm yarn.lock
   - npm run semantic-release || true

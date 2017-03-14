@@ -3,8 +3,8 @@ import { commandFactory } from './command'
 
 export const run = (filter, json, options = {}) => {
   return new Promise((resolve, reject) => {
-    const command = commandFactory(filter, json, options)
-    exec(command)
+    const { command, args } = commandFactory(filter, json, options)
+    exec(command, args)
       .then((stdout) => {
         if (options.output === 'json') {
           let result

@@ -51,7 +51,7 @@
     "download": "^5.0.3",
     "is-valid-path": "^0.1.1",
     "strip-eof": "^1.0.0",
-    "tempfile": "^1.1.1"
+    "tempfile": "^2.0.0"
   },
   "devDependencies": {
     "babel-cli": "^6.10.1",

@@ -1,10 +1,11 @@
 import chai, { expect } from 'chai'
 import promised from 'chai-as-promised'
-chai.use(promised)
 import path from 'path'
 
 import { run } from '../src/jq'
 import { optionDefaults } from '../src/options'
+
+chai.use(promised)
 
 const PATH_FIXTURES = path.join('test', 'fixtures')
 const PATH_JSON_FIXTURE = path.join(PATH_FIXTURES, '1.json')

@@ -1,9 +1,10 @@
 import chai, { expect } from 'chai'
 import promised from 'chai-as-promised'
-chai.use(promised)
 import path from 'path'
 
 import { run } from '../src/jq'
+
+chai.use(promised)
 
 const PATH_ROOT = path.join(__dirname, '..')
 const PATH_FIXTURES = path.join('test', 'fixtures')

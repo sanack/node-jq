@@ -3,18 +3,32 @@ import stripEof from 'strip-eof'
 
 const TEN_MEBIBYTE = 1024 * 1024 * 10
 
-const exec = (command) => {
+const exec = (command, args) => {
   return new Promise((resolve, reject) => {
-    childProcess.exec(
+    var stdout = ''
+    var stderr = ''
+
+    const process = childProcess.spawn(
       command,
-      { maxBuffer: TEN_MEBIBYTE },
-      (error, stdout, stderr) => {
-        if (error) {
-          return reject(Error(stderr))
-        }
+      args,
+      { maxBuffer: TEN_MEBIBYTE }
+    )
+
+    process.stdout.on('data', (data) => {
+      stdout += data
+    })
+
+    process.stderr.on('data', (data) => {
+      stderr += data
+    })
+
+    process.on('close', (code) => {
+      if (code !== 0) {
+        return reject(Error(stderr))
+      } else {
         return resolve(stripEof(stdout))
       }
-    )
+    })
   })
 }
 

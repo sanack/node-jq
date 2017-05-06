@@ -40,7 +40,7 @@ const mergeOptionDefaults = (options = {}) => {
 export const parseOptions = (filter, json, options = {}) => {
   mergeOptionDefaults(options)
   return Object.keys(options).reduce(
-    (params, key, index, array) => {
+    (params, key, index) => {
       if (optionMap[key] !== undefined) {
         optionMap[key].buildParams(filter, json, params, options[key])
       }

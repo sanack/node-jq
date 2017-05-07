@@ -1,14 +1,14 @@
 import chai, { expect } from 'chai'
 import promised from 'chai-as-promised'
 import path from 'path'
-require('json5/lib/require')
 
 import { run } from '../src/jq'
 import { optionDefaults } from '../src/options'
 
+require('json5/lib/require')
 chai.use(promised)
 
-const PATH_FIXTURES = path.join('test', 'fixtures')
+const PATH_FIXTURES = path.join(__dirname, 'test', 'fixtures')
 const PATH_JSON_FIXTURE = path.join(PATH_FIXTURES, '1.json')
 const PATH_JSON5_FIXTURE = path.join(PATH_FIXTURES, '1.json5')
 

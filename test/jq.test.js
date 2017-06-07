@@ -34,39 +34,36 @@ describe('jq core', () => {
   it('should fail on an invalid filter', (done) => {
     run(FILTER_INVALID, PATH_JSON_FIXTURE)
     .catch((error) => {
-      try {
-        expect(error).to.be.an.instanceof(Error)
-        expect(error.message).to.match(ERROR_INVALID_FILTER)
-        done()
-      } catch (error) {
-        done(error)
-      }
+      expect(error).to.be.an.instanceof(Error)
+      expect(error.message).to.match(ERROR_INVALID_FILTER)
+      done()
+    })
+    .catch((error) => {
+      done(error)
     })
   })
 
   it('should fail on an invalid path', (done) => {
     run(FILTER_VALID, PATH_ASTERISK_FIXTURE)
     .catch((error) => {
-      try {
-        expect(error).to.be.an.instanceof(Error)
-        expect(error.message).to.equal(ERROR_INVALID_PATH)
-        done()
-      } catch (error) {
-        done(error)
-      }
+      expect(error).to.be.an.instanceof(Error)
+      expect(error.message).to.equal(ERROR_INVALID_PATH)
+      done()
+    })
+    .catch((error) => {
+      done(error)
     })
   })
 
   it('should fail on an invalid json', (done) => {
     run(FILTER_VALID, PATH_JS_FIXTURE)
     .catch((error) => {
-      try {
-        expect(error).to.be.an.instanceof(Error)
-        expect(error.message).to.equal(ERROR_INVALID_JSON_PATH)
-        done()
-      } catch (error) {
-        done(error)
-      }
+      expect(error).to.be.an.instanceof(Error)
+      expect(error.message).to.equal(ERROR_INVALID_JSON_PATH)
+      done()
+    })
+    .catch((error) => {
+      done(error)
     })
   })
 

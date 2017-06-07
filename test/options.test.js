@@ -26,53 +26,57 @@ describe('options', () => {
   })
 
   describe('input: file', () => {
-    it('should accept a file path as input', () => {
+    it('should accept a file path as input', (done) => {
       run('.', PATH_JSON_FIXTURE, { input: 'file' })
       .then((output) => {
         expect(output).to.not.equal(null)
+        done()
       })
       .catch((error) => {
-        expect(error, error.message).to.equal(null)
+        done(error)
       })
     })
   })
 
   describe('input: json', () => {
-    it('should accept a json object as input', () => {
+    it('should accept a json object as input', (done) => {
       run('.', FIXTURE_JSON, { input: 'json' })
       .then((output) => {
         expect(output).to.not.equal(null)
+        done()
       })
       .catch((error) => {
-        expect(error, error.message).to.equal(null)
+        done(error)
       })
     })
   })
 
   describe('input: string', () => {
-    it('should accept a json string as input', () => {
+    it('should accept a json string as input', (done) => {
       run('.', FIXTURE_JSON_STRING, { input: 'string' })
       .then((output) => {
         expect(output).to.not.equal(null)
+        done()
       })
       .catch((error) => {
-        expect(error, error.message).to.equal(null)
+        done(error)
       })
     })
   })
 
   describe('output: json', () => {
-    it('should return a stringified json', () => {
+    it('should return a stringified json', (done) => {
       run('.', PATH_JSON_FIXTURE, { output: 'json' })
       .then((obj) => {
         expect(obj).to.deep.equal(FIXTURE_JSON)
+        done()
       })
       .catch((error) => {
-        expect(error, error.message).to.equal(null)
+        done(error)
       })
     })
 
-    it('it should return a string if the filter calls an array', () => {
+    it('it should return a string if the filter calls an array', (done) => {
       run('.contributors[]', PATH_JSON_FIXTURE, { output: 'json' })
       .then((obj) => {
         expect(obj).to.be.oneOf(
@@ -82,35 +86,38 @@ describe('options', () => {
             JSON.stringify(FIXTURE_JSON.contributors[1], null, 2)
           )
         )
+        done()
       })
       .catch((error) => {
-        expect(error, error.message).to.equal(null)
+        done(error)
       })
     })
   })
 
   describe('output: string', () => {
-    it('should return a minified json string', () => {
+    it('should return a minified json string', (done) => {
       run('.', PATH_JSON_FIXTURE, { output: 'string' })
       .then((output) => {
         expect(output).to.equal(FIXTURE_JSON_STRING)
+        done()
       })
       .catch((error) => {
-        expect(error, error.message).to.equal(null)
+        done(error)
       })
     })
   })
 
   describe('output: pretty', () => {
-    it('should return a prettified json string', () => {
+    it('should return a prettified json string', (done) => {
       run('.', PATH_JSON_FIXTURE, { output: 'pretty' })
       .then((output) => {
         expect(output).to.be.oneOf(
           multiEOL(FIXTURE_JSON_PRETTY)
         )
+        done()
       })
       .catch((error) => {
-        expect(error, error.message).to.equal(null)
+        done(error)
       })
     })
   })

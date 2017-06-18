@@ -2,7 +2,7 @@
 
 'use strict'
 
-const BinBuild = require('bin-build')
+const binBuild = require('bin-build')
 const path = require('path')
 const tempfile = require('tempfile')
 const fs = require('fs')
@@ -21,6 +21,7 @@ const JQ_NAME_MAP = {
   'def': 'jq',
   'win32': 'jq.exe'
 }
+
 const JQ_NAME = (platform in JQ_NAME_MAP) ? JQ_NAME_MAP[platform] : JQ_NAME_MAP.def
 
 const OUTPUT_DIR = path.join(__dirname, '..', 'bin')
@@ -60,17 +61,14 @@ if (platform in DOWNLOAD_MAP) {
 } else {
   // download source and build
 
-  const build = new BinBuild()
-    .src(`${JQ_INFO.url}/${JQ_INFO.version}/${JQ_INFO.version}.tar.gz`)
-    .cmd(`./configure --disable-maintainer-mode --prefix=${tempfile()} --bindir=${OUTPUT_DIR}`)
-    .cmd('make')
-    .cmd('make install')
-
-  build.run((err) => {
-    if (err) {
-      console.log(`Err: ${err}`)
-    } else {
-      console.log(`jq installed successfully on ${OUTPUT_DIR}`)
-    }
-  })
+  binBuild.url(
+    `${JQ_INFO.url}/${JQ_INFO.version}/${JQ_INFO.version}.tar.gz`,
+    [
+      `./configure --disable-maintainer-mode --prefix=${tempfile()} --bindir=${OUTPUT_DIR}`,
+      'make',
+      'make install'
+    ]
+  )
+  .then(() => console.log(`jq installed successfully on ${OUTPUT_DIR}`))
+  .catch(console.log)
 }

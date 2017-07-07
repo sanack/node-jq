@@ -105,6 +105,19 @@ jq.run('.', '/path/to/file.json').then(console.log)
 // }
 ```
 
+#### `input: 'file'`
+
+Run jq query against multiple **JSON files**.
+```js
+jq.run('.', ['/path/to/file.json','path/to/other_file.json']).then(console.log)
+// {
+//   "foo": "bar"
+// }
+// {
+//   "otherFoo": "andBar"
+// }
+```
+
 #### `input: 'json'`
 
 Run the jq query against an **Object**.

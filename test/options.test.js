@@ -38,6 +38,22 @@ describe('options', () => {
     })
   })
 
+  describe('input: file', () => {
+    it('should accept an array with multiple file paths as input', (done) => {
+      run('.', [
+        PATH_JSON_FIXTURE,
+        PATH_JSON_FIXTURE
+      ], { input: 'file' })
+      .then((output) => {
+        expect(output).to.not.equal(null)
+        done()
+      })
+      .catch((error) => {
+        done(error)
+      })
+    })
+  })
+
   describe('input: json', () => {
     it('should accept a json object as input', (done) => {
       run('.', FIXTURE_JSON, { input: 'json' })

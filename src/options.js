@@ -9,7 +9,16 @@ const optionMap = {
   input: {
     buildParams: (filter, json, params, value) => {
       if (value === 'file') {
-        validateJSONPath(params[params.length - 1])
+        let path = params[params.length - 1]
+        if (Array.isArray(path)) {
+          params.pop()
+          path.forEach((file) => {
+            validateJSONPath(file)
+            params.push(file)
+          })
+        } else {
+          validateJSONPath(params[params.length - 1])
+        }
       } else {
         params.pop()
         params.unshift('--null-input')

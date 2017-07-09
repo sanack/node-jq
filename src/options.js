@@ -2,7 +2,8 @@ import { validateJSONPath } from './utils'
 
 export const optionDefaults = {
   input: 'file',
-  output: 'pretty'
+  output: 'pretty',
+  slurp: false
 }
 
 const optionMap = {
@@ -33,6 +34,13 @@ const optionMap = {
     buildParams: (filter, json, params, value) => {
       if (value === 'string') {
         params.unshift('--compact-output')
+      }
+    }
+  },
+  slurp: {
+    buildParams: (filter, json, params, value) => {
+      if (value === true) {
+        params.unshift('--slurp')
       }
     }
   }

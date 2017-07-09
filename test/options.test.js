@@ -6,6 +6,8 @@ import { optionDefaults } from '../src/options'
 
 const PATH_FIXTURES = path.join('test', 'fixtures')
 const PATH_JSON_FIXTURE = path.join(PATH_FIXTURES, '1.json')
+const PATH_SLURP_FIXTURE_1 = path.join(PATH_FIXTURES, 'slurp1.json')
+const PATH_SLURP_FIXTURE_2 = path.join(PATH_FIXTURES, 'slurp2.json')
 
 const FIXTURE_JSON = require('./fixtures/1.json')
 const FIXTURE_JSON_STRING = JSON.stringify(FIXTURE_JSON)
@@ -13,7 +15,8 @@ const FIXTURE_JSON_PRETTY = JSON.stringify(FIXTURE_JSON, null, 2)
 
 const OPTION_DEFAULTS = {
   input: 'file',
-  output: 'pretty'
+  output: 'pretty',
+  slurp: false
 }
 
 const multiEOL = (text) => {
@@ -130,6 +133,26 @@ describe('options', () => {
         expect(output).to.be.oneOf(
           multiEOL(FIXTURE_JSON_PRETTY)
         )
+        done()
+      })
+      .catch((error) => {
+        done(error)
+      })
+    })
+  })
+
+  describe('slurp: true', () => {
+    it('should run the filter once on multiple objects as input', (done) => {
+      run('.', [
+        PATH_SLURP_FIXTURE_1,
+        PATH_SLURP_FIXTURE_2
+      ], {
+        output: 'json',
+        slurp: true
+      })
+      .then((output) => {
+        expect(output).to.be.an('array')
+        expect(output).to.have.lengthOf(2)
         done()
       })
       .catch((error) => {

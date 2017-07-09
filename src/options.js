@@ -10,7 +10,7 @@ const optionMap = {
     buildParams: (filter, json, params, value) => {
       if (value === 'file') {
         let path = params[params.length - 1]
-        if (path instanceof Array) {
+        if (Array.isArray(path)) {
           params.pop()
           path.forEach((file) => {
             validateJSONPath(file)

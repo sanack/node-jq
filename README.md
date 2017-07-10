@@ -92,7 +92,7 @@ jq.run(filter, jsonPath, options)
 ## Options
 
 ### input
-|        Description        |              List              |  Default |
+|        Description        |             Values             |  Default |
 |:-------------------------:|:------------------------------:|:--------:|
 | Specify the type of input | `'file'`, `'json'`, `'string'` | `'file'` |
 #### `input: 'file'`
@@ -140,7 +140,7 @@ jq.run('.', '{ foo: "bar" }', { input: 'string' }).then(console.log)
 ---
 
 ### output
-|        Description         |              List                |   Default  |
+|        Description         |             Values               |   Default  |
 |:--------------------------:|:--------------------------------:|:----------:|
 | Specify the type of output | `'pretty'`, `'json'`, `'string'` | `'pretty'` |
 
@@ -168,6 +168,27 @@ Return the output as a **String**.
 ```js
 jq.run('.', '/path/to/file.json', { output: 'string' }).then(console.log)
 // {"foo":"bar"}
+```
+---
+
+### slurp
+|         Description          |     Values      | Default |
+|:----------------------------:|:---------------:|:-------:|
+| Read input stream into array | `true`, `false` | `false` |
+
+#### `slurp: 'true'`
+
+Return the output as a **String**.
+```js
+jq.run('.', ['/path/to/file.json','/path/to/other_file.json'], { output: 'json' }).then(console.log)
+// [
+//   {
+//     "foo": "bar"
+//   },
+//   {
+//     "otherFoo": "andBar"
+//   }
+// ]
 ```
 
 ## Projects using **node-jq**

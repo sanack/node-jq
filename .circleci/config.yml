@@ -25,6 +25,3 @@ jobs:
 
       # run tests!
       - run: yarn test
-dependencies:
-  pre:
-    - npm install -g npm@latest

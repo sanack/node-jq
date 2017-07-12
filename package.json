@@ -15,7 +15,7 @@
     "lint": "standard --verbose | snazzy",
     "build": "babel src -d lib",
     "prepublish": "npm test && npm run lint && npm run build",
-    "postinstall": "npm run install-binary",
+    "postinstall": "postinstall-build bin --script install-binary",
     "coverage": "babel-node ./node_modules/.bin/isparta cover _mocha",
     "precodeclimate": "npm run coverage",
     "codeclimate": "codeclimate-test-reporter < coverage/lcov.info",
@@ -47,20 +47,20 @@
     "docs"
   ],
   "dependencies": {
-    "bin-build": "^2.2.0",
-    "download": "^6.0.0",
     "is-valid-path": "^0.1.1",
-    "strip-eof": "^1.0.0",
-    "tempfile": "^2.0.0"
+    "postinstall-build": "^5.0.1",
+    "strip-eof": "^1.0.0"
   },
   "devDependencies": {
     "babel-cli": "^6.10.1",
     "babel-preset-es2015": "^6.9.0",
     "babel-preset-stage-1": "^6.5.0",
     "babel-register": "^6.9.0",
+    "bin-build": "^2.2.0",
     "chai": "^4.0.1",
     "codeclimate-test-reporter": "^0.4.1",
     "coveralls": "^2.11.9",
+    "download": "^6.0.0",
     "husky": "^0.14.0",
     "isparta": "^4.0.0",
     "mocha": "^3.2.0",
@@ -68,6 +68,7 @@
     "snazzy": "^6.0.0",
     "standard": "^10.0.0",
     "tap-diff": "^0.1.1",
+    "tempfile": "^2.0.0",
     "validate-commit-msg": "^2.11.2"
   },
   "babel": {

@@ -176,11 +176,11 @@ jq.run('.', '/path/to/file.json', { output: 'string' }).then(console.log)
 |:----------------------------:|:---------------:|:-------:|
 | Read input stream into array | `true`, `false` | `false` |
 
-#### `slurp: 'true'`
+#### `slurp: true`
 
-Return the output as a **String**.
+Read input stream into array.
 ```js
-jq.run('.', ['/path/to/file.json','/path/to/other_file.json'], { output: 'json' }).then(console.log)
+jq.run('.', ['/path/to/file.json','/path/to/other_file.json'], { output: 'json', slurp: true }).then(console.log)
 // [
 //   {
 //     "foo": "bar"

@@ -14,7 +14,7 @@
     "test:watch": "npm test -- --watch",
     "lint": "standard --verbose | snazzy",
     "build": "babel src -d lib",
-    "prepublish": "npm test && npm run lint && npm run build",
+    "prepublishOnly": "npm test && npm run lint && npm run build",
     "postinstall": "postinstall-build bin --script install-binary",
     "coverage": "babel-node ./node_modules/.bin/isparta cover _mocha",
     "precodeclimate": "npm run coverage",

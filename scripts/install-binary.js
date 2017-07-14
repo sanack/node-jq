@@ -4,7 +4,6 @@
 
 const binBuild = require('bin-build')
 const path = require('path')
-const tempfile = require('tempfile')
 const fs = require('fs')
 const download = require('download')
 
@@ -69,7 +68,8 @@ if (platform in DOWNLOAD_MAP) {
 
   binBuild
     .url(`${JQ_INFO.url}/${JQ_INFO.version}/${JQ_INFO.version}.tar.gz`, [
-      `./configure --disable-maintainer-mode --prefix=${tempfile()} --bindir=${OUTPUT_DIR}`,
+      `./configure --disable-maintainer-mode --bindir=${OUTPUT_DIR}`,
+      'make',
       'make install'
     ])
     .then(() => console.log(`jq installed successfully on ${OUTPUT_DIR}`))

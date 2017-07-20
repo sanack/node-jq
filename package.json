@@ -9,12 +9,11 @@
   },
   "scripts": {
     "pretest": "npm run install-binary",
-    "install-binary": "node scripts/install-binary.js",
+    "install-binary": "npm run build && node scripts/install-binary.js",
     "test": "mocha --compilers js:babel-register",
     "test:watch": "npm test -- --watch",
     "lint": "standard --verbose | snazzy",
     "build": "babel src -d lib",
-    "prepare": "npm run build",
     "prepublishOnly": "npm test && npm run lint && npm run build",
     "postinstall": "postinstall-build bin --script install-binary",
     "coverage": "babel-node ./node_modules/.bin/isparta cover _mocha",

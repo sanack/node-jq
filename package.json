@@ -51,6 +51,7 @@
     "download": "^6.0.0",
     "is-valid-path": "^0.1.1",
     "strip-eof": "^1.0.0",
+    "temp-write": "^3.3.0",
     "tempfile": "^2.0.0"
   },
   "devDependencies": {

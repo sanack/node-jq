@@ -1,4 +1,5 @@
 import { validateJSONPath } from './utils'
+import tempWrite from 'temp-write'
 
 export const optionDefaults = {
   input: 'file',
@@ -18,15 +19,14 @@ const optionMap = {
             params.push(file)
           })
         } else {
-          validateJSONPath(params[params.length - 1])
+          validateJSONPath(path)
         }
       } else {
-        params.pop()
-        params.unshift('--null-input')
         if (value === 'json') {
           json = JSON.stringify(json)
         }
-        params[params.length - 1] = `${json} | ${filter}`
+        const filePath = tempWrite.sync(json)
+        params[params.length - 1] = filePath
       }
     }
   },

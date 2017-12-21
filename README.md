@@ -194,6 +194,22 @@ jq.run('.', ['/path/to/file.json','/path/to/other_file.json'], { output: 'json',
 // ]
 ```
 
+### sort
+|         Description                   |     Values      | Default |
+|:-------------------------------------:|:---------------:|:-------:|
+| Sort object keys in alphabetical order| `true`, `false` | `false` |
+
+#### `sort: true`
+
+Sorts object keys alphabetically.
+```js
+jq.run('.', ['/path/to/file.json'], { output: 'json', sort: true }).then(console.log)
+// {
+//   "a": 2,
+//   "b": 1
+// },
+```
+
 ## Projects using **node-jq**
 
 - **[atom-jq](https://github.com/sanack/atom-jq)**: an [Atom](https://atom.io/) package for manipulating JSON

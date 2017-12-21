@@ -24,6 +24,9 @@
     "precommit": "npm run lint",
     "prepush": "npm test"
   },
+  "engines": {
+    "npm": ">=6.0.0"
+  },
   "keywords": [
     "jq",
     "json"

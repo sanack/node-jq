@@ -32,7 +32,7 @@ const optionMap = {
   },
   output: {
     buildParams: (filter, json, params, value) => {
-      if (value === 'string') {
+      if (value === 'string' || value === 'compact') {
         params.unshift('--compact-output')
       }
     }

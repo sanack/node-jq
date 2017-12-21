@@ -126,6 +126,19 @@ describe('options', () => {
     })
   })
 
+  describe('output: compact', () => {
+    it('should return a minified json string', (done) => {
+      run('.', PATH_JSON_FIXTURE, { output: 'compact' })
+      .then((output) => {
+        expect(output).to.equal(FIXTURE_JSON_STRING)
+        done()
+      })
+      .catch((error) => {
+        done(error)
+      })
+    })
+  })
+
   describe('output: pretty', () => {
     it('should return a prettified json string', (done) => {
       run('.', PATH_JSON_FIXTURE, { output: 'pretty' })

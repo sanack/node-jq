@@ -8,6 +8,7 @@ const PATH_FIXTURES = path.join('test', 'fixtures')
 const PATH_JSON_FIXTURE = path.join(PATH_FIXTURES, '1.json')
 const PATH_SLURP_FIXTURE_1 = path.join(PATH_FIXTURES, 'slurp1.json')
 const PATH_SLURP_FIXTURE_2 = path.join(PATH_FIXTURES, 'slurp2.json')
+const PATH_SORT_FIXTURE = path.join(PATH_FIXTURES, 'sort.json')
 
 const FIXTURE_JSON = require('./fixtures/1.json')
 const FIXTURE_JSON_STRING = JSON.stringify(FIXTURE_JSON)
@@ -16,7 +17,8 @@ const FIXTURE_JSON_PRETTY = JSON.stringify(FIXTURE_JSON, null, 2)
 const OPTION_DEFAULTS = {
   input: 'file',
   output: 'pretty',
-  slurp: false
+  slurp: false,
+  sort: false
 }
 
 const multiEOL = (text) => {
@@ -126,6 +128,19 @@ describe('options', () => {
     })
   })
 
+  describe('output: compact', () => {
+    it('should return a minified json string', (done) => {
+      run('.', PATH_JSON_FIXTURE, { output: 'compact' })
+      .then((output) => {
+        expect(output).to.equal(FIXTURE_JSON_STRING)
+        done()
+      })
+      .catch((error) => {
+        done(error)
+      })
+    })
+  })
+
   describe('output: pretty', () => {
     it('should return a prettified json string', (done) => {
       run('.', PATH_JSON_FIXTURE, { output: 'pretty' })
@@ -153,6 +168,44 @@ describe('options', () => {
       .then((output) => {
         expect(output).to.be.an('array')
         expect(output).to.have.lengthOf(2)
+        done()
+      })
+      .catch((error) => {
+        done(error)
+      })
+    })
+  })
+
+  describe('sort: false', () => {
+    it('keys should be ordered the same as in input file', (done) => {
+      run('.', [
+        PATH_SORT_FIXTURE
+      ], {
+        output: 'string',
+        sort: false
+      })
+      .then((output) => {
+        expect(output).to.be.a('string')
+        expect(output).to.eql('{"z":1,"a":2}')
+        done()
+      })
+      .catch((error) => {
+        done(error)
+      })
+    })
+  })
+
+  describe('sort: true', () => {
+    it('keys should be ordered alphabetically', (done) => {
+      run('.', [
+        PATH_SORT_FIXTURE
+      ], {
+        output: 'string',
+        sort: true
+      })
+      .then((output) => {
+        expect(output).to.be.a('string')
+        expect(output).to.eql('{"a":2,"z":1}')
         done()
       })
       .catch((error) => {

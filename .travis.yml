@@ -14,11 +14,16 @@ branches:
 
 cache: yarn
 
-after_install: npm run lint
+install:
+  - yarn
+  - npm run lint
+  - npm run test
+
+script:
+  - npm run build
 
 after_success:
-  - curl -Lo travis_after_all.py https://git.io/vLSON
-  - python travis_after_all.py
-  - npm run codeclimate
-  - rm yarn.lock
-  - npm run semantic-release || true
+  - npm run travis-deploy-once --pro "npm run codeclimate && npm run semantic-release"
+
+notifications:
+  email: false

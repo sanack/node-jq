@@ -10,7 +10,7 @@
   "scripts": {
     "pretest": "npm run install-binary",
     "install-binary": "node scripts/install-binary.js",
-    "test": "mocha --compilers js:babel-register",
+    "test": "mocha --require babel-register",
     "test:watch": "npm test -- --watch",
     "lint": "standard --verbose | snazzy",
     "build": "babel src -d lib",

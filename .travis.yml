@@ -23,7 +23,7 @@ script:
   - npm run build
 
 after_success:
-  - npm run travis-deploy-once --pro "npm run codeclimate && npm run semantic-release"
+  - npm run travis-deploy-once "npm run codeclimate && npm run semantic-release"
 
 notifications:
   email: false

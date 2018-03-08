@@ -22,59 +22,59 @@ const ERROR_INVALID_JSON_PATH = 'Not a json file'
 describe('jq core', () => {
   it('should fulfill its promise', (done) => {
     run(FILTER_VALID, PATH_JSON_FIXTURE)
-    .then((output) => {
-      expect(output).to.be.a('string')
-      done()
-    })
-    .catch((error) => {
-      done(error)
-    })
+      .then((output) => {
+        expect(output).to.be.a('string')
+        done()
+      })
+      .catch((error) => {
+        done(error)
+      })
   })
 
   it('should fail on an invalid filter', (done) => {
     run(FILTER_INVALID, PATH_JSON_FIXTURE)
-    .catch((error) => {
-      expect(error).to.be.an.instanceof(Error)
-      expect(error.message).to.match(ERROR_INVALID_FILTER)
-      done()
-    })
-    .catch((error) => {
-      done(error)
-    })
+      .catch((error) => {
+        expect(error).to.be.an.instanceof(Error)
+        expect(error.message).to.match(ERROR_INVALID_FILTER)
+        done()
+      })
+      .catch((error) => {
+        done(error)
+      })
   })
 
   it('should fail on an invalid path', (done) => {
     run(FILTER_VALID, PATH_ASTERISK_FIXTURE)
-    .catch((error) => {
-      expect(error).to.be.an.instanceof(Error)
-      expect(error.message).to.equal(ERROR_INVALID_PATH)
-      done()
-    })
-    .catch((error) => {
-      done(error)
-    })
+      .catch((error) => {
+        expect(error).to.be.an.instanceof(Error)
+        expect(error.message).to.equal(ERROR_INVALID_PATH)
+        done()
+      })
+      .catch((error) => {
+        done(error)
+      })
   })
 
   it('should fail on an invalid json', (done) => {
     run(FILTER_VALID, PATH_JS_FIXTURE)
-    .catch((error) => {
-      expect(error).to.be.an.instanceof(Error)
-      expect(error.message).to.equal(ERROR_INVALID_JSON_PATH)
-      done()
-    })
-    .catch((error) => {
-      done(error)
-    })
+      .catch((error) => {
+        expect(error).to.be.an.instanceof(Error)
+        expect(error.message).to.equal(ERROR_INVALID_JSON_PATH)
+        done()
+      })
+      .catch((error) => {
+        done(error)
+      })
   })
 
   it('should not evaluate variables in the shell', (done) => {
     run(FILTER_WITH_VARIABLE, PATH_VARIABLE_JSON_FIXTURE, { output: 'json' })
-    .then((obj) => {
-      expect(obj[0]).to.have.property('user')
-      done()
-    })
-    .catch((error) => {
-      done(error)
-    })
+      .then((obj) => {
+        expect(obj[0]).to.have.property('user')
+        done()
+      })
+      .catch((error) => {
+        done(error)
+      })
   })
 })

@@ -15,7 +15,7 @@ branches:
 cache: yarn
 
 install:
-  - yarn
+  - yarn install --ignore-engines
   - npm run lint
   - npm run test
 

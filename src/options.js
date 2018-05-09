@@ -51,6 +51,13 @@ const optionMap = {
         params.unshift('--sort-keys')
       }
     }
+  },
+  color: {
+    buildParams: (filter, json, params, value) => {
+      if (value === true) {
+        params.unshift('--color-output')
+      }
+    }
   }
 }
 

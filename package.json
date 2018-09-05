@@ -54,8 +54,7 @@
     "download": "^7.1.0",
     "is-valid-path": "^0.1.1",
     "strip-eof": "^1.0.0",
-    "tempfile": "^2.0.0",
-    "travis-deploy-once": "^5.0.0"
+    "tempfile": "^2.0.0"
   },
   "devDependencies": {
     "babel-cli": "^6.10.1",
@@ -72,6 +71,7 @@
     "snazzy": "^7.1.1",
     "standard": "^11.0.0",
     "tap-diff": "^0.1.1",
+    "travis-deploy-once": "^5.0.0",
     "validate-commit-msg": "^2.11.2"
   },
   "babel": {

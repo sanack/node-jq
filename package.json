@@ -14,15 +14,18 @@
     "test:watch": "npm test -- --watch",
     "lint": "standard --verbose | snazzy",
     "build": "babel src -d lib",
-    "prepublish": "npm test && npm run lint && npm run build",
     "postinstall": "npm run install-binary",
     "coverage": "babel-node ./node_modules/.bin/isparta cover _mocha",
     "precodeclimate": "npm run coverage",
     "codeclimate": "codeclimate-test-reporter < coverage/lcov.info",
-    "semantic-release": "semantic-release pre && npm publish && semantic-release post",
+    "semantic-release": "semantic-release",
+    "travis-deploy-once": "travis-deploy-once",
     "commitmsg": "validate-commit-msg",
     "precommit": "npm run lint",
     "prepush": "npm test"
+  },
+  "engines": {
+    "npm": ">=6.0.0"
   },
   "keywords": [
     "jq",
@@ -48,7 +51,7 @@
   ],
   "dependencies": {
     "bin-build": "^2.2.0",
-    "download": "^6.0.0",
+    "download": "^7.1.0",
     "is-valid-path": "^0.1.1",
     "strip-eof": "^1.0.0",
     "temp-write": "^3.3.0",
@@ -64,11 +67,12 @@
     "coveralls": "^3.0.0",
     "husky": "^0.14.0",
     "isparta": "^4.0.0",
-    "mocha": "^4.0.0",
-    "semantic-release": "^8.2.0",
-    "snazzy": "^6.0.0",
-    "standard": "^10.0.0",
+    "mocha": "^5.0.0",
+    "semantic-release": "^15.0.1",
+    "snazzy": "^7.1.1",
+    "standard": "^11.0.0",
     "tap-diff": "^0.1.1",
+    "travis-deploy-once": "^5.0.0",
     "validate-commit-msg": "^2.11.2"
   },
   "babel": {

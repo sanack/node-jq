@@ -92,9 +92,9 @@ jq.run(filter, jsonPath, options)
 ## Options
 
 ### input
-|        Description        |             Values             |  Default |
-|:-------------------------:|:------------------------------:|:--------:|
-| Specify the type of input | `'file'`, `'json'`, `'string'` | `'file'` |
+|  Description  |  Type  |             Values             |  Default |
+|:-------------:|:------:|:------------------------------:|:--------:|
+| Type of input | string | `'file'`, `'json'`, `'string'` | `'file'` |
 #### `input: 'file'`
 
 Run the jq query against a **JSON file**.
@@ -140,9 +140,9 @@ jq.run('.', '{ foo: "bar" }', { input: 'string' }).then(console.log)
 ---
 
 ### output
-|        Description         |             Values               |   Default  |
-|:--------------------------:|:--------------------------------:|:----------:|
-| Specify the type of output | `'pretty'`, `'json'`, `'string'` | `'pretty'` |
+| Description    | Values                                        | Default    |
+|:--------------:|:---------------------------------------------:|:----------:|
+| Type of output | `'pretty'`, `'json'`, `'compact'`, `'string'` | `'pretty'` |
 
 #### `output: 'pretty'`
 
@@ -162,13 +162,16 @@ jq.run('.', '/path/to/file.json', { output: 'json' }).then(console.log)
 // { foo: 'bar' }
 ```
 
-#### `output: 'string'`
+#### `output: 'compact'|'string'`
 
 Return the output as a **String**.
 ```js
+jq.run('.', '/path/to/file.json', { output: 'compact' }).then(console.log)
+// {"foo":"bar"}
 jq.run('.', '/path/to/file.json', { output: 'string' }).then(console.log)
 // {"foo":"bar"}
 ```
+
 ---
 
 ### slurp
@@ -189,6 +192,22 @@ jq.run('.', ['/path/to/file.json','/path/to/other_file.json'], { output: 'json',
 //     "otherFoo": "andBar"
 //   }
 // ]
+```
+
+### sort
+|         Description                   |     Values      | Default |
+|:-------------------------------------:|:---------------:|:-------:|
+| Sort object keys in alphabetical order| `true`, `false` | `false` |
+
+#### `sort: true`
+
+Sorts object keys alphabetically.
+```js
+jq.run('.', ['/path/to/file.json'], { output: 'json', sort: true }).then(console.log)
+// {
+//   "a": 2,
+//   "b": 1
+// },
 ```
 
 ## Projects using **node-jq**

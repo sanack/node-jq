@@ -50,7 +50,7 @@
     "docs"
   ],
   "dependencies": {
-    "bin-build": "^2.2.0",
+    "bin-build": "^3.0.0",
     "download": "^7.1.0",
     "is-valid-path": "^0.1.1",
     "strip-eof": "^1.0.0",

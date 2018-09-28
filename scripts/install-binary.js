@@ -2,7 +2,7 @@
 
 'use strict'
 
-const BinBuild = require('bin-build')
+const binBuild = require('bin-build')
 const path = require('path')
 const tempfile = require('tempfile')
 const fs = require('fs')
@@ -59,7 +59,6 @@ if (platform in DOWNLOAD_MAP) {
   })
 } else {
   // download source and build
-
   const build = new BinBuild()
     .src(`${JQ_INFO.url}/${JQ_INFO.version}/${JQ_INFO.version}.tar.gz`)
     .cmd('autoreconf -fi')

@@ -14,7 +14,7 @@ const arch = process.arch
 const JQ_INFO = {
   name: 'jq',
   url: 'https://github.com/stedolan/jq/releases/download/',
-  version: 'jq-1.5'
+  version: 'jq-1.6'
 }
 
 const JQ_NAME_MAP = {

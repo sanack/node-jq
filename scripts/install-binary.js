@@ -62,6 +62,7 @@ if (platform in DOWNLOAD_MAP) {
 
   const build = new BinBuild()
     .src(`${JQ_INFO.url}/${JQ_INFO.version}/${JQ_INFO.version}.tar.gz`)
+    .cmd('autoreconf -fi')
     .cmd(`./configure --disable-maintainer-mode --with-oniguruma=builtin --prefix=${tempfile()} --bindir=${OUTPUT_DIR}`)
     .cmd('make -j8')
     .cmd('make install');

@@ -14,7 +14,7 @@ const arch = process.arch
 const JQ_INFO = {
   name: 'jq',
   url: 'https://github.com/stedolan/jq/releases/download/',
-  version: 'jq-1.5'
+  version: 'jq-1.6'
 }
 
 const JQ_NAME_MAP = {
@@ -62,8 +62,9 @@ if (platform in DOWNLOAD_MAP) {
 
   const build = new BinBuild()
     .src(`${JQ_INFO.url}/${JQ_INFO.version}/${JQ_INFO.version}.tar.gz`)
-    .cmd(`./configure --disable-maintainer-mode --prefix=${tempfile()} --bindir=${OUTPUT_DIR}`)
-    .cmd('make')
+    .cmd('autoreconf -fi')
+    .cmd(`./configure --disable-maintainer-mode --with-oniguruma=builtin --prefix=${tempfile()} --bindir=${OUTPUT_DIR}`)
+    .cmd('make -j8')
     .cmd('make install')
 
   build.run((err) => {

@@ -61,7 +61,7 @@
     "babel-preset-env": "^1.7.0",
     "babel-register": "^6.9.0",
     "chai": "^4.0.1",
-    "codeclimate-test-reporter": "^0.4.1",
+    "codeclimate-test-reporter": "^0.5.1",
     "coveralls": "^3.0.0",
     "husky": "^0.14.0",
     "isparta": "^4.0.0",

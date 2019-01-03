@@ -19,10 +19,7 @@
     "precodeclimate": "npm run coverage",
     "codeclimate": "codeclimate-test-reporter < coverage/lcov.info",
     "semantic-release": "semantic-release",
-    "travis-deploy-once": "travis-deploy-once",
-    "commitmsg": "validate-commit-msg",
-    "precommit": "npm run lint",
-    "prepush": "npm test"
+    "travis-deploy-once": "travis-deploy-once"
   },
   "bin": {
     "jq": "bin/jq"
@@ -66,7 +63,7 @@
     "chai": "^4.0.1",
     "codeclimate-test-reporter": "^0.5.1",
     "coveralls": "^3.0.0",
-    "husky": "^0.14.0",
+    "husky": "^1.0.0",
     "isparta": "^4.0.0",
     "mocha": "^5.0.0",
     "semantic-release": "^15.0.1",
@@ -86,5 +83,12 @@
       "describe",
       "it"
     ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint",
+      "pre-push": "npm test",
+      "commit-msg": "validate-commit-msg"
+    }
   }
 }

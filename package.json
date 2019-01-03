@@ -19,10 +19,7 @@
     "precodeclimate": "npm run coverage",
     "codeclimate": "codeclimate-test-reporter < coverage/lcov.info",
     "semantic-release": "semantic-release",
-    "travis-deploy-once": "travis-deploy-once",
-    "commitmsg": "validate-commit-msg",
-    "precommit": "npm run lint",
-    "prepush": "npm test"
+    "travis-deploy-once": "travis-deploy-once"
   },
   "bin": {
     "jq": "bin/jq"
@@ -86,5 +83,12 @@
       "describe",
       "it"
     ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint",
+      "pre-push": "npm test",
+      "commit-msg": "validate-commit-msg"
+    }
   }
 }

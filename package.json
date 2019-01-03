@@ -24,6 +24,9 @@
     "precommit": "npm run lint",
     "prepush": "npm test"
   },
+  "bin": {
+    "jq": "bin/jq"
+  },
   "engines": {
     "npm": ">=6.0.0"
   },

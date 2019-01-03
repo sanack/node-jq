@@ -7,7 +7,6 @@
   <br>
   <a href="https://www.npmjs.com/package/node-jq"><img src="https://img.shields.io/npm/dm/node-jq.svg?maxAge=3600"></a>
   <a href="https://www.npmjs.com/package/node-jq"><img src="https://img.shields.io/npm/v/node-jq.svg?maxAge=3600"></a>
-  <a href="https://gitter.im/davesnx/node-jq?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge"><img src="https://badges.gitter.im/davesnx/node-jq.svg"></a>
   <br>
     <a href="https://travis-ci.org/sanack/node-jq">
       <img src="https://img.shields.io/travis/sanack/node-jq/master.svg?label=travis-ci">

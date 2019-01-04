@@ -2,7 +2,7 @@
 
 'use strict'
 
-const binBuild = require('bin-build')
+const BinBuild = require('bin-build')
 const path = require('path')
 const tempfile = require('tempfile')
 const fs = require('fs')

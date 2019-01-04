@@ -2,7 +2,7 @@
 
 'use strict'
 
-const BinBuild = require('bin-build')
+const binBuild = require('bin-build')
 const path = require('path')
 const tempfile = require('tempfile')
 const fs = require('fs')
@@ -59,18 +59,14 @@ if (platform in DOWNLOAD_MAP) {
   })
 } else {
   // download source and build
-  const build = new BinBuild()
-    .src(`${JQ_INFO.url}/${JQ_INFO.version}/${JQ_INFO.version}.tar.gz`)
-    .cmd('autoreconf -fi')
-    .cmd(`./configure --disable-maintainer-mode --with-oniguruma=builtin --prefix=${tempfile()} --bindir=${OUTPUT_DIR}`)
-    .cmd('make -j8')
-    .cmd('make install')
-
-  build.run((err) => {
-    if (err) {
-      console.log(`Err: ${err}`)
-    } else {
-      console.log(`jq installed successfully on ${OUTPUT_DIR}`)
-    }
+  binBuild.url(`${JQ_INFO.url}/${JQ_INFO.version}/${JQ_INFO.version}.tar.gz`, [
+    'autoreconf -fi',
+    `./configure --disable-maintainer-mode --with-oniguruma=builtin --prefix=${tempfile()} --bindir=${OUTPUT_DIR}`,
+    'make -j8',
+    'make install'
+  ]).then(() => {
+    console.log(`jq installed successfully on ${OUTPUT_DIR}`)
+  }).catch((err) => {
+    console.log(`Err: ${err}`)
   })
 }

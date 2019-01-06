@@ -21,9 +21,6 @@
     "semantic-release": "semantic-release",
     "travis-deploy-once": "travis-deploy-once"
   },
-  "bin": {
-    "jq": "bin/jq"
-  },
   "engines": {
     "npm": ">=6.0.0"
   },

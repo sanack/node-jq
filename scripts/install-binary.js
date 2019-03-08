@@ -43,6 +43,10 @@ const DOWNLOAD_MAP = {
   'win32': {
     'def': 'jq-win32.exe',
     'x64': 'jq-win64.exe'
+  },
+  'darwin': {
+    'def': 'jq-osx-amd64',
+    'x64': 'jq-osx-amd64'
   }
 }
 
@@ -54,12 +58,21 @@ if (platform in DOWNLOAD_MAP) {
 
   console.log(`Downloading jq from ${url}`)
   download(url, OUTPUT_DIR).then(() => {
-    fs.renameSync(path.join(OUTPUT_DIR, filename), path.join(OUTPUT_DIR, JQ_NAME))
+    const distPath = path.join(OUTPUT_DIR, JQ_NAME)
+    fs.renameSync(path.join(OUTPUT_DIR, filename), distPath)
+    fs.chmodSync(distPath, fs.constants.S_IXUSR)
     console.log(`Downloaded in ${OUTPUT_DIR}`)
+  }).catch((err) => {
+    console.error(err)
+    process.exit(1)
   })
 } else {
   // download source and build
-  binBuild.url(`${JQ_INFO.url}/${JQ_INFO.version}/${JQ_INFO.version}.tar.gz`, [
+
+  const url = `${JQ_INFO.url}/${JQ_INFO.version}/${JQ_INFO.version}.tar.gz`
+
+  console.log(`Building jq from ${url}`)
+  binBuild.url(url, [
     'autoreconf -fi',
     `./configure --disable-maintainer-mode --with-oniguruma=builtin --prefix=${tempfile()} --bindir=${OUTPUT_DIR}`,
     'make -j8',
@@ -67,6 +80,7 @@ if (platform in DOWNLOAD_MAP) {
   ]).then(() => {
     console.log(`jq installed successfully on ${OUTPUT_DIR}`)
   }).catch((err) => {
-    console.log(`Err: ${err}`)
+    console.error(err)
+    process.exit(1)
   })
 }

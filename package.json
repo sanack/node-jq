@@ -29,6 +29,9 @@
     "json"
   ],
   "author": "sanack",
+  "bin": {
+    "jq": "./bin/jq"
+  },
   "contributors": [
     {
       "name": "davesnx",

@@ -25,19 +25,33 @@
 ## Installation
 
 ```bash
-npm install node-jq --save
+$ npm install node-jq --save
+# or
+$ yarn add node-jq
+```
+
+## Advanced installation
+
+By default, `node-jq` downloads jq on the installation process (when you run `npm install node-jq`). Downloads the binaries according to your SO and moves it into  `node_modules/bin`, like [described in the jq website](https://stedolan.github.io/jq/download/).
+
+After that, you could use `npx` to run jq directly. Like: `npx jq . package.json`.
+
+If you want to skip the installation of `jq`, set `NODE_JQ_SKIP_INSTALL_BINARY` to 'true' like:
+
+```bash
+$ export NODE_JQ_SKIP_INSTALL_BINARY=true
+$ npm install node-jq
 ```
 
 ## Usage
 
 #### jq example
 
-Usually in your CLI with `jq` you would run:
-
+Usually in your CLI using `jq`:
 ```bash
-jq ".abilities[].moves" bulbasaur.json
+$ jq ".abilities[].moves" bulbasaur.json
 ```
-and you would get
+and you get
 ```bash
 {
   "name": "heartgold-soulsilver",
@@ -56,6 +70,8 @@ and you would get
 #### node-jq equivalent
 
 With `node-jq` you could run it programmatically and interact with the output as a [JavaScript Object](http://javascript.info/tutorial/objects):
+
+> NOTE: Take care of the filter that you are using with `jq`, mapping an array or any other iterative output isn't a valid JavaScript Object, that might fail at parse-time.
 
 ```javascript
 const jq = require('node-jq')
@@ -97,43 +113,33 @@ jq.run(filter, jsonPath, options)
 #### `input: 'file'`
 
 Run the jq query against a **JSON file**.
-```js
+```javascript
 jq.run('.', '/path/to/file.json').then(console.log)
-// {
-//   "foo": "bar"
-// }
+// { "foo": "bar" }
 ```
 
 #### `input: 'file'`
 
 Run jq query against multiple **JSON files**.
-```js
+```javascript
 jq.run('.', ['/path/to/file.json','path/to/other_file.json']).then(console.log)
-// {
-//   "foo": "bar"
-// }
-// {
-//   "otherFoo": "andBar"
-// }
+// { "foo": "bar" }
+// { "otherFoo": "andBar" }
 ```
 
 #### `input: 'json'`
 
-Run the jq query against an **Object**.
-```js
+Run the `jq` query against an **Object**.
+```javascript
 jq.run('.', { foo: 'bar' }, { input: 'json' }).then(console.log)
-// {
-//   "foo": "bar"
-// }
+// { "foo": "bar" }
 ```
 #### `input: 'string'`
 
 Run the jq query against a **String**.
-```js
+```javascript
 jq.run('.', '{ foo: "bar" }', { input: 'string' }).then(console.log)
-// {
-//   "foo": "bar"
-// }
+// { "foo": "bar" }
 ```
 
 ---
@@ -146,7 +152,7 @@ jq.run('.', '{ foo: "bar" }', { input: 'string' }).then(console.log)
 #### `output: 'pretty'`
 
 Return the output as a **String**.
-```js
+```javascript
 jq.run('.', '/path/to/file.json', { output: 'string' }).then(console.log)
 // {
 //   "foo": "bar"
@@ -156,7 +162,7 @@ jq.run('.', '/path/to/file.json', { output: 'string' }).then(console.log)
 #### `output: 'json'`
 
 Return the output as an **Object**.
-```js
+```javascript
 jq.run('.', '/path/to/file.json', { output: 'json' }).then(console.log)
 // { foo: 'bar' }
 ```
@@ -164,7 +170,7 @@ jq.run('.', '/path/to/file.json', { output: 'json' }).then(console.log)
 #### `output: 'compact'|'string'`
 
 Return the output as a **String**.
-```js
+```javascript
 jq.run('.', '/path/to/file.json', { output: 'compact' }).then(console.log)
 // {"foo":"bar"}
 jq.run('.', '/path/to/file.json', { output: 'string' }).then(console.log)
@@ -181,7 +187,8 @@ jq.run('.', '/path/to/file.json', { output: 'string' }).then(console.log)
 #### `slurp: true`
 
 Read input stream into array.
-```js
+
+```javascript
 jq.run('.', ['/path/to/file.json','/path/to/other_file.json'], { output: 'json', slurp: true }).then(console.log)
 // [
 //   {
@@ -201,7 +208,7 @@ jq.run('.', ['/path/to/file.json','/path/to/other_file.json'], { output: 'json',
 #### `sort: true`
 
 Sorts object keys alphabetically.
-```js
+```javascript
 jq.run('.', ['/path/to/file.json'], { output: 'json', sort: true }).then(console.log)
 // {
 //   "a": 2,
@@ -216,18 +223,19 @@ jq.run('.', ['/path/to/file.json'], { output: 'json', sort: true }).then(console
 
 ## Why?
 
-Why would you want to manipulate JavaScript Objects with `jq` syntax in a node app, when there are tools like [lodash](lodash.com)?
-The idea was to port `jq` in node to be able to run it as-is. `node-jq` doesn't try to replace `Object` filters, maps, or transformations.
+Why would you want to manipulate JavaScript Objects with `jq` inside a nodejs app, when there are tools like [ramda](https://ramdajs.com) or [lodash](lodash.com)?
 
-Our primary goal was to make `jq` syntax available in [Atom](https://atom.io/) with [atom-jq](https://github.com/sanack/atom-jq).
+The idea was to port `jq` in node to be able to run it as-is. `node-jq` doesn't try to replace `Array`/`Object` filters, maps, transformations, and so on.
 
-Other than that, `jq` is an interesting CLI tool to quickly parse the response of an API, such as:
+Our primary goal was to make `jq` syntax available inside an [Atom](https://atom.io/) extension: [atom-jq](https://github.com/sanack/atom-jq).
+
+Other than that, `jq` is an interesting CLI tool to quickly parse and manipulate the response of an API, such as:
 
 ```bash
 curl 'https://jsonplaceholder.typicode.com/comments' | jq '.[].postId'
 ```
 
-There are also people dealing with complex responses:
+There are also people dealing with complex use-cases, and some of them want to port their bash scripts to node:
 
 - [ilya-sher.org/2016/05/11/most-jq-you-will-ever-need](https://ilya-sher.org/2016/05/11/most-jq-you-will-ever-need/)
 - [cloudadvantage.com.au/new-aws-command-line-tool-and-jq](http://www.cloudadvantage.com.au/new-aws-command-line-tool-and-jq/)

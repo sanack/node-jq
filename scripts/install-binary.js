@@ -63,9 +63,11 @@ if (platform in DOWNLOAD_MAP) {
     arch in DOWNLOAD_MAP[platform]
       ? DOWNLOAD_MAP[platform][arch]
       : DOWNLOAD_MAP[platform].def
+
   const url = `${JQ_INFO.url}${JQ_INFO.version}/${filename}`
 
   console.log(`Downloading jq from ${url}`)
+
   download(url, OUTPUT_DIR)
     .then(() => {
       const distPath = path.join(OUTPUT_DIR, JQ_NAME)

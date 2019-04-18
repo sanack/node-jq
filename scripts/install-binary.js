@@ -70,6 +70,7 @@ if (platform in DOWNLOAD_MAP) {
 
   download(url, OUTPUT_DIR)
     .then(() => {
+      console.log('fs.constants.S_IXUSR', fs.constants.S_IXUSR)
       const distPath = path.join(OUTPUT_DIR, JQ_NAME)
       fs.renameSync(path.join(OUTPUT_DIR, filename), distPath)
       fs.chmodSync(distPath, fs.constants.S_IXUSR)

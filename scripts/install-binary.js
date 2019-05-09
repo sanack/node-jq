@@ -26,21 +26,21 @@ const JQ_NAME =
 
 const OUTPUT_DIR = path.join(__dirname, '..', 'bin')
 
-const jqExists = () => {
+const fileExist = (path) => {
   try {
-    return fs.statSync(path.join(OUTPUT_DIR, JQ_NAME)).isFile()
+    return fs.existsSync(path)
   } catch (err) {
     return false
   }
 }
 
-if (jqExists()) {
+if (fileExist(path.join(OUTPUT_DIR, JQ_NAME))) {
   console.log('jq is already installed')
   process.exit(0)
 }
 
 if (process.env.NODE_JQ_SKIP_INSTALL_BINARY === 'true') {
-  console.log('node-jq is skipping the jq binary')
+  console.log('node-jq is skipping the donwload of jq binary')
   process.exit(0)
 }
 
@@ -67,12 +67,13 @@ if (platform in DOWNLOAD_MAP) {
   const url = `${JQ_INFO.url}${JQ_INFO.version}/${filename}`
 
   console.log(`Downloading jq from ${url}`)
-
   download(url, OUTPUT_DIR)
     .then(() => {
       const distPath = path.join(OUTPUT_DIR, JQ_NAME)
       fs.renameSync(path.join(OUTPUT_DIR, filename), distPath)
-      fs.chmodSync(distPath, fs.constants.S_IXUSR || 0o100)
+      if (fileExist(distPath)) {
+        fs.chmodSync(distPath, fs.constants.S_IXUSR || 0o100)
+      }
       console.log(`Downloaded in ${OUTPUT_DIR}`)
     })
     .catch(err => {

@@ -106,6 +106,13 @@ jq.run(filter, jsonPath, options)
 
 ## Options
 
+### path to jq binary
+
+By default, the jq binary installed with the package is used.
+If you have special needs or want to use another binary in a different
+path you can set the environment variable JQ_PATH to override the default
+behaviour.
+
 ### input
 |  Description  |  Type  |             Values             |  Default |
 |:-------------:|:------:|:------------------------------:|:--------:|

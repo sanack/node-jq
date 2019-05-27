@@ -17,7 +17,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/sanack/node-jq">node-jq</a> is a wrapper for <a href="https://stedolan.github.io/jq/">jq</a> - a lightweight and flexible command-line JSON processor
+  <a href="https://github.com/sanack/node-jq">node-jq</a> is a Node.js wrapper for <a href="https://stedolan.github.io/jq/">jq</a> - a lightweight and flexible command-line JSON processor
 </p>
 
 ---

@@ -58,7 +58,14 @@ const optionMap = {
         params.unshift('--color-output')
       }
     }
-  }
+  },
+  raw: {
+    buildParams: function buildParams(filter, json, params, value) {
+      if (value === true) {
+        params.unshift('-r')
+      }
+    }
+  },
 }
 
 const mergeOptionDefaults = (options = {}) => {

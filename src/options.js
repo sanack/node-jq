@@ -4,7 +4,8 @@ export const optionDefaults = {
   input: 'file',
   output: 'pretty',
   slurp: false,
-  sort: false
+  sort: false,
+  raw: false
 }
 
 const optionMap = {

@@ -18,7 +18,8 @@ const OPTION_DEFAULTS = {
   input: 'file',
   output: 'pretty',
   slurp: false,
-  sort: false
+  sort: false,
+  raw: false
 }
 
 const multiEOL = (text) => {
@@ -211,6 +212,32 @@ describe('options', () => {
         .catch((error) => {
           done(error)
         })
+    })
+  })
+
+  describe('raw: true', () => {
+    it('output should be able to output raw strings instead of JSON texts', (done) => {
+      run('.name', PATH_JSON_FIXTURE, {
+        input: 'file',
+        raw: true
+      })
+        .then(output => {
+          expect(output).to.equal('node-jq')
+          done()
+        })
+        .catch(e => done(e))
+    })
+
+    it('output should be able to output JSON texts instead of raw strings', (done) => {
+      run('.name', PATH_JSON_FIXTURE, {
+        input: 'file',
+        raw: false
+      })
+        .then(output => {
+          expect(output).to.equal('"node-jq"')
+          done()
+        })
+        .catch(e => done(e))
     })
   })
 })

@@ -4,7 +4,8 @@ export const optionDefaults = {
   input: 'file',
   output: 'pretty',
   slurp: false,
-  sort: false
+  sort: false,
+  raw: false
 }
 
 const optionMap = {
@@ -56,6 +57,13 @@ const optionMap = {
     buildParams: (filter, json, params, value) => {
       if (value === true) {
         params.unshift('--color-output')
+      }
+    }
+  },
+  raw: {
+    buildParams: (filter, json, params, value) => {
+      if (value === true) {
+        params.unshift('-r')
       }
     }
   }

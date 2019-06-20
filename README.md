@@ -32,9 +32,9 @@ $ yarn add node-jq
 
 ## Advanced installation
 
-By default, `node-jq` downloads jq on the installation process (when you run `npm install node-jq`). Downloads the binaries according to your SO and moves it into  `node_modules/bin`, like [described in the jq website](https://stedolan.github.io/jq/download/).
+By default, `node-jq` downloads jq on the installation process (when you run `npm install node-jq`). Downloads the binaries according to your SO.
 
-After that, you could use `npx` to run jq directly. Like: `npx jq . package.json`.
+After that to run jq directly. Like: `./node_modules/node-jq/bin/jq . package.json`.
 
 If you want to skip the installation of `jq`, set `NODE_JQ_SKIP_INSTALL_BINARY` to 'true' like:
 

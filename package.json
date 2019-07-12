@@ -51,6 +51,7 @@
     "download": "^7.1.0",
     "is-valid-path": "^0.1.1",
     "strip-eof": "^1.0.0",
+    "strip-final-newline": "^2.0.0",
     "tempfile": "^3.0.0"
   },
   "devDependencies": {

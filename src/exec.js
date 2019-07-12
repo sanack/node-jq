@@ -1,5 +1,5 @@
 import childProcess from 'child_process'
-import stripEof from 'strip-eof'
+import stripFinalNewline from 'strip-final-newline'
 
 const TEN_MEBIBYTE = 1024 * 1024 * 10
 
@@ -26,7 +26,7 @@ const exec = (command, args) => {
       if (code !== 0) {
         return reject(Error(stderr))
       } else {
-        return resolve(stripEof(stdout))
+        return resolve(stripFinalNewline(stdout))
       }
     })
   })

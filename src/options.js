@@ -12,7 +12,7 @@ const optionMap = {
   input: {
     buildParams: (filter, json, params, value) => {
       if (value === 'file') {
-        let path = params[params.length - 1]
+        const path = params[params.length - 1]
         if (Array.isArray(path)) {
           params.pop()
           path.forEach((file) => {

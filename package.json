@@ -10,7 +10,7 @@
   "scripts": {
     "pretest": "npm run install-binary",
     "install-binary": "node scripts/install-binary.js",
-    "test": "mocha --compilers js:babel-register",
+    "test": "mocha --require babel-core/register",
     "test:watch": "npm test -- --watch",
     "lint": "standard --verbose | snazzy",
     "build": "babel src -d lib",
@@ -63,7 +63,7 @@
     "coveralls": "^3.0.2",
     "husky": "^3.0.0",
     "isparta": "^4.1.1",
-    "mocha": "^5.2.0",
+    "mocha": "^6.2.0",
     "semantic-release": "^15.13.2",
     "snazzy": "^8.0.0",
     "standard": "^13.0.1",

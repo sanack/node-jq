@@ -39,7 +39,8 @@ describe('jq core', () => {
   it('should pass on an empty filter', done => {
     run('', PATH_JSON_FIXTURE)
       .then(output => {
-        expect(output).to.equal(FIXTURE_JSON_STRING)
+        const normalizedOutput = output.replace(/\r\n/g, '\n')
+        expect(normalizedOutput).to.equal(FIXTURE_JSON_STRING)
         done()
       })
       .catch(error => {

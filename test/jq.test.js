@@ -2,6 +2,8 @@ import { expect } from 'chai'
 import path from 'path'
 
 import { run } from '../src/jq'
+import { FILTER_UNDEFINED_ERROR } from '../src/command'
+import { INVALID_PATH_ERROR, INVALID_JSON_PATH_ERROR } from '../src/utils'
 
 const PATH_ROOT = path.join(__dirname, '..')
 const PATH_ASTERISK_FIXTURE = path.join(PATH_ROOT, 'src', '*.js')
@@ -12,20 +14,43 @@ const PATH_JS_FIXTURE = path.join(PATH_FIXTURES, '1.js')
 const PATH_LARGE_JSON_FIXTURE = path.join(PATH_FIXTURES, 'large.json')
 const PATH_VARIABLE_JSON_FIXTURE = path.join(PATH_FIXTURES, 'var.json')
 
+const FIXTURE_JSON = require('./fixtures/1.json')
+const FIXTURE_JSON_STRING = JSON.stringify(FIXTURE_JSON, null, 2)
+
 const FILTER_VALID = '.repository.type'
 const FILTER_INVALID = 'invalid'
 const FILTER_WITH_VARIABLE =
   '[ . as $x | .user[] | {"user": ., "site": $x.site} ]'
 
 const ERROR_INVALID_FILTER = /invalid/
-const ERROR_INVALID_PATH = 'Invalid path'
-const ERROR_INVALID_JSON_PATH = 'Not a json file'
 
 describe('jq core', () => {
   it('should fulfill its promise', done => {
     run(FILTER_VALID, PATH_JSON_FIXTURE)
       .then(output => {
         expect(output).to.be.a('string')
+        done()
+      })
+      .catch(error => {
+        done(error)
+      })
+  })
+
+  it('should pass on an empty filter', done => {
+    run('', PATH_JSON_FIXTURE)
+      .then(output => {
+        expect(output).to.equal(FIXTURE_JSON_STRING)
+        done()
+      })
+      .catch(error => {
+        done(error)
+      })
+  })
+
+  it('should pass on a null filter', done => {
+    run(null, PATH_JSON_FIXTURE)
+      .then(output => {
+        expect(output).to.equal('null')
         done()
       })
       .catch(error => {
@@ -45,11 +70,25 @@ describe('jq core', () => {
       })
   })
 
+  it('should fail on an undefined filter', done => {
+    run(undefined, PATH_JSON_FIXTURE)
+      .catch(error => {
+        expect(error).to.be.an.instanceof(Error)
+        expect(error.message).to.equal(FILTER_UNDEFINED_ERROR)
+        done()
+      })
+      .catch(error => {
+        done(error)
+      })
+  })
+
   it('should fail on an invalid path', done => {
     run(FILTER_VALID, PATH_ASTERISK_FIXTURE)
       .catch(error => {
         expect(error).to.be.an.instanceof(Error)
-        expect(error.message).to.equal(ERROR_INVALID_PATH)
+        expect(error.message).to.equal(
+          `${INVALID_PATH_ERROR}: "${PATH_ASTERISK_FIXTURE}"`
+        )
         done()
       })
       .catch(error => {
@@ -61,7 +100,9 @@ describe('jq core', () => {
     run(FILTER_VALID, PATH_JS_FIXTURE)
       .catch(error => {
         expect(error).to.be.an.instanceof(Error)
-        expect(error.message).to.equal(ERROR_INVALID_JSON_PATH)
+        expect(error.message).to.equal(
+          `${INVALID_JSON_PATH_ERROR}: "${PATH_JS_FIXTURE}"`
+        )
         done()
       })
       .catch(error => {

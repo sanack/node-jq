@@ -28,7 +28,7 @@ describe('jq core', () => {
   it('should fulfill its promise', done => {
     run(FILTER_VALID, PATH_JSON_FIXTURE)
       .then(output => {
-        expect(output).to.be.a('string')
+        expect(output).to.equal('"git"')
         done()
       })
       .catch(error => {

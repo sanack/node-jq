@@ -1,18 +1,20 @@
 import isPathValid from 'is-valid-path'
 
-const INVALID_PATH_ERROR = 'Invalid path'
-const INVALID_JSON_PATH_ERROR = 'Not a json file'
+export const INVALID_PATH_ERROR =
+  'node-jq: invalid path argument supplied (not a valid path)'
+export const INVALID_JSON_PATH_ERROR =
+  'node-jq: invalid path argument supplied (not a .json file)'
 
-export const isJSONPath = (path) => {
+export const isJSONPath = path => {
   return /\.json$/.test(path)
 }
 
-export const validateJSONPath = (JSONFile) => {
-  if (!isPathValid(JSONFile)) {
-    throw (Error(INVALID_PATH_ERROR))
+export const validateJSONPath = path => {
+  if (!isPathValid(path)) {
+    throw new Error(`${INVALID_PATH_ERROR}: "${path}"`)
   }
 
-  if (!isJSONPath(JSONFile)) {
-    throw (Error(INVALID_JSON_PATH_ERROR))
+  if (!isJSONPath(path)) {
+    throw new Error(`${INVALID_JSON_PATH_ERROR}: "${path === '' ? '' : path}"`)
   }
 }

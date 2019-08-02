@@ -1,7 +1,7 @@
 import { expect } from 'chai'
 
 import { run } from '../src/jq'
-import { paramOptionDefaults } from '../src/options'
+import { ParamOptionDefaults } from '../src/options'
 
 import {
   FIXTURE_COLOR, FIXTURE_JSON_STRING, FIXTURE_JSON_PRETTY, FIXTURE_JSON,
@@ -25,7 +25,7 @@ const multiEOL = text => {
 
 describe('options', () => {
   it('defaults should be as expected', () => {
-    expect(paramOptionDefaults).to.deep.equal(OPTION_DEFAULTS)
+    expect(ParamOptionDefaults).to.deep.equal(OPTION_DEFAULTS)
   })
 
   describe('input', () => {

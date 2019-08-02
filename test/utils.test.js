@@ -1,10 +1,7 @@
 import { expect } from 'chai'
-import path from 'path'
 import { isJSONPath } from '../src/utils'
 
-const PATH_FIXTURES = path.join(__dirname, 'fixtures')
-const PATH_JSON_FIXTURE = path.join(PATH_FIXTURES, '1.json')
-const PATH_JS_FIXTURE = path.join(PATH_FIXTURES, '1.js')
+import { PATH_JSON_FIXTURE, PATH_JS_FIXTURE } from "./constants"
 
 describe('utils', () => {
   describe('#isJSONPath', () => {

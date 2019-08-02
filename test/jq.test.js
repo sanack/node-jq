@@ -1,31 +1,21 @@
 import { expect } from 'chai'
-import path from 'path'
+import { run, JQ, jq } from '../src/jq'
 
-import { run } from '../src/jq'
-
-const PATH_ROOT = path.join(__dirname, '..')
-const PATH_ASTERISK_FIXTURE = path.join(PATH_ROOT, 'src', '*.js')
-const PATH_FIXTURES = path.join('test', 'fixtures')
-
-const PATH_JSON_FIXTURE = path.join(PATH_FIXTURES, '1.json')
-const PATH_JS_FIXTURE = path.join(PATH_FIXTURES, '1.js')
-const PATH_LARGE_JSON_FIXTURE = path.join(PATH_FIXTURES, 'large.json')
-const PATH_VARIABLE_JSON_FIXTURE = path.join(PATH_FIXTURES, 'var.json')
-
-const FILTER_VALID = '.repository.type'
-const FILTER_INVALID = 'invalid'
-const FILTER_WITH_VARIABLE =
-  '[ . as $x | .user[] | {"user": ., "site": $x.site} ]'
-
-const ERROR_INVALID_FILTER = /invalid/
-const ERROR_INVALID_PATH = 'Invalid path'
-const ERROR_INVALID_JSON_PATH = 'Not a json file'
+import {
+  FIXTURE_JSON_PRETTY,
+  FILTER_VALID, FILTER_WITH_VARIABLE, PATH_JS_FIXTURE,
+  FILTER_UNDEFINED_ERROR,
+  PATH_JSON_FIXTURE, PATH_ASTERISK_FIXTURE, PATH_VARIABLE_JSON_FIXTURE,
+  PATH_LARGE_JSON_FIXTURE, PATH_JS_FIXTURE, PATH_FIXTURES,
+  INVALID_JSON_PATH_ERROR, INVALID_PATH_ERROR,
+  ERROR_INVALID_JQPATH
+} from "./constants"
 
 describe('jq core', () => {
   it('should fulfill its promise', done => {
     run(FILTER_VALID, PATH_JSON_FIXTURE)
       .then(output => {
-        expect(output).to.be.a('string')
+        expect(output).to.equal('"git"')
         done()
       })
       .catch(error => {
@@ -33,11 +23,34 @@ describe('jq core', () => {
       })
   })
 
-  it('should fail on an invalid filter', done => {
-    run(FILTER_INVALID, PATH_JSON_FIXTURE)
+  it('should pass on an empty filter', done => {
+    run('', PATH_JSON_FIXTURE)
+      .then(output => {
+        const normalizedOutput = output.replace(/\r\n/g, '\n')
+        expect(normalizedOutput).to.equal(FIXTURE_JSON_PRETTY)
+        done()
+      })
+      .catch(error => {
+        done(error)
+      })
+  })
+
+  it('should pass on a null filter', done => {
+    run(null, PATH_JSON_FIXTURE)
+      .then(output => {
+        expect(output).to.equal('null')
+        done()
+      })
+      .catch(error => {
+        done(error)
+      })
+  })
+
+  it('should fail on an undefined filter', done => {
+    run(undefined, PATH_JSON_FIXTURE)
       .catch(error => {
         expect(error).to.be.an.instanceof(Error)
-        expect(error.message).to.match(ERROR_INVALID_FILTER)
+        expect(error.message).to.equal(FILTER_UNDEFINED_ERROR)
         done()
       })
       .catch(error => {
@@ -49,7 +62,9 @@ describe('jq core', () => {
     run(FILTER_VALID, PATH_ASTERISK_FIXTURE)
       .catch(error => {
         expect(error).to.be.an.instanceof(Error)
-        expect(error.message).to.equal(ERROR_INVALID_PATH)
+        expect(error.message).to.equal(
+          `${INVALID_PATH_ERROR}: "${PATH_ASTERISK_FIXTURE}"`
+        )
         done()
       })
       .catch(error => {
@@ -61,7 +76,9 @@ describe('jq core', () => {
     run(FILTER_VALID, PATH_JS_FIXTURE)
       .catch(error => {
         expect(error).to.be.an.instanceof(Error)
-        expect(error.message).to.equal(ERROR_INVALID_JSON_PATH)
+        expect(error.message).to.equal(
+          `${INVALID_JSON_PATH_ERROR}: "${PATH_JS_FIXTURE}"`
+        )
         done()
       })
       .catch(error => {
@@ -89,5 +106,28 @@ describe('jq core', () => {
       .catch(error => {
         done(error)
       })
+  })
+
+  it('should return error from invalid jq path', done => {
+    const jq = new JQ(`${PATH_FIXTURES}\\jq`);
+    jq.run('.', PATH_JSON_FIXTURE)
+      .catch(error => {
+        expect(error.message).to.match(ERROR_INVALID_JQPATH)
+        done()
+      })
+  })
+
+  it('should return error from invalid filter', done => {
+    run('include invalid.jq; .', PATH_JSON_FIXTURE)
+      .catch(error => {
+        expect(error.message).to.not.equal(undefined)
+        done()
+       })
+  })
+
+  it('should accept undefined parameter options', done => {
+    const params = jq.parseParamOptions(undefined, ".", PATH_JSON_FIXTURE)
+    expect(params).to.not.equal(null);
+    done();
   })
 })

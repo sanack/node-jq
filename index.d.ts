@@ -1,6 +1,6 @@
 import { SpawnOptions, spawn } from "child_process"
 
-export interface ParamOptionMap {
+export interface IParamOptionMap {
     input?: string
     output?: string
     locations?: string
@@ -13,7 +13,7 @@ export interface ParamOptionMap {
 }
 
 export interface BuilderOptionMap {
-    [input: string]: { buildParams: (params: string[], value: any) => void }
+    [input: string]: { buildParams: (params: string[], value: any) => any }
 }
 
 interface SpawnParameters {
@@ -25,15 +25,15 @@ interface SpawnParameters {
 export class JQ {
     private jqPath: string
     private spawnOptions: object | undefined
-    private paramOptionDefaults: ParamOptionMap
-    private paramBuilders: ParamOptionMap
+    private paramOptionDefaults: IParamOptionMap
+    private paramBuilders: IParamOptionMap
 
     constructor(jqPath?: string, spawnOptions?: SpawnOptions,
-        _paramOptionDefaults?: ParamOptionMap, paramBuilders?: BuilderOptionMap)
-    run(filter: string, json: string, paramOptions: ParamOptionMap): Promise<object | string>
-    createSpawnParameters(filter: string, json: string, paramOptions: ParamOptionMap): SpawnParameters
-    parseParamOptions(options: ParamOptionMap): string[]
+        paramOptionDefaults?: IParamOptionMap, paramBuilders?: BuilderOptionMap)
+    run(filter: string, json: string, paramOptions: IParamOptionMap): Promise<object | string>
+    createSpawnParameters(filter: string, json: string, paramOptions: IParamOptionMap): SpawnParameters
+    parseParamOptions(options: IParamOptionMap): string[]
     getResult(command: string, args: string[], stdin: string): Promise<string>
 }
 
-export function run(filter: string, json: string[] | string, options: ParamOptionMap): Promise<object | string>
+export function run(filter: string, json: string[] | string, options: IParamOptionMap): Promise<object | string>

@@ -1,55 +1,54 @@
-import path from 'path';
 import childProcess from "child_process";
-import stripFinalNewline from 'strip-final-newline';
+import path from "path";
+import stripFinalNewline from "strip-final-newline";
 
-import { paramOptionDefaults, paramBuildersDefault, ParamOptionMap } from "./options";
+import { IParamOptionMap, paramBuildersDefault, ParamOptionDefaults } from "./options";
 import { getFileArray, validateFilterAndInput } from "./utils";
 
 export class JQ {
-  private jqPath: string
-  private spawnOptions: object | undefined
-  private paramOptionDefaults: ParamOptionMap
-  private paramBuilders: ParamOptionMap
+  private jqPath: string;
+  private spawnOptions: object | undefined;
+  private paramOptionDefaults: IParamOptionMap;
+  private paramBuilders: IParamOptionMap;
 
   constructor(jqPath?: string, spawnOptions?: childProcess.SpawnOptions,
-    _paramOptionDefaults = paramOptionDefaults, paramBuilders = paramBuildersDefault) {
-    this.jqPath = jqPath || process.env.JQ_PATH || path.join(__dirname, '..', 'bin', 'jq');
+              paramOptionDefaults = ParamOptionDefaults, paramBuilders = paramBuildersDefault) {
+    this.jqPath = jqPath || process.env.JQ_PATH || path.join(__dirname, "..", "bin", "jq");
     this.spawnOptions = spawnOptions;
-    this.paramOptionDefaults = _paramOptionDefaults;
+    this.paramOptionDefaults = paramOptionDefaults;
     this.paramBuilders = paramBuilders;
   }
 
-  async run(filter: string, json: string, paramOptions: ParamOptionMap = {}) {
+  public async run(filter: string, json: string, paramOptions: IParamOptionMap = {}) {
     const { command, args, stdin } = this.createSpawnParameters(filter, json, paramOptions);
     const stdout = await this.getResult(command, args, stdin);
-    if (paramOptions.output === 'json') {
+    if (paramOptions.output === "json") {
       let result;
       try {
-        result = JSON.parse(stdout)
+        result = JSON.parse(stdout);
       } catch (error) {
-        result = stdout
+        result = stdout;
       }
-      return result
+      return result;
     } else {
-      return stdout
+      return stdout;
     }
   }
 
-  createSpawnParameters(filter: string, json: string, paramOptions: ParamOptionMap) {
-    const mergedOptions: ParamOptionMap = {
+  public createSpawnParameters(filter: string, json: string, paramOptions: IParamOptionMap) {
+    const mergedOptions: IParamOptionMap = {
       ...this.paramOptionDefaults,
-      ...paramOptions
-    }
-
+      ...paramOptions,
+    };
 
     validateFilterAndInput(filter, json, mergedOptions.input);
     let args = [filter, ...this.parseParamOptions(mergedOptions, filter, json)];
-    let stdin = '';
+    let stdin = "";
 
-    if (mergedOptions.input === 'file') {
+    if (mergedOptions.input === "file") {
       args = [...args, ...getFileArray(json)];
     } else {
-      if (mergedOptions.input === 'json') {
+      if (mergedOptions.input === "json") {
         stdin = JSON.stringify(json);
       } else {
         stdin = json;
@@ -59,48 +58,53 @@ export class JQ {
     return {
       command: this.jqPath,
       args,
-      stdin
-    }
+      stdin,
+    };
   }
 
-  parseParamOptions(options: ParamOptionMap = {}, filter: string, json: object|string) {
+  public parseParamOptions(options: IParamOptionMap = {}, filter: string, json: object|string) {
     return Object.keys(options).reduce((params, key) => {
       const builder = this.paramBuilders[key];
       const value = options[key];
 
-      if (builder === undefined) return params;
+      if (builder === undefined) {
+        return params;
+      }
 
       const newParams = builder(value, filter, json);
 
       if (newParams) {
-        if (Array.isArray(newParams)) params.unshift(...newParams);
-        else params.unshift(newParams);
+        if (Array.isArray(newParams)) {
+          params.unshift(...newParams);
+        } else {
+         params.unshift(newParams);
+        }
       }
 
       return params;
-    }, <string[]>[]);
+    }, [] as string[]);
   }
 
-  async getResult(command: string, args: string[], stdin: string) {
-    const stdout = new Promise<string>((resolve, reject) => {
+  public async getResult(command: string, args: string[], stdin: string) {
+    const result = new Promise<string>((resolve, reject) => {
       const process = childProcess.spawn(command, args, this.spawnOptions);
-      var stdout = '';
-      var stderr = '';
+      let stdout = "";
+      let stderr = "";
 
       if (stdin) {
-        process.stdin.write(stdin)
-        process.stdin.end()
+        process.stdin.write(stdin);
+        process.stdin.end();
       }
 
-      process.stdout.on('data', (data: any) => {
-        stdout += data
-      })
+      process.stdout.on("data", (data: any) => {
+        stdout += data;
+      });
 
-      process.stderr.on('data', (data: any) => {
-        stderr += data
-      })
+      process.stderr.on("data", (data: any) => {
+        stderr += data;
+      });
 
-      process.on('close', (code: any) => {
+      process.on("close", (code: any) => {
         if (code !== 0) {
           reject(Error(stderr));
         } else {
@@ -108,20 +112,20 @@ export class JQ {
         }
       });
 
-      process.on('error', error => {
+      process.on("error", (error) => {
         reject(error);
-      })
+      });
     });
 
     try {
-      return await stdout;
-    } catch(e) {
+      return await result;
+    } catch (e) {
       throw e;
     }
   }
 }
 
 export const jq = new JQ();
-export const run = function (filter: string, json: string, paramOptions: ParamOptionMap = {}) {
+export const run = (filter: string, json: string, paramOptions: IParamOptionMap = {}) => {
   return jq.run(filter, json, paramOptions);
-}
+};

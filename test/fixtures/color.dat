@@ -1,0 +1,20 @@
+[1;39m{
+  [0m[34;1m"name"[0m[1;39m: [0m[0;32m"node-jq"[0m[1;39m,
+  [0m[34;1m"version"[0m[1;39m: [0m[0;32m"0.0.0-semantic-release"[0m[1;39m,
+  [0m[34;1m"description"[0m[1;39m: [0m[0;32m"Run jq in node"[0m[1;39m,
+  [0m[34;1m"main"[0m[1;39m: [0m[0;32m"lib/jq.js"[0m[1;39m,
+  [0m[34;1m"repository"[0m[1;39m: [0m[1;39m{
+    [0m[34;1m"type"[0m[1;39m: [0m[0;32m"git"[0m[1;39m,
+    [0m[34;1m"url"[0m[1;39m: [0m[0;32m"https://github.com/sanack/node-jq"[0m[1;39m
+  [1;39m}[0m[1;39m,
+  [0m[34;1m"contributors"[0m[1;39m: [0m[1;39m[
+    [1;39m{
+      [0m[34;1m"name"[0m[1;39m: [0m[0;32m"davesnx"[0m[1;39m,
+      [0m[34;1m"email"[0m[1;39m: [0m[0;32m"dsnxmoreno@gmail.com"[0m[1;39m
+    [1;39m}[0m[1;39m,
+    [1;39m{
+      [0m[34;1m"name"[0m[1;39m: [0m[0;32m"mackermans"[0m[1;39m,
+      [0m[34;1m"email"[0m[1;39m: [0m[0;32m"maarten.ackermans@gmail.com"[0m[1;39m
+    [1;39m}[0m[1;39m
+  [1;39m][0m[1;39m
+[1;39m}[0m

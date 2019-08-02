@@ -1,48 +1,51 @@
-import { validIfTrue, validIfType, validIfArrayOfType } from "./utils";
+import { validIfArrayOfType, validIfTrue, validIfType } from "./utils";
 
-export interface BuilderOptionMap {
-  [input: string]: (value: string | string[] | boolean, filter: string, json: object|string) => string[]
+export interface IBuilderOptionMap {
+  [input: string]: (value: string | string[] | boolean, filter: string, json: object | string) =>
+    any | undefined;
 }
 
-export interface ParamOptionMap {
-  input?: string
-  output?: string
-  locations?: string[]
-  raw?: boolean
-  color?: boolean
-  slurp?: boolean
-  sort?: boolean
+export interface IParamOptionMap {
+  input?: string;
+  output?: string;
+  locations?: string[];
+  raw?: boolean;
+  color?: boolean;
+  slurp?: boolean;
+  sort?: boolean;
 
-  [index: string]: any
+  [index: string]: any;
 }
 
-export const paramOptionDefaults = {
-  input: 'file',
-  output: 'pretty',
+export const ParamOptionDefaults = {
+  input: "file",
+  output: "pretty",
+  raw: false,
   slurp: false,
   sort: false,
-  raw: false
-}
+};
 
-export const optionDefaults = paramOptionDefaults;
+export const optionDefaults = ParamOptionDefaults;
 
-export const paramBuildersDefault: BuilderOptionMap = {
-  output: validIfType("string", function (value: string) {
-    if (["string", "compact"].includes(value)) return '--compact-output';
+export const paramBuildersDefault: IBuilderOptionMap = {
+  color: validIfTrue(() => {
+    return "--color-output";
   }),
-  slurp: validIfTrue(function() {
-    return '--slurp';
+  locations: validIfArrayOfType("string", (values: string[]) => {
+    return values.map((value) => `-L ${value}`);
   }),
-  sort: validIfTrue(function() {
-    return '--sort-keys';
+  output: validIfType("string", (value) => {
+    if (["string", "compact"].includes(value)) {
+      return "--compact-output";
+    }
   }),
-  color: validIfTrue(function() {
-    return '--color-output';
+  raw: validIfTrue(() => {
+    return "-r";
   }),
-  raw: validIfTrue(function() {
-    return '-r';
+  slurp: validIfTrue(() => {
+    return "--slurp";
   }),
-  locations: validIfArrayOfType("string", function (values: string[]) {
-    return values.map(value=>`-L ${value}`);
-  })
-}
+  sort: validIfTrue(() => {
+    return "--sort-keys";
+  }),
+};

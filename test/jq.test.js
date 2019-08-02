@@ -58,6 +58,18 @@ describe('jq core', () => {
       })
   })
 
+  it('should fail on an undefined filter', done => {
+    run(undefined, PATH_JSON_FIXTURE)
+      .catch(error => {
+        expect(error).to.be.an.instanceof(Error)
+        expect(error.message).to.equal(FILTER_UNDEFINED_ERROR)
+        done()
+      })
+      .catch(error => {
+        done(error)
+      })
+  })
+
   it('should fail on an invalid path', done => {
     run(FILTER_VALID, PATH_ASTERISK_FIXTURE)
       .catch(error => {

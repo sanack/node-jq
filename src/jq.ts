@@ -56,8 +56,8 @@ export class JQ {
     }
 
     return {
-      command: this.jqPath,
       args,
+      command: this.jqPath,
       stdin,
     };
   }
@@ -86,7 +86,17 @@ export class JQ {
   }
 
   public async getResult(command: string, args: string[], stdin: string) {
-    const result = new Promise<string>((resolve, reject) => {
+    const result = this.spawn(command, args, stdin);
+
+    try {
+      return await result;
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  private spawn(command: string, args: string[], stdin: string) {
+    return new Promise<string>((resolve, reject) => {
       const process = childProcess.spawn(command, args, this.spawnOptions);
       let stdout = "";
       let stderr = "";
@@ -116,12 +126,6 @@ export class JQ {
         reject(error);
       });
     });
-
-    try {
-      return await result;
-    } catch (e) {
-      throw e;
-    }
   }
 }
 

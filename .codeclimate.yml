@@ -1,16 +1,11 @@
-engines:
-  eslint:
+version: "2"
+
+plugins:
+  tslint:
     enabled: true
-    channel: "eslint-3"
+    config: tslint.json
   duplication:
     enabled: true
     config:
       languages:
-        javascript:
-
-ratings:
-  paths:
-    - "**/*.js"
-
-exclude_paths:
-  - "test/"
+        typescript:

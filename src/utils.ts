@@ -81,12 +81,12 @@ export function validateFilterAndInput(filter: any, json: any, input: any) {
     throw new Error(FILTER_UNDEFINED_ERROR);
   }
 
-  const isJson = !!json;
+  const isInvalid = (input === "json" && json === undefined) || (input === "string" && !json);
 
-  if (!isJson) {
+  if (isInvalid) {
     switch (input) {
       case "json": throw new Error(INPUT_JSON_UNDEFINED_ERROR);
-      case "string": throw new Error(`${INPUT_STRING_ERROR}: "${json === "" ? "" : json}"`);
+      case "string": throw new Error(`${INPUT_STRING_ERROR}: "${json}"`);
     }
   }
 }

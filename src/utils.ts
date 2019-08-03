@@ -79,9 +79,14 @@ export function validIfArrayOfType(valType: string, fn: (value: any) => any) {
 export function validateFilterAndInput(filter: any, json: any, input: any) {
   if (typeof filter === "undefined") {
     throw new Error(FILTER_UNDEFINED_ERROR);
-  } else if (input === "json" && typeof json === "undefined") {
-    throw new Error(INPUT_JSON_UNDEFINED_ERROR);
-  } else if (input === "string" && !json) {
-    throw new Error(`${INPUT_STRING_ERROR}: "${json === "" ? "" : json}"`);
+  }
+
+  const isJson = !!json;
+
+  if (!isJson) {
+    switch (input) {
+      case "json": throw new Error(INPUT_JSON_UNDEFINED_ERROR);
+      case "string": throw new Error(`${INPUT_STRING_ERROR}: "${json === "" ? "" : json}"`);
+    }
   }
 }

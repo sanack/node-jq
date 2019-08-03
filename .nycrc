@@ -1,4 +1,4 @@
 {
     "extends": "@istanbuljs/nyc-config-typescript",
-    "reporter": ["text", "html"]
+    "reporter": ["lcov", "text", "html"]
 }

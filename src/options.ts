@@ -27,11 +27,12 @@ function createBooleanSchema(name: string, value: string) {
 
 const NODE_JQ_ERROR_TEMPLATE = `node-jq: invalid {#label} `
   + `argument supplied{if(#label == "path" && #value == "", " (not a .json file)", "")}`
-  + `{if(#label == "path" && #value != "", " (not a valid path)", "")}: "{if(#value != undefined, #value, "undefined")}"`;
+  + `{if(#label == "path" && #value != "", " (not a valid path)", "")}: `
+  + `"{if(#value != undefined, #value, "undefined")}"`;
 
 const messages = {
-  "any.required": NODE_JQ_ERROR_TEMPLATE,
   "any.invalid": NODE_JQ_ERROR_TEMPLATE,
+  "any.required": NODE_JQ_ERROR_TEMPLATE,
   "string.base": NODE_JQ_ERROR_TEMPLATE,
   "string.empty": NODE_JQ_ERROR_TEMPLATE,
 };
@@ -59,7 +60,7 @@ export function validate(context: any, options: any): any {
 const strictBoolean = Joi.boolean().default(false).strict();
 const path = Joi.string().required()
   .custom((value: any, helpers: any) => {
-    return isPathValid(value) ? value : helpers.error('any.invalid');
+    return isPathValid(value) ? value : helpers.error("any.invalid");
   }, "path validation")
   .pattern(/.json$/).message(`node-jq: invalid {#label} `
     + `argument supplied (not a .json file): "{if(#value != undefined, #value, "undefined")}"`);
@@ -96,7 +97,7 @@ const spawnSchema = Joi.object({
         is: [Joi.array().items(Joi.string()), Joi.string()],
         then: Joi.array().default(Joi.ref("$json", {
           adjust: (value: any) => {
-            return [].concat(value)
+            return [].concat(value);
           },
         })),
       }),
@@ -112,7 +113,7 @@ const spawnSchema = Joi.object({
   }).default(),
   stdin: Joi.string().default("").alter({
     json: (schema: any) => schema.default(Joi.ref("$json", {
-      adjust: (value: any) => JSON.stringify(value)
+      adjust: (value: any) => JSON.stringify(value),
     })),
     string: (schema: any) => schema.default(Joi.ref("$json")),
   }),

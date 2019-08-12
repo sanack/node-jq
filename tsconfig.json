@@ -11,8 +11,10 @@
     "paths": {
       "*": ["types/*"]
     },
-    "allowJs": true,
-    "lib": ["es6"]
+    "allowJs": false,
+    "lib": ["es6"],
+    "declaration": true,
+    "declarationMap": true
   },
   "include": [
     "src/**/*"

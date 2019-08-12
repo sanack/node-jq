@@ -2,24 +2,19 @@ import childProcess from "child_process";
 import path from "path";
 import stripFinalNewline from "strip-final-newline";
 
-import { IParamOptionMap, paramBuildersDefault, ParamOptionDefaults } from "./options";
-import { getFileArray, validateFilterAndInput } from "./utils";
+import { DefaultParamMap, PartialParamMap, validate } from "./options";
 
 export class JQ {
   private jqPath: string;
   private spawnOptions: object | undefined;
-  private paramOptionDefaults: IParamOptionMap;
-  private paramBuilders: IParamOptionMap;
 
-  constructor(jqPath?: string, spawnOptions?: childProcess.SpawnOptions,
-              paramOptionDefaults = ParamOptionDefaults, paramBuilders = paramBuildersDefault) {
-    this.jqPath = jqPath || process.env.JQ_PATH || path.join(__dirname, "..", "bin", "jq");
+  constructor(jqFolderPath?: string, spawnOptions?: childProcess.SpawnOptions) {
+    const manualJQPath = jqFolderPath ? path.join(jqFolderPath, "./jq") : jqFolderPath;
+    this.jqPath = manualJQPath || process.env.JQ_PATH || path.join(__dirname, "..", "bin", "jq");
     this.spawnOptions = spawnOptions;
-    this.paramOptionDefaults = paramOptionDefaults;
-    this.paramBuilders = paramBuilders;
   }
 
-  public async run(filter: string, json: string, paramOptions: IParamOptionMap = {}) {
+  public async run(filter: string | null, json: string | string[], paramOptions: PartialParamMap = {}) {
     const { command, args, stdin } = this.createSpawnParameters(filter, json, paramOptions);
     const stdout = await this.getResult(command, args, stdin);
     if (paramOptions.output === "json") {
@@ -35,25 +30,20 @@ export class JQ {
     }
   }
 
-  public createSpawnParameters(filter: string, json: string, paramOptions: IParamOptionMap) {
-    const mergedOptions: IParamOptionMap = {
-      ...this.paramOptionDefaults,
-      ...paramOptions,
-    };
+  public validate(filter: string | null, json: string | string[], paramOptions: PartialParamMap) {
+    let result: any;
 
-    validateFilterAndInput(filter, json, mergedOptions.input);
-    let args = [filter, ...this.parseParamOptions(mergedOptions, filter, json)];
-    let stdin = "";
-
-    if (mergedOptions.input === "file") {
-      args = [...args, ...getFileArray(json)];
-    } else {
-      if (mergedOptions.input === "json") {
-        stdin = JSON.stringify(json);
-      } else {
-        stdin = json;
-      }
+    try {
+      result = validate({ filter, json }, paramOptions );
+    } catch (e) {
+      throw e;
     }
+
+    return result;
+  }
+
+  public createSpawnParameters(filter: string | null, json: string | string[], paramOptions: PartialParamMap) {
+    const { args, stdin } = this.validate(filter, json, paramOptions);
 
     return {
       args,
@@ -62,40 +52,16 @@ export class JQ {
     };
   }
 
-  public parseParamOptions(options: IParamOptionMap = {}, filter: string, json: object|string) {
-    return Object.keys(options).reduce((params, key) => {
-      const builder = this.paramBuilders[key];
-      const value = options[key];
-
-      if (builder === undefined) {
-        return params;
-      }
-
-      const newParams = builder(value, filter, json);
-
-      if (newParams) {
-        if (Array.isArray(newParams)) {
-          params.unshift(...newParams);
-        } else {
-         params.unshift(newParams);
-        }
-      }
-
-      return params;
-    }, [] as string[]);
-  }
-
   public async getResult(command: string, args: string[], stdin: string) {
-    const result = this.spawn(command, args, stdin);
-
     try {
-      return await result;
+      const result = await this.spawn(command, args, stdin);
+      return result;
     } catch (e) {
       throw e;
     }
   }
 
-  private spawn(command: string, args: string[], stdin: string) {
+  public spawn(command: string, args: string[], stdin: string) {
     return new Promise<string>((resolve, reject) => {
       const process = childProcess.spawn(command, args, this.spawnOptions);
       let stdout = "";
@@ -130,6 +96,6 @@ export class JQ {
 }
 
 export const jq = new JQ();
-export const run = (filter: string, json: string, paramOptions: IParamOptionMap = {}) => {
+export const run = (filter: string | null, json: string, paramOptions: PartialParamMap) => {
   return jq.run(filter, json, paramOptions);
 };

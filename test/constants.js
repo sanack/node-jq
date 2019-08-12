@@ -1,7 +1,7 @@
 import path from 'path'
 import fs from 'fs'
 
-export { INPUT_JSON_UNDEFINED_ERROR, INPUT_STRING_ERROR } from '../src/utils'
+export { INPUT_JSON_UNDEFINED_ERROR, INPUT_STRING_ERROR } from '../src/command'
 
 export const PATH_ROOT = path.join(__dirname, '..')
 export const PATH_ASTERISK_FIXTURE = path.join(PATH_ROOT, 'src', '*.js')
@@ -23,9 +23,9 @@ export const FILTER_VALID = '.repository.type'
 export const FILTER_INVALID = 'invalid'
 export const FILTER_WITH_VARIABLE =
     '[ . as $x | .user[] | {"user": ., "site": $x.site} ]'
-export { FILTER_UNDEFINED_ERROR } from '../src/utils'
+export { FILTER_UNDEFINED_ERROR } from '../src/command'
 
 export const ERROR_INVALID_FILTER = /invalid/
 export const ERROR_INVALID_JQPATH = /^spawn [^\s]* ENOENT$/
 
-export { INVALID_PATH_ERROR, INVALID_JSON_PATH_ERROR, INVALID_TYPE_ERROR } from '../src/utils'
+export { INVALID_PATH_ERROR, INVALID_JSON_PATH_ERROR } from '../src/utils'

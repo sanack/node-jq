@@ -1,22 +1,24 @@
 import { expect } from 'chai'
 
 import { run } from '../src/jq'
-import { ParamOptionDefaults } from '../src/options'
+import { optionDefaults } from '../src/options'
 
 import {
   FIXTURE_COLOR, FIXTURE_JSON_STRING, FIXTURE_JSON_PRETTY, FIXTURE_JSON,
   PATH_JSON_FIXTURE, PATH_SLURP_FIXTURE_1, PATH_SLURP_FIXTURE_2, PATH_FIXTURES,
   PATH_SORT_FIXTURE,
-  INVALID_JSON_PATH_ERROR, INVALID_PATH_ERROR, INVALID_TYPE_ERROR,
+  INVALID_JSON_PATH_ERROR, INVALID_PATH_ERROR,
   INPUT_JSON_UNDEFINED_ERROR, INPUT_STRING_ERROR
 } from "./constants";
 
 const OPTION_DEFAULTS = {
+  color: false,
   input: 'file',
+  locations: [],
   output: 'pretty',
+  raw: false,
   slurp: false,
-  sort: false,
-  raw: false
+  sort: false
 }
 
 const multiEOL = text => {
@@ -25,7 +27,7 @@ const multiEOL = text => {
 
 describe('options', () => {
   it('defaults should be as expected', () => {
-    expect(ParamOptionDefaults).to.deep.equal(OPTION_DEFAULTS)
+    expect(optionDefaults).to.deep.equal(OPTION_DEFAULTS)
   })
 
   describe('input', () => {
@@ -85,6 +87,14 @@ describe('options', () => {
           })
           .catch(error => {
             done(error)
+          })
+      })
+
+      it('should return an error on uncaught custom parameter error', done => {
+        run(".", PATH_JSON_FIXTURE, { input: "files" })
+          .catch(error => {
+            expect(error).to.not.equal(null);
+            done();
           })
       })
     })
@@ -347,6 +357,14 @@ describe('options', () => {
     })
   })
 
+  it('should return an ow-type error for invalid parameter with no custom error', done => {
+    run(".", PATH_JSON_FIXTURE, { raw: "true" })
+      .catch(error => {
+        expect(error).to.not.equal(null);
+        done();
+      })
+  })
+
   it('locations', (done) => {
     run('.', PATH_JSON_FIXTURE, { locations: [PATH_FIXTURES, PATH_FIXTURES] })
       .then((output) => {
@@ -356,52 +374,5 @@ describe('options', () => {
       .catch((error) => {
         done(error)
       })
-  })
-
-  describe('validators', () => {
-    describe('invalid type', () => {
-      it('should return non-colored output', done => {
-        run('', PATH_JSON_FIXTURE)
-          .then(output => {
-            const normalizedOutput = output.replace(/\r\n/g, '\n')
-            expect(normalizedOutput).to.equal(FIXTURE_JSON_PRETTY)
-            done()
-          })
-          .catch(error => {
-            done(error)
-          })
-      })
-    })
-
-    describe('invalid non-array value', () => {
-      it('should return error', done => {
-        run('.', PATH_JSON_FIXTURE, { locations: PATH_JSON_FIXTURE })
-          .catch((error) => {
-            expect(error).to.be.an.instanceof(Error);
-            expect(error.message).to.equal(INVALID_TYPE_ERROR)
-            done()
-          })
-      })
-    })
-    describe('invalid array objects type', () => {
-      it('should return error', done => {
-        run('.', PATH_JSON_FIXTURE, { locations: [PATH_JSON_FIXTURE, 0] })
-          .catch((error) => {
-            expect(error).to.be.an.instanceof(Error);
-            expect(error.message).to.equal(INVALID_TYPE_ERROR)
-            done()
-          })
-      })
-    })
-    describe('invalid value type', () => {
-      it('should return error', done => {
-        run('.', PATH_JSON_FIXTURE, { raw: "true"})
-          .catch((error) => {
-            expect(error).to.be.an.instanceof(Error);
-            expect(error.message).to.equal(INVALID_TYPE_ERROR)
-            done()
-          })
-      })
-    })
   })
 })

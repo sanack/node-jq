@@ -11,7 +11,8 @@
     "paths": {
       "*": ["types/*"]
     },
-    "allowJs": true
+    "allowJs": true,
+    "lib": ["es6"]
   },
   "include": [
     "src/**/*"

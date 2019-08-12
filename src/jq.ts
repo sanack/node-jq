@@ -96,6 +96,6 @@ export class JQ {
 }
 
 export const jq = new JQ();
-export const run = (filter: string | null, json: string, paramOptions: PartialParamMap) => {
+export const run = (filter: string | null, json: string | string[], paramOptions?: PartialParamMap) => {
   return jq.run(filter, json, paramOptions);
 };

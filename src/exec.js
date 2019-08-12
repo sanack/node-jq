@@ -1,16 +1,12 @@
 import childProcess from 'child_process'
 import stripFinalNewline from 'strip-final-newline'
 
-const TEN_MEBIBYTE = 1024 * 1024 * 10
-
-const exec = (command, args, stdin) => {
+const exec = (command, args, stdin, spawnOptions) => {
   return new Promise((resolve, reject) => {
     var stdout = ''
     var stderr = ''
 
-    const process = childProcess.spawn(command, args, {
-      maxBuffer: TEN_MEBIBYTE
-    })
+    const process = childProcess.spawn(command, args, spawnOptions)
 
     if (stdin) {
       process.stdin.setEncoding('utf-8')

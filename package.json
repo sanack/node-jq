@@ -13,7 +13,7 @@
     "test": "nyc mocha --require babel-core/register",
     "test:watch": "npm test -- --watch",
     "lint": "standard --verbose | snazzy",
-    "build": "babel src -d lib",
+    "build": "babel src -d lib --copy-files",
     "postinstall": "npm run install-binary",
     "coverage": "nyc report --reporter=lcov",
     "precodeclimate": "npm run coverage",
@@ -48,6 +48,7 @@
   ],
   "dependencies": {
     "@hapi/joi": "16.0.0-preview",
+    "@types/hapi__joi": "^15.0.3",
     "bin-build": "^3.0.0",
     "download": "^7.1.0",
     "is-valid-path": "^0.1.1",

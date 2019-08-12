@@ -42,7 +42,8 @@ build/Release # Compiled binary addons (http://nodejs.org/api/addons.html)
 *.vi
 *~
 
-# Coverage directory used by tools like istanbul
+# Coverage directory used by tools like nyc
+.nyc_output
 coverage
 
 # nodemon

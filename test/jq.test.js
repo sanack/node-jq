@@ -1,7 +1,7 @@
 import { expect } from 'chai'
 import path from 'path'
 
-import { run, JQ } from '../src/jq'
+import { run } from '../src/jq'
 import { FILTER_UNDEFINED_ERROR } from '../src/command'
 import { INVALID_PATH_ERROR, INVALID_JSON_PATH_ERROR } from '../src/utils'
 
@@ -25,8 +25,7 @@ const FILTER_WITH_VARIABLE =
 
 const ERROR_INVALID_FILTER = /invalid/
 
-const TEN_MEBIBYTE = 1024 * 1024 * 10
-const SPAWN_OPTIONS = { maxBuffer: TEN_MEBIBYTE }
+const CWD_OPTION = path.join(PATH_BIN, '../')
 
 describe('jq core', () => {
   it('should fulfill its promise', done => {
@@ -137,17 +136,6 @@ describe('jq core', () => {
       })
   })
 
-  it('should allow running from class instance', done => {
-    new JQ().run(FILTER_VALID, PATH_JSON_FIXTURE)
-      .then(output => {
-        expect(output).to.equal('"git"')
-        done()
-      })
-      .catch(error => {
-        done(error)
-      })
-  })
-
   it('should allow custom jqPath from function argument', done => {
     run(FILTER_VALID, PATH_JSON_FIXTURE, undefined, PATH_BIN)
       .then(output => {
@@ -172,8 +160,8 @@ describe('jq core', () => {
     process.env.JQ_PATH = undefined
   })
 
-  it('should allow custom spawnOptions', done => {
-    run(FILTER_VALID, PATH_JSON_FIXTURE, undefined, undefined, SPAWN_OPTIONS)
+  it('should allow custom cwd', done => {
+    run(FILTER_VALID, PATH_JSON_FIXTURE, undefined, undefined, CWD_OPTION)
       .then(output => {
         expect(output).to.equal('"git"')
         done()

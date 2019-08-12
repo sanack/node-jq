@@ -1,10 +1,14 @@
 import childProcess from 'child_process'
 import stripFinalNewline from 'strip-final-newline'
 
-const exec = (command, args, stdin, spawnOptions) => {
+const TEN_MEBIBYTE = 1024 * 1024 * 10
+
+const exec = (command, args, stdin, cwd) => {
   return new Promise((resolve, reject) => {
     var stdout = ''
     var stderr = ''
+
+    const spawnOptions = { maxBuffer: TEN_MEBIBYTE, cwd }
 
     const process = childProcess.spawn(command, args, spawnOptions)
 

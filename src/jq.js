@@ -1,12 +1,10 @@
 import exec from './exec'
 import { commandFactory } from './command'
 
-const TEN_MEBIBYTE = 1024 * 1024 * 10
-
-export const run = (filter, json, options = {}, jqPath, spawnOptions = { maxBuffer: TEN_MEBIBYTE }) => {
+export const run = (filter, json, options = {}, jqPath, cwd) => {
   return new Promise((resolve, reject) => {
     const { command, args, stdin } = commandFactory(filter, json, options, jqPath)
-    exec(command, args, stdin, spawnOptions)
+    exec(command, args, stdin, cwd)
       .then(stdout => {
         if (options.output === 'json') {
           let result
@@ -22,15 +20,4 @@ export const run = (filter, json, options = {}, jqPath, spawnOptions = { maxBuff
       })
       .catch(reject)
   })
-}
-
-export class JQ {
-  constructor (jqPath, spawnOptions) {
-    this.jqPath = jqPath
-    this.spawnOptions = spawnOptions
-  }
-
-  run (filter, json, options) {
-    return run(filter, json, options, this.jqPath, this.spawnOptions)
-  }
 }

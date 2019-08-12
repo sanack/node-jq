@@ -1,14 +1,6 @@
 import * as Joi from '@hapi/joi'
 import { validateJSONPath } from './utils'
 
-export const optionDefaults = {
-  input: 'file',
-  output: 'pretty',
-  slurp: false,
-  sort: false,
-  raw: false
-}
-
 function createBooleanSchema (name, value) {
   return Joi.string().when(`${name}`, {
     is: Joi.boolean().required().valid(true),
@@ -20,7 +12,8 @@ const strictBoolean = Joi.boolean().default(false).strict()
 const path = Joi.any()
   .custom((value, helpers) => {
     try {
-      return validateJSONPath(value) ? value : helpers.error('any.invalid')
+      validateJSONPath(value)
+      return value
     } catch (e) {
       const errorType = e.message.includes('.json') ? 'json' : 'path'
       return helpers.error('any.invalid', { type: errorType })
@@ -101,3 +94,5 @@ export const parseOptions = (options = {}, filter, json) => {
   }
   return Object.values(validatedSpawn.args).concat(filter)
 }
+
+export const optionDefaults = Joi.attempt({}, optionsSchema)

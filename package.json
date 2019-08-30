@@ -68,7 +68,7 @@
     "nyc": "^14.1.1",
     "semantic-release": "^15.13.2",
     "snazzy": "^8.0.0",
-    "standard": "^13.0.1",
+    "standard": "^14.1.0",
     "travis-deploy-once": "^5.0.11",
     "validate-commit-msg": "^2.14.0"
   },

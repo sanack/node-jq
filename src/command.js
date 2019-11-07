@@ -11,10 +11,10 @@ export const INPUT_JSON_UNDEFINED_ERROR =
 export const INPUT_STRING_ERROR =
   'node-jq: invalid json string argument supplied'
 
-const NODE_JQ_ERROR_TEMPLATE = `node-jq: invalid {#label} ` +
-  `argument supplied{if(#label == "path" && #type == "json", " (not a .json file)", "")}` +
-  `{if(#label == "path" && #type == "path", " (not a valid path)", "")}: ` +
-  `"{if(#value != undefined, #value, "undefined")}"`
+const NODE_JQ_ERROR_TEMPLATE = 'node-jq: invalid {#label} ' +
+  'argument supplied{if(#label == "path" && #type == "json", " (not a .json file)", "")}' +
+  '{if(#label == "path" && #type == "path", " (not a valid path)", "")}: ' +
+  '"{if(#value != undefined, #value, "undefined")}"'
 
 const messages = {
   'any.invalid': NODE_JQ_ERROR_TEMPLATE,

@@ -19,7 +19,7 @@
     "precodeclimate": "npm run coverage",
     "codeclimate": "codeclimate-test-reporter < coverage/lcov.info",
     "semantic-release": "semantic-release",
-    "travis-deploy-once": "travis-deploy-once"
+    "travis-deploy-once": "travis-deploy-once --pro"
   },
   "engines": {
     "npm": ">=6.0.0"

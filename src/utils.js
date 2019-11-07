@@ -17,4 +17,6 @@ export const validateJSONPath = path => {
   if (!isJSONPath(path)) {
     throw new Error(`${INVALID_JSON_PATH_ERROR}: "${path === '' ? '' : path}"`)
   }
+
+  return true
 }

@@ -6,6 +6,7 @@ import { FILTER_UNDEFINED_ERROR } from '../src/command'
 import { INVALID_PATH_ERROR, INVALID_JSON_PATH_ERROR } from '../src/utils'
 
 const PATH_ROOT = path.join(__dirname, '..')
+const PATH_BIN = path.join(PATH_ROOT, './bin')
 const PATH_ASTERISK_FIXTURE = path.join(PATH_ROOT, 'src', '*.js')
 const PATH_FIXTURES = path.join('test', 'fixtures')
 
@@ -23,6 +24,8 @@ const FILTER_WITH_VARIABLE =
   '[ . as $x | .user[] | {"user": ., "site": $x.site} ]'
 
 const ERROR_INVALID_FILTER = /invalid/
+
+const CWD_OPTION = path.join(PATH_BIN, '../')
 
 describe('jq core', () => {
   it('should fulfill its promise', done => {
@@ -126,6 +129,41 @@ describe('jq core', () => {
     run('.', PATH_LARGE_JSON_FIXTURE)
       .then(output => {
         expect(output).to.be.a('string')
+        done()
+      })
+      .catch(error => {
+        done(error)
+      })
+  })
+
+  it('should allow custom jqPath from function argument', done => {
+    run(FILTER_VALID, PATH_JSON_FIXTURE, undefined, PATH_BIN)
+      .then(output => {
+        expect(output).to.equal('"git"')
+        done()
+      })
+      .catch(error => {
+        done(error)
+      })
+  })
+
+  it('should allow custom jqPath from env', done => {
+    process.env.JQ_PATH = PATH_BIN
+    run(FILTER_VALID, PATH_JSON_FIXTURE)
+      .then(output => {
+        expect(output).to.equal('"git"')
+        done()
+      })
+      .catch(error => {
+        done(error)
+      })
+    process.env.JQ_PATH = undefined
+  })
+
+  it('should allow custom cwd', done => {
+    run(FILTER_VALID, PATH_JSON_FIXTURE, undefined, undefined, CWD_OPTION)
+      .then(output => {
+        expect(output).to.equal('"git"')
         done()
       })
       .catch(error => {

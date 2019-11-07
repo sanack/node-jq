@@ -2,7 +2,7 @@ import { expect } from 'chai'
 import path from 'path'
 
 import { run } from '../src/jq'
-import { optionDefaults } from '../src/options'
+import { optionDefaults, parseOptions } from '../src/options'
 import { INPUT_JSON_UNDEFINED_ERROR, INPUT_STRING_ERROR } from '../src/command'
 import { INVALID_PATH_ERROR, INVALID_JSON_PATH_ERROR } from '../src/utils'
 
@@ -16,17 +16,33 @@ const FIXTURE_JSON = require('./fixtures/1.json')
 const FIXTURE_JSON_STRING = JSON.stringify(FIXTURE_JSON)
 const FIXTURE_JSON_PRETTY = JSON.stringify(FIXTURE_JSON, null, 2)
 
+const FILTER_VALID = '.repository.type'
+
 const OPTION_DEFAULTS = {
   input: 'file',
   output: 'pretty',
   slurp: false,
   sort: false,
-  raw: false
+  raw: false,
+  locations: [],
+  color: false
 }
 
 const multiEOL = text => {
   return [text, text.replace(/\n/g, '\r\n')]
 }
+
+describe('parse options', () => {
+  it('should work with undefined options', done => {
+    try {
+      const result = parseOptions(undefined, FILTER_VALID, FIXTURE_JSON)
+      expect(result).to.deep.equal([FILTER_VALID])
+      done()
+    } catch (e) {
+      done(e)
+    }
+  })
+})
 
 describe('options', () => {
   it('defaults should be as expected', () => {

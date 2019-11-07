@@ -3,14 +3,14 @@ import stripFinalNewline from 'strip-final-newline'
 
 const TEN_MEBIBYTE = 1024 * 1024 * 10
 
-const exec = (command, args, stdin) => {
+const exec = (command, args, stdin, cwd) => {
   return new Promise((resolve, reject) => {
     var stdout = ''
     var stderr = ''
 
-    const process = childProcess.spawn(command, args, {
-      maxBuffer: TEN_MEBIBYTE
-    })
+    const spawnOptions = { maxBuffer: TEN_MEBIBYTE, cwd }
+
+    const process = childProcess.spawn(command, args, spawnOptions)
 
     if (stdin) {
       process.stdin.setEncoding('utf-8')

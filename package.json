@@ -50,7 +50,7 @@
     "@hapi/joi": "^16.1.7",
     "@types/hapi__joi": "^15.0.3",
     "bin-build": "^3.0.0",
-    "download": "^7.1.0",
+    "download": "^8.0.0",
     "is-valid-path": "^0.1.1",
     "strip-eof": "^1.0.0",
     "strip-final-newline": "^2.0.0",

@@ -7,6 +7,7 @@ export function parseOptions(options: PartialOptions, filter: string, json: any)
 export const optionDefaults: IOptions;
 interface IOptions {
     color: boolean,
+    input: string,
     locations: string[],
     output: string,
     raw: boolean,

@@ -40,7 +40,7 @@ if (fileExist(path.join(OUTPUT_DIR, JQ_NAME))) {
 }
 
 if (process.env.NODE_JQ_SKIP_INSTALL_BINARY === 'true') {
-  console.log('node-jq is skipping the donwload of jq binary')
+  console.log('node-jq is skipping the download of jq binary')
   process.exit(0)
 }
 

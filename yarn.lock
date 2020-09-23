@@ -1139,9 +1139,9 @@
   integrity sha512-rr+OQyAjxze7GgWrSaJwydHStIhHq2lvY3BOC2Mj7KnzI7XK0Uw1TOOdI9lDoajEbSWLiYgoo4f1R51erQfhPQ==
 
 "@types/hapi__joi@^17.1.0":
-  version "17.1.4"
-  resolved "https://registry.yarnpkg.com/@types/hapi__joi/-/hapi__joi-17.1.4.tgz#e46cd1bd81d25cd45247d652dadb3666514d807c"
-  integrity sha512-gqY3TeTyZvnyNhM02HgyCIoGIWsTFMnuzMfnD8evTsr1KIfueGJaz+QC77j+dFvhZ5cJArUNjDRHUjPxNohzGA==
+  version "17.1.5"
+  resolved "https://registry.yarnpkg.com/@types/hapi__joi/-/hapi__joi-17.1.5.tgz#8111a04e9d122738c8698d27002b0a3e4a5ff93d"
+  integrity sha512-HiD2HIJz0DQQhgcsHpk616loUQ/WQgtDBh4oRBfBV8fwu+V1t4gJOEqTyDvlJeJqs/jPfQuVJrE0WgdjhcmqEQ==
 
 "@types/node@>= 8":
   version "13.1.6"

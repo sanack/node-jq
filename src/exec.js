@@ -18,6 +18,7 @@ const exec = (command, args, stdin, cwd) => {
       process.stdin.end()
     }
 
+    process.stdout.setEncoding('utf-8')
     process.stdout.on('data', data => {
       stdout += data
     })

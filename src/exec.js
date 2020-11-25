@@ -5,8 +5,8 @@ const TEN_MEBIBYTE = 1024 * 1024 * 10
 
 const exec = (command, args, stdin, cwd) => {
   return new Promise((resolve, reject) => {
-    var stdout = ''
-    var stderr = ''
+    let stdout = ''
+    let stderr = ''
 
     const spawnOptions = { maxBuffer: TEN_MEBIBYTE, cwd }
 

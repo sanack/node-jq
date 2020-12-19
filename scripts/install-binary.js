@@ -53,6 +53,10 @@ const DOWNLOAD_MAP = {
   darwin: {
     def: 'jq-osx-amd64',
     x64: 'jq-osx-amd64'
+  },
+  linux: {
+    def: 'jq-linux32',
+    x64: 'jq-linux64'
   }
 }
 

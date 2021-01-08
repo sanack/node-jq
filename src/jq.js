@@ -3,9 +3,15 @@ import { commandFactory } from './command'
 
 export const run = (filter, json, options = {}, jqPath, cwd) => {
   return new Promise((resolve, reject) => {
-    const { command, args, stdin } = commandFactory(filter, json, options, jqPath)
+    const { command, args, stdin } = commandFactory(
+      filter,
+      json,
+      options,
+      jqPath
+    )
+
     exec(command, args, stdin, cwd)
-      .then(stdout => {
+      .then((stdout) => {
         if (options.output === 'json') {
           let result
           try {

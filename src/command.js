@@ -1,6 +1,11 @@
 import * as Joi from '@hapi/joi'
 import path from 'path'
-import { parseOptions, optionsSchema, preSpawnSchema, spawnSchema } from './options'
+import {
+  parseOptions,
+  optionsSchema,
+  preSpawnSchema,
+  spawnSchema
+} from './options'
 
 const JQ_PATH = process.env.JQ_PATH || path.join(__dirname, '..', 'bin', 'jq')
 
@@ -11,7 +16,8 @@ export const INPUT_JSON_UNDEFINED_ERROR =
 export const INPUT_STRING_ERROR =
   'node-jq: invalid json string argument supplied'
 
-const NODE_JQ_ERROR_TEMPLATE = 'node-jq: invalid {#label} ' +
+const NODE_JQ_ERROR_TEMPLATE =
+  'node-jq: invalid {#label} ' +
   'argument supplied{if(#label == "path" && #type == "json", " (not a .json file)", "")}' +
   '{if(#label == "path" && #type == "path", " (not a valid path)", "")}: ' +
   '"{if(#value != undefined, #value, "undefined")}"'
@@ -26,9 +32,21 @@ const messages = {
 const validateArguments = (filter, json, options) => {
   const context = { filter, json }
   const validatedOptions = Joi.attempt(options, optionsSchema)
-  const validatedPreSpawn = Joi.attempt(context, preSpawnSchema.tailor(validatedOptions.input), { messages })
-  const validatedArgs = parseOptions(validatedOptions, validatedPreSpawn.filter, validatedPreSpawn.json)
-  const validatedSpawn = Joi.attempt({}, spawnSchema.tailor(validatedOptions.input), { context: { ...validatedPreSpawn, options: validatedOptions } })
+  const validatedPreSpawn = Joi.attempt(
+    context,
+    preSpawnSchema.tailor(validatedOptions.input),
+    { messages }
+  )
+  const validatedArgs = parseOptions(
+    validatedOptions,
+    validatedPreSpawn.filter,
+    validatedPreSpawn.json
+  )
+  const validatedSpawn = Joi.attempt(
+    {},
+    spawnSchema.tailor(validatedOptions.input),
+    { context: { ...validatedPreSpawn, options: validatedOptions } }
+  )
 
   if (validatedOptions.input === 'file') {
     return {

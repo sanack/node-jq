@@ -12,7 +12,7 @@ const JQ_PATH = process.env.JQ_PATH || path.join(__dirname, '..', 'bin', 'jq')
 export const FILTER_UNDEFINED_ERROR =
   'node-jq: invalid filter argument supplied: "undefined"'
 export const INPUT_JSON_UNDEFINED_ERROR =
-  'node-jq: invalid json object argument supplied: "undefined"'
+  'node-jq: invalid json argument supplied: "undefined"'
 export const INPUT_STRING_ERROR =
   'node-jq: invalid json string argument supplied'
 

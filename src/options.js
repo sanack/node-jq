@@ -48,7 +48,10 @@ export const preSpawnSchema = Joi.object({
           otherwise: path
         }).label('path')
     },
-    json: (schema) => Joi.object().allow('', null).required().label('json object'),
+    json: (schema) => Joi.alternatives().try(
+      Joi.array(),
+      Joi.object().allow('', null).required().label('json object')
+    ).required(),
     string: (schema) => Joi.string().required().label('json string')
   })
 })

@@ -1,4 +1,4 @@
-import * as Joi from "@hapi/joi";
+import * as Joi from "joi";
 
 export const optionsSchema: Joi.SchemaLike
 export const preSpawnSchema: Joi.SchemaLike

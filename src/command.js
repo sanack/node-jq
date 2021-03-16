@@ -1,4 +1,4 @@
-import * as Joi from '@hapi/joi'
+import * as Joi from 'joi'
 import path from 'path'
 import {
   parseOptions,
@@ -35,7 +35,7 @@ const validateArguments = (filter, json, options) => {
   const validatedPreSpawn = Joi.attempt(
     context,
     preSpawnSchema.tailor(validatedOptions.input),
-    { messages }
+    { messages, errors: { wrap: { label: '' } } }
   )
   const validatedArgs = parseOptions(
     validatedOptions,

@@ -52,7 +52,7 @@
     "is-valid-path": "^0.1.1",
     "joi": "^17.4.0",
     "strip-eof": "^2.0.0",
-    "strip-final-newline": "^2.0.0",
+    "strip-final-newline": "^3.0.0",
     "tempfile": "^3.0.0"
   },
   "devDependencies": {

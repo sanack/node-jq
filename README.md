@@ -32,15 +32,17 @@ $ yarn add node-jq
 
 ## Advanced installation
 
-By default, `node-jq` downloads jq on the installation process (when you run `npm install node-jq`). Downloads the binaries according to your SO.
+By default, `node-jq` downloads `jq` during the installation process with a post-install script. According to your SO from https://github.com/stedolan/jq/releases and lives under `./node_modules/node-jq/bin/jq` to avoid colisions with any global installation. Check #161 #167 #171 for more information.
 
-After that to run jq directly. Like: `./node_modules/node-jq/bin/jq . package.json`.
-
-If you want to skip the installation of `jq`, set `NODE_JQ_SKIP_INSTALL_BINARY` to 'true' like:
+If you want to change the default behaviour and skip the installation of `jq`, you can set `NODE_JQ_SKIP_INSTALL_BINARY` to `true` or ignore the post-install script from the installation `npm install node-jq --ignore-scripts`.
 
 ```bash
 $ export NODE_JQ_SKIP_INSTALL_BINARY=true
 $ npm install node-jq
+```
+
+```bash
+$ npm install node-jq --ignore-scripts
 ```
 
 ## Usage
@@ -108,10 +110,8 @@ jq.run(filter, jsonPath, options)
 
 ### path to jq binary
 
-By default, the jq binary installed with the package is used.
-If you have special needs or want to use another binary in a different
-path you can set the environment variable JQ_PATH to override the default
-behaviour.
+By default, the `jq` binary installed with the package is used. If you have special needs or want to use another binary in a different
+path you can set the environment variable `JQ_PATH` to override the binary path.
 
 ### input
 |  Description  |  Type  |             Values             |  Default |
@@ -227,6 +227,7 @@ jq.run('.', ['/path/to/file.json'], { output: 'json', sort: true }).then(console
 
 - **[atom-jq](https://github.com/sanack/atom-jq)**: an [Atom](https://atom.io/) package for manipulating JSON
 - **[json-splora](https://github.com/wellsjo/JSON-Splora)**: an [Electron](http://electron.atom.io/) implementation for manipulating JSON
+- Check more: https://github.com/sanack/node-jq/network/dependents?package_id=UGFja2FnZS0xNTIxMzU1MQ%3D%3D
 
 ## Why?
 

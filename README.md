@@ -75,9 +75,15 @@ With `node-jq` you could run it programmatically and interact with the output as
 
 > NOTE: Take care of the filter that you are using with `jq`, mapping an array or any other iterative output isn't a valid JavaScript Object, that might fail at parse-time.
 
+First, to make it work, declare once:
+
 ```javascript
 const jq = require('node-jq')
+```
 
+Then:
+
+```javascript
 const filter = '.abilities[].moves'
 const jsonPath = '/path/to/bulbasaur.json'
 const options = {}

@@ -81,8 +81,8 @@ if (platform in DOWNLOAD_MAP) {
         // i.e. build with Heroku CI/CD, docker build, etc.
         // @see https://www.gnu.org/software/libc/manual/html_node/Permission-Bits.html
         fs.chmodSync(distPath,
-          fs.constants.S_IXUSR | fs.constants.S_IREAD | fs.constants.S_IROTH | fs.constants.S_IRGRP 
-          || 0o100 | 0o400 | 0o040 | 0o004)
+          (fs.constants.S_IXUSR | fs.constants.S_IREAD | fs.constants.S_IROTH | fs.constants.S_IRGRP) ||
+          0o100 | 0o400 | 0o040 | 0o004)
       }
       console.log(`Downloaded in ${OUTPUT_DIR}`)
     })

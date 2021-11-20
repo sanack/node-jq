@@ -46,6 +46,15 @@ jobs:
       - name: Test
         run: npm run test
 
+      - name: Check semantic commit
+        uses: cycjimmy/semantic-release-action@v2
+        with:
+          dry_run: true
+          branches: "main"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
       - name: Generate code coverage
         if: success() && github.ref == 'refs/heads/main' && ${{ runner.os }} == 'ubuntu-latest' && 16 == ${{ runner.node-version }}
         uses: paambaati/codeclimate-action@v3.0.0

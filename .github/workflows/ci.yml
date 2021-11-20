@@ -49,7 +49,7 @@ jobs:
       - name: Deploy
         run: |
           # npm run codeclimate
-          npm run semantic-release
+          # npm run semantic-release
 
     # code_climate:
     # repo_token: b4ef7769e0f8f04456e8e1168b4beb44561bd5ce9ca216458a164e19c4cf7308

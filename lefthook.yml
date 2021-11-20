@@ -1,0 +1,9 @@
+pre-push:
+  parallel: true
+  commands:
+    test:
+      files: git diff --name-only HEAD @{push}
+      run: npm run test
+    lint:
+      files: git diff --name-only HEAD @{push}
+      run: npm run lint

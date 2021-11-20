@@ -1,0 +1,55 @@
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    name: Build and test
+
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - macos-latest
+          - ubuntu-latest
+          - windows-latest
+        node-version:
+          - 10
+          - 12
+          - 16
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Use Node ${{ runner.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ runner.node-version }}
+
+      - uses: actions/cache@v2
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+
+      - name: Install
+        run: yarn install --prefer-offline
+
+      - name: Build
+        run: yarn build
+
+      - name: Lint
+        run: yarn lint
+
+      - name: Test
+        run: yarn test
+
+      - name: Deploy
+        run: |
+          # npm run codeclimate
+          npm run semantic-release
+
+    # code_climate:
+    # repo_token: b4ef7769e0f8f04456e8e1168b4beb44561bd5ce9ca216458a164e19c4cf7308

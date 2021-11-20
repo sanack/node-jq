@@ -47,7 +47,7 @@ jobs:
         run: yarn test
 
       - name: Generate code coverage
-        if: success() && github.ref == 'refs/heads/main'
+        if: success() && github.ref == 'refs/heads/main' && ${{ runner.os }} == 'ubuntu-latest' && 16 == ${{ runner.node-version }}
         uses: paambaati/codeclimate-action@v3.0.0
         env:
           CC_TEST_REPORTER_ID: b4ef7769e0f8f04456e8e1168b4beb44561bd5ce9ca216458a164e19c4cf7308
@@ -56,12 +56,12 @@ jobs:
           debug: true
 
       - name: Semantic Release
-        if: success() && github.ref == 'refs/heads/main'
+        if: success() && github.ref == 'refs/heads/main' && ${{ runner.os }} == 'ubuntu-latest' && 16 == ${{ runner.node-version }}
         uses: cycjimmy/semantic-release-action@v2
         with:
+          branches: "main"
           extra_plugins: |
             @semantic-release/changelog
-            @semantic-release/git
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

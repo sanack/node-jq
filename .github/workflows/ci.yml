@@ -46,12 +46,22 @@ jobs:
       - name: Test
         run: yarn test
 
-      - name: Deploy
-        run: |
-          # npm run codeclimate
-          # npm run semantic-release
+      - name: Generate code coverage
+        if: success() && github.ref == 'refs/heads/main'
+        uses: paambaati/codeclimate-action@v3.0.0
+        env:
+          CC_TEST_REPORTER_ID: b4ef7769e0f8f04456e8e1168b4beb44561bd5ce9ca216458a164e19c4cf7308
+        with:
+          coverageCommand: npm run coverage
+          debug: true
 
-    # missing npm token
-    # missing gh token
-    # add code_climate
-    # repo_token: b4ef7769e0f8f04456e8e1168b4beb44561bd5ce9ca216458a164e19c4cf7308
+      - name: Semantic Release
+        if: success() && github.ref == 'refs/heads/main'
+        uses: cycjimmy/semantic-release-action@v2
+        with:
+          extra_plugins: |
+            @semantic-release/changelog
+            @semantic-release/git
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

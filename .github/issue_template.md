@@ -15,7 +15,7 @@
 
 If this is a feature request, explain why it should be added. Specific use-cases are best.
 
-For bug reports, please provide as much *relevant* info as possible and create a minimum reproduction with this [codesandbox](https://codesandbox.io/s/node-jq-issue-playground-4kqhr?file=/src/index.js).
+For bug reports, please provide as much *relevant* info as possible and create a minimum reproduction with this [codesandbox](https://codesandbox.io/s/node-jq-issue-playground-4kqhr).
 
 ### Test Source
 

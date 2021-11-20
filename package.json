@@ -47,6 +47,7 @@
     "docs"
   ],
   "dependencies": {
+    "@arkweid/lefthook": "^0.7.7",
     "bin-build": "^3.0.0",
     "download": "^8.0.0",
     "is-valid-path": "^0.1.1",
@@ -65,7 +66,6 @@
     "chai": "^4.2.0",
     "codeclimate-test-reporter": "^0.5.1",
     "coveralls": "^3.0.2",
-    "lefthook": "^0.0.1",
     "mocha": "^9.0.1",
     "nyc": "^15.1.0",
     "semantic-release": "^18.0.0",

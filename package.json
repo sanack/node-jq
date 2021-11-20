@@ -47,8 +47,6 @@
     "docs"
   ],
   "dependencies": {
-    "@semantic-release/changelog": "^6.0.1",
-    "@semantic-release/git": "^10.0.1",
     "bin-build": "^3.0.0",
     "download": "^8.0.0",
     "is-valid-path": "^0.1.1",
@@ -58,6 +56,8 @@
     "tempfile": "^3.0.0"
   },
   "devDependencies": {
+    "@semantic-release/changelog": "^6.0.1",
+    "@semantic-release/git": "^10.0.1",
     "babel-cli": "^6.26.0",
     "babel-plugin-istanbul": "^6.1.1",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",

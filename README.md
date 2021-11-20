@@ -32,28 +32,31 @@ $ yarn add node-jq
 
 ## Advanced installation
 
-By default, `node-jq` downloads `jq` during the installation process with a post-install script. According to your SO from https://github.com/stedolan/jq/releases and lives under `./node_modules/node-jq/bin/jq` to avoid colisions with any global installation. Check #161 #167 #171 for more information.
+By default, `node-jq` downloads `jq` during the installation process with a post-install script. Depending on your SO downloads from [https://github.com/stedolan/jq/releases] into `./node_modules/node-jq/bin/jq` to avoid colisions with any global installation. Check #161 #167 #171 for more information. You can safely rely on this location for your installed `jq`, we won't change this path without a major version upgrade.
 
-If you want to change the default behaviour and skip the installation of `jq`, you can set `NODE_JQ_SKIP_INSTALL_BINARY` to `true` or ignore the post-install script from the installation `npm install node-jq --ignore-scripts`.
+If you want to skip the installation step of `jq`, you can set `NODE_JQ_SKIP_INSTALL_BINARY` to `true` or ignore the post-install script from the installation `npm install node-jq --ignore-scripts`.
 
 ```bash
-$ export NODE_JQ_SKIP_INSTALL_BINARY=true
-$ npm install node-jq
+export NODE_JQ_SKIP_INSTALL_BINARY=true
+npm install node-jq
 ```
 
 ```bash
-$ npm install node-jq --ignore-scripts
+npm install node-jq --ignore-scripts
 ```
 
 ## Usage
 
-#### jq example
+### jq example
 
 Usually in your CLI using `jq`:
+
 ```bash
-$ jq ".abilities[].moves" bulbasaur.json
+jq ".abilities[].moves" bulbasaur.json
 ```
+
 and you get
+
 ```bash
 {
   "name": "heartgold-soulsilver",
@@ -114,20 +117,24 @@ By default, the `jq` binary installed with the package is used. If you have spec
 path you can set the environment variable `JQ_PATH` to override the binary path.
 
 ### input
+
 |  Description  |  Type  |             Values             |  Default |
 |:-------------:|:------:|:------------------------------:|:--------:|
 | Type of input | string | `'file'`, `'json'`, `'string'` | `'file'` |
+
 #### `input: 'file'`
 
 Run the jq query against a **JSON file**.
+
 ```javascript
 jq.run('.', '/path/to/file.json').then(console.log)
 // { "foo": "bar" }
 ```
 
-#### `input: 'file'`
+#### `input: 'file'` with multiple files
 
 Run jq query against multiple **JSON files**.
+
 ```javascript
 jq.run('.', ['/path/to/file.json','path/to/other_file.json']).then(console.log)
 // { "foo": "bar" }
@@ -137,13 +144,17 @@ jq.run('.', ['/path/to/file.json','path/to/other_file.json']).then(console.log)
 #### `input: 'json'`
 
 Run the `jq` query against an **Object**.
+
 ```javascript
 jq.run('.', { foo: 'bar' }, { input: 'json' }).then(console.log)
 // { "foo": "bar" }
+
 ```
+
 #### `input: 'string'`
 
 Run the jq query against a **String**.
+
 ```javascript
 jq.run('.', '{ foo: "bar" }', { input: 'string' }).then(console.log)
 // { "foo": "bar" }
@@ -152,6 +163,7 @@ jq.run('.', '{ foo: "bar" }', { input: 'string' }).then(console.log)
 ---
 
 ### output
+
 | Description    | Values                                        | Default    |
 |:--------------:|:---------------------------------------------:|:----------:|
 | Type of output | `'pretty'`, `'json'`, `'compact'`, `'string'` | `'pretty'` |
@@ -159,6 +171,7 @@ jq.run('.', '{ foo: "bar" }', { input: 'string' }).then(console.log)
 #### `output: 'pretty'`
 
 Return the output as a **String**.
+
 ```javascript
 jq.run('.', '/path/to/file.json', { output: 'string' }).then(console.log)
 // {
@@ -169,6 +182,7 @@ jq.run('.', '/path/to/file.json', { output: 'string' }).then(console.log)
 #### `output: 'json'`
 
 Return the output as an **Object**.
+
 ```javascript
 jq.run('.', '/path/to/file.json', { output: 'json' }).then(console.log)
 // { foo: 'bar' }
@@ -177,6 +191,7 @@ jq.run('.', '/path/to/file.json', { output: 'json' }).then(console.log)
 #### `output: 'compact'|'string'`
 
 Return the output as a **String**.
+
 ```javascript
 jq.run('.', '/path/to/file.json', { output: 'compact' }).then(console.log)
 // {"foo":"bar"}
@@ -187,6 +202,7 @@ jq.run('.', '/path/to/file.json', { output: 'string' }).then(console.log)
 ---
 
 ### slurp
+
 |         Description          |     Values      | Default |
 |:----------------------------:|:---------------:|:-------:|
 | Read input stream into array | `true`, `false` | `false` |
@@ -208,6 +224,7 @@ jq.run('.', ['/path/to/file.json','/path/to/other_file.json'], { output: 'json',
 ```
 
 ### sort
+
 |         Description                   |     Values      | Default |
 |:-------------------------------------:|:---------------:|:-------:|
 | Sort object keys in alphabetical order| `true`, `false` | `false` |
@@ -215,6 +232,7 @@ jq.run('.', ['/path/to/file.json','/path/to/other_file.json'], { output: 'json',
 #### `sort: true`
 
 Sorts object keys alphabetically.
+
 ```javascript
 jq.run('.', ['/path/to/file.json'], { output: 'json', sort: true }).then(console.log)
 // {
@@ -227,7 +245,7 @@ jq.run('.', ['/path/to/file.json'], { output: 'json', sort: true }).then(console
 
 - **[atom-jq](https://github.com/sanack/atom-jq)**: an [Atom](https://atom.io/) package for manipulating JSON
 - **[json-splora](https://github.com/wellsjo/JSON-Splora)**: an [Electron](http://electron.atom.io/) implementation for manipulating JSON
-- Check more: https://github.com/sanack/node-jq/network/dependents?package_id=UGFja2FnZS0xNTIxMzU1MQ%3D%3D
+- [Check more](https://github.com/sanack/node-jq/network/dependents?package_id=UGFja2FnZS0xNTIxMzU1MQ%3D%3D)
 
 ## Why?
 
@@ -260,4 +278,4 @@ You can check out the [official manual](https://stedolan.github.io/jq/manual) an
 
 ## License
 
-[MIT](https://tldrlegal.com/license/mit-license)
+[License](./LICENSE.md)

@@ -1,3 +1,8 @@
+pre-commit:
+  commands:
+    validate-commit-msg:
+      run: validate-commit-msg
+
 pre-push:
   parallel: true
   commands:

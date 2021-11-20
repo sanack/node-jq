@@ -1,14 +1,16 @@
 pre-commit:
   commands:
     validate-commit-msg:
-      run: validate-commit-msg
+      run: npx validate-commit-msg
 
 pre-push:
   parallel: true
   commands:
     test:
       files: git diff --name-only HEAD @{push}
+      glob: "*.js"
       run: npm run test
     lint:
       files: git diff --name-only HEAD @{push}
+      glob: "*.js"
       run: npm run lint

@@ -15,7 +15,7 @@
 
 If this is a feature request, explain why it should be added. Specific use-cases are best.
 
-For bug reports, please provide as much *relevant* info as possible.
+For bug reports, please provide as much *relevant* info as possible and create a minimum reproduction with this [codesandbox](https://codesandbox.io/s/node-jq-issue-playground-4kqhr?file=/src/index.js).
 
 ### Test Source
 
@@ -28,11 +28,6 @@ For bug reports, please provide as much *relevant* info as possible.
 ```bash
 COPY THE ERROR MESSAGE, INCLUDING STACK TRACE HERE
 ```
-
-## Relevant Links
-
-- If your project is public, link to the repo so we can investigate directly.
-- **BONUS POINTS:** Create a [minimal reproduction](http://stackoverflow.com/help/mcve) and upload it to GitHub. This will get you the fastest support.
 
 ## Environment
 

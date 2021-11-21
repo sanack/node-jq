@@ -66,13 +66,8 @@
     "nyc": "^15.1.0",
     "semantic-release": "^18.0.0",
     "snazzy": "^9.0.0",
-    "standard": "^16.0.3",
+    "standard": "^16.0.4",
     "validate-commit-msg": "^2.14.0"
-  },
-  "babel": {
-    "presets": [
-      "env"
-    ]
   },
   "standard": {
     "global": [

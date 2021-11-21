@@ -1,23 +1,23 @@
 import { expect } from 'chai'
 import path from 'path'
 
-import { run } from '../src/jq'
-import { optionDefaults, parseOptions } from '../src/options'
-import { INPUT_JSON_UNDEFINED_ERROR, INPUT_STRING_ERROR } from '../src/command'
-import { INVALID_PATH_ERROR, INVALID_JSON_PATH_ERROR } from '../src/utils'
+import { run } from './jq'
+import { optionDefaults, parseOptions } from './options'
+import { INPUT_JSON_UNDEFINED_ERROR, INPUT_STRING_ERROR } from './command'
+import { INVALID_PATH_ERROR, INVALID_JSON_PATH_ERROR } from './utils'
 
-const PATH_FIXTURES = path.join('test', 'fixtures')
+const PATH_FIXTURES = path.join(__dirname, '__test__', 'fixtures')
 const PATH_JSON_FIXTURE = path.join(PATH_FIXTURES, '1.json')
 const PATH_JSON_ARRAY_FIXTURE = path.join(PATH_FIXTURES, '2.json')
 const PATH_SLURP_FIXTURE_1 = path.join(PATH_FIXTURES, 'slurp1.json')
 const PATH_SLURP_FIXTURE_2 = path.join(PATH_FIXTURES, 'slurp2.json')
 const PATH_SORT_FIXTURE = path.join(PATH_FIXTURES, 'sort.json')
 
-const FIXTURE_JSON = require('./fixtures/1.json')
+const FIXTURE_JSON = require('./__test__/fixtures/1.json')
 const FIXTURE_JSON_STRING = JSON.stringify(FIXTURE_JSON)
 const FIXTURE_JSON_PRETTY = JSON.stringify(FIXTURE_JSON, null, 2)
 
-const FIXTURE_JSON_ARRAY = require('./fixtures/2.json')
+const FIXTURE_JSON_ARRAY = require('./__test__/fixtures/2.json')
 const FIXTURE_JSON_ARRAY_STRING = JSON.stringify(FIXTURE_JSON_ARRAY)
 const FIXTURE_JSON_ARRAY_PRETTY = JSON.stringify(FIXTURE_JSON_ARRAY, null, 2)
 

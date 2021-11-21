@@ -1,21 +1,21 @@
 import { expect } from 'chai'
 import path from 'path'
 
-import { run } from '../src/jq'
-import { FILTER_UNDEFINED_ERROR } from '../src/command'
-import { INVALID_PATH_ERROR, INVALID_JSON_PATH_ERROR } from '../src/utils'
+import { run } from './jq'
+import { FILTER_UNDEFINED_ERROR } from './command'
+import { INVALID_PATH_ERROR, INVALID_JSON_PATH_ERROR } from './utils'
 
 const PATH_ROOT = path.join(__dirname, '..')
 const PATH_BIN = path.join(PATH_ROOT, './bin')
 const PATH_ASTERISK_FIXTURE = path.join(PATH_ROOT, 'src', '*.js')
-const PATH_FIXTURES = path.join('test', 'fixtures')
+const PATH_FIXTURES = path.join(__dirname, '__test__', 'fixtures')
 
 const PATH_JSON_FIXTURE = path.join(PATH_FIXTURES, '1.json')
 const PATH_JS_FIXTURE = path.join(PATH_FIXTURES, '1.js')
 const PATH_LARGE_JSON_FIXTURE = path.join(PATH_FIXTURES, 'large.json')
 const PATH_VARIABLE_JSON_FIXTURE = path.join(PATH_FIXTURES, 'var.json')
 
-const FIXTURE_JSON = require('./fixtures/1.json')
+const FIXTURE_JSON = require('./__test__/fixtures/1.json')
 const FIXTURE_JSON_STRING = JSON.stringify(FIXTURE_JSON, null, 2)
 
 const FILTER_VALID = '.repository.type'

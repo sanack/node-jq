@@ -1,9 +1,9 @@
 import { expect } from 'chai'
 import path from 'path'
 
-import { commandFactory } from '../src/command'
+import { commandFactory } from './command'
 
-const PATH_FIXTURES = path.join('test', 'fixtures')
+const PATH_FIXTURES = path.join(__dirname, '__test__', 'fixtures')
 const PATH_JSON_FIXTURE = path.join(PATH_FIXTURES, '1.json')
 
 const FILTER_VALID = '.repository.type'

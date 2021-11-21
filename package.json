@@ -10,16 +10,15 @@
   "scripts": {
     "pretest": "npm run install-binary",
     "install-binary": "node scripts/install-binary.js",
-    "test": "nyc mocha --require babel-core/register",
+    "test": "nyc mocha src/*.test.js -r @swc-node/register",
     "test:watch": "npm test -- --watch",
     "lint": "standard --verbose | snazzy",
-    "build": "babel src -d lib --copy-files",
+    "build": "swc src -d lib --copy-files --only *.js",
     "postinstall": "npm run install-binary",
     "coverage": "nyc report --reporter=lcov",
     "precodeclimate": "npm run coverage",
     "codeclimate": "codeclimate-test-reporter < coverage/lcov.info",
-    "semantic-release": "semantic-release",
-    "travis-deploy-once": "travis-deploy-once --pro"
+    "semantic-release": "semantic-release"
   },
   "engines": {
     "npm": ">=6.0.0"
@@ -58,20 +57,16 @@
   "devDependencies": {
     "@semantic-release/changelog": "^6.0.1",
     "@semantic-release/git": "^10.0.1",
-    "babel-cli": "^6.26.0",
-    "babel-plugin-istanbul": "^6.1.1",
-    "babel-plugin-transform-object-rest-spread": "^6.26.0",
-    "babel-preset-env": "^1.7.0",
-    "babel-register": "^6.26.0",
+    "@swc-node/register": "^1.4.0",
+    "@swc/cli": "^0.1.51",
+    "@swc/core": "^1.2.111",
     "chai": "^4.2.0",
     "codeclimate-test-reporter": "^0.5.1",
-    "coveralls": "^3.0.2",
     "mocha": "^9.0.1",
     "nyc": "^15.1.0",
     "semantic-release": "^18.0.0",
     "snazzy": "^9.0.0",
     "standard": "^16.0.3",
-    "travis-deploy-once": "^5.0.11",
     "validate-commit-msg": "^2.14.0"
   },
   "babel": {

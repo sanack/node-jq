@@ -1,24 +1,12 @@
-<p align="center">
-  <img width="300" alt="node-jq logo" src="docs/assets/logo-with-margin.png" />
-  <br>
-  <a href="http://standardjs.com/"><img src="https://img.shields.io/badge/code%20style-standard-brightgreen.svg?maxAge=3600"></a>
-  <a href="https://lima.codeclimate.com/github/sanack/node-jq/coverage"><img src="https://lima.codeclimate.com/github/sanack/node-jq/badges/coverage.svg" /></a>
-  <a href="https://lima.codeclimate.com/github/sanack/node-jq"><img src="https://lima.codeclimate.com/github/sanack/node-jq/badges/gpa.svg" /></a>
-  <br>
-  <a href="https://www.npmjs.com/package/node-jq"><img src="https://img.shields.io/npm/dm/node-jq.svg?maxAge=3600"></a>
-  <a href="https://www.npmjs.com/package/node-jq"><img src="https://img.shields.io/npm/v/node-jq.svg?maxAge=3600"></a>
-  <br>
-    <a href="https://travis-ci.org/sanack/node-jq">
-      <img src="https://img.shields.io/travis/sanack/node-jq/master.svg?label=travis-ci">
-    </a>
-    <a href="https://ci.appveyor.com/project/sanack/node-jq">
-      <img src="https://ci.appveyor.com/api/projects/status/tll1w031cecou4dq/branch/master?svg=true">
-    </a>
-</p>
+<br/>
+<img width="300" alt="node-jq logo" src="docs/assets/logo-with-margin.png" />
 
-<p align="center">
-  <a href="https://github.com/sanack/node-jq">node-jq</a> is a Node.js wrapper for <a href="https://stedolan.github.io/jq/">jq</a> - a lightweight and flexible command-line JSON processor
-</p>
+![https://www.npmjs.com/package/node-jq](https://img.shields.io/npm/dm/node-jq.svg?maxAge=3600)
+![https://www.npmjs.com/package/node-jq](https://img.shields.io/npm/v/node-jq.svg?maxAge=3600)
+![https://lima.codeclimate.com/github/sanack/node-jq/coverage](https://lima.codeclimate.com/github/sanack/node-jq/badges/coverage.svg)
+![https://github.com/sanack/node-jq/actions/workflows/ci.yml](https://github.com/sanack/node-jq/actions/workflows/ci.yml/badge.svg)
+
+[node-jq](https://github.com/sanack/node-jq) is a Node.js wrapper for [jq](https://stedolan.github.io/jq/) - a lightweight and flexible command-line JSON processor
 
 ---
 

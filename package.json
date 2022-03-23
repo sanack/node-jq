@@ -13,7 +13,7 @@
     "test": "nyc mocha src/*.test.js -r @swc-node/register",
     "test:watch": "npm test -- --watch",
     "lint": "standard --verbose | snazzy",
-    "build": "swc src -d lib --copy-files --only *.js",
+    "build": "swc src -d lib --copy-files",
     "postinstall": "npm run install-binary",
     "coverage": "nyc report --reporter=lcov",
     "precodeclimate": "npm run coverage",

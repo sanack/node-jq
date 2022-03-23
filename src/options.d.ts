@@ -1,10 +1,10 @@
 import * as Joi from "joi";
 
-export const optionsSchema: Joi.SchemaLike
-export const preSpawnSchema: Joi.SchemaLike
-export const spawnSchema: Joi.SchemaLike
-export function parseOptions(options: PartialOptions, filter: string, json: any): any
-export const optionDefaults: IOptions;
+export declare const optionsSchema: Joi.SchemaLike;
+export declare const preSpawnSchema: Joi.SchemaLike
+export declare const spawnSchema: Joi.SchemaLike
+export declare function parseOptions(options: PartialOptions, filter: string, json: any): any
+export declare const optionDefaults: IOptions;
 interface IOptions {
     color: boolean,
     input: string,

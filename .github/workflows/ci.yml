@@ -38,7 +38,9 @@ jobs:
         run: npm install --prefer-offline
 
       - name: Build
-        run: npm run build
+        run: |
+          npm run build
+          npm run copy-ts-defintions
 
       - name: Lint
         run: npm run lint

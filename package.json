@@ -63,6 +63,7 @@
     "@swc/core": "^1.2.111",
     "chai": "^4.2.0",
     "codeclimate-test-reporter": "^0.5.1",
+    "copyfiles": "^2.4.1",
     "mocha": "^9.0.1",
     "nyc": "^15.1.0",
     "semantic-release": "^19.0.2",

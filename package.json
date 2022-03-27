@@ -47,7 +47,6 @@
     "docs"
   ],
   "dependencies": {
-    "@arkweid/lefthook": "^0.7.7",
     "bin-build": "^3.0.0",
     "download": "^8.0.0",
     "is-valid-path": "^0.1.1",
@@ -56,6 +55,7 @@
     "tempfile": "^3.0.0"
   },
   "devDependencies": {
+    "@arkweid/lefthook": "^0.7.7",
     "@semantic-release/changelog": "^6.0.1",
     "@semantic-release/git": "^10.0.1",
     "@swc-node/register": "^1.4.0",

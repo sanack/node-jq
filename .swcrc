@@ -1,0 +1,18 @@
+{
+  "test": ".js",
+  "module": {
+    "type": "commonjs"
+  },
+  "exclude": "(__test__|.test.js)",
+  "jsc": {
+    "target": "es3",
+    "externalHelpers": false,
+
+    "parser": {
+      "syntax": "ecmascript",
+      "jsx": true,
+      "decorators": false,
+      "dynamicImport": false
+    }
+  }
+}

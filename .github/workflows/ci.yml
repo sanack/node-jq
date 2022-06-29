@@ -25,13 +25,13 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Use Node ${{ runner.node-version }}
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v2.1.5
         with:
           node-version: ${{ runner.node-version }}
 
       - uses: actions/cache@v2
         with:
-          path: '**/node_modules'
+          path: ~/node_modules
           key: ${{ runner.os }}-modules-${{ hashFiles('**/package-lock.json') }}
 
       - name: Install

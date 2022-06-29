@@ -6,6 +6,7 @@ export default defineConfig({
       "**/node_modules/**",
       "**/dist/**",
       "**/lib/**",
+      "**/build/**",
       "**/.{idea,git,cache,output,temp}/**",
     ],
     coverage: {

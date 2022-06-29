@@ -16,8 +16,8 @@ jobs:
           - ubuntu-latest
           - windows-latest
         node-version:
-          - 10
           - 12
+          - 14
           - 16
 
     steps:

@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest'
 import path from 'path'
 
 import { run } from '.'
-import { optionDefaults } from './options'
+import { optionDefaults } from './command'
 import FIXTURE_JSON from './__test__/fixtures/1.json'
 import FIXTURE_JSON_ARRAY from './__test__/fixtures/2.json'
 
@@ -25,8 +25,9 @@ const OPTION_DEFAULTS = {
   slurp: false,
   sort: false,
   raw: false,
-  locations: [],
-  color: false
+  color: true,
+  jqPath: path.join(__dirname, '..', 'bin', 'jq'),
+  cwd: __dirname
 }
 
 const multiEOL = (text: string) => {

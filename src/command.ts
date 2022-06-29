@@ -1,65 +1,97 @@
-import * as Joi from 'joi'
 import path from 'path'
-import {
-  parseOptions,
-  optionsSchema,
-  preSpawnSchema,
-  spawnSchema,
-  PartialOptions
-} from './options'
+import { isJSONPath, isPathValid } from "./json-path";
 
-const JQ_PATH = process.env.JQ_PATH || path.join(__dirname, '..', 'bin', 'jq')
+const DEFAULT_LOCAL_JQ_PATH = path.join(__dirname, '..', 'bin', 'jq');
 
-const NODE_JQ_ERROR_TEMPLATE =
-  'node-jq: invalid {#label} ' +
-  'argument supplied: ' +
-  '"{if(#value != undefined, #value, "undefined")}"'
+const validateJSONPath = (path: string) => isJSONPath(path) && isPathValid(path)
 
-const messages = {
-  'any.invalid': NODE_JQ_ERROR_TEMPLATE,
-  'any.required': NODE_JQ_ERROR_TEMPLATE,
-  'string.base': NODE_JQ_ERROR_TEMPLATE,
-  'string.empty': NODE_JQ_ERROR_TEMPLATE
-}
-
-const validateArguments = (filter: string, json: unknown, options?: PartialOptions) => {
-  const context = { filter, json }
-  const validatedOptions = Joi.attempt(options, optionsSchema)
-  const validatedPreSpawn = Joi.attempt(
-    context,
-    preSpawnSchema.tailor(validatedOptions.input),
-    { messages, errors: { wrap: { label: '' } } }
-  )
-  const validatedArgs = parseOptions(
-    validatedOptions,
-    validatedPreSpawn.filter,
-    validatedPreSpawn.json
-  )
-  const validatedSpawn = Joi.attempt(
-    {},
-    spawnSchema.tailor(validatedOptions.input),
-    { context: { ...validatedPreSpawn, options: validatedOptions } }
-  )
-
-  return {
-    args: validatedArgs,
-    stdin: validatedSpawn.stdin
+const getFileArray = (path: unknown): string[] => {
+  let files: string[] = [];
+  if (Array.isArray(path) || (typeof path === 'string')) {
+    files = files.concat(path)
   }
+
+  if (files.length === 0 || !files.every(validateJSONPath)) {
+    throw new Error('No valid path provided')
+  }
+
+  return files;
 }
 
-type Command = {
-  command: string,
-  args: string[],
-  stdin: string
+type InputType = "file" | 'json' | 'string';
+type OutputType = 'string' | 'compact' | 'pretty' | 'json';
+
+export type Options = {
+  color: boolean;
+  input: InputType;
+  output: OutputType;
+  raw: boolean;
+  slurp: boolean;
+  sort: boolean;
+  jqPath: string;
+  cwd: string,
+};
+
+export type PartialOptions = Partial<Options>;
+
+export const optionDefaults: Options = {
+  input: 'file',
+  output: 'pretty',
+  slurp: false,
+  sort: false,
+  raw: false,
+  color: true,
+  jqPath: process.env.JQ_PATH || DEFAULT_LOCAL_JQ_PATH,
+  cwd: __dirname,
 }
 
-export const commandFactory = (filter: string, json: unknown, options?: PartialOptions, jqPath?: string): Command => {
-  const command = jqPath ? path.join(jqPath, './jq') : JQ_PATH
-  const result = validateArguments(filter, json, options)
+type CLIFlags = Omit<Omit<Options, 'cwd'>, 'jqPath'>;
+type Flags = keyof CLIFlags;
+type ValueOf<T> = T[keyof T];
+type Values = ValueOf<Options>;
+
+const optionMap: Map<Flags, string> = new Map([
+  ["slurp", '--slurp' ],
+  ["sort", '--sort-keys' ],
+  ["color", '--color-output' ],
+  ["raw", '-r' ],
+]);
+
+const outputMap: Map<OutputType, string> = new Map([
+  ["pretty", ''],
+  ["string", '--raw-output'],
+  ["compact", '--compact-output'],
+  ["json", ''],
+]);
+
+type Input = unknown | string | string[];
+
+const parseOptions = (filter: string, input: Input, options: Options) => {
+  const flags = Object.entries(options).map(([key, value]: [string, Values]) => {
+    const flag: string | undefined = optionMap.get(key as Flags);
+    return value && flag ? flag : ""
+  }).filter(str => str !== "");
+
+  const outputFlag = outputMap.get(options.output) || "";
+  const inputFlag = options.input === 'file' ? getFileArray(input) : [input] as string[];
+  const stdin = options.output === 'json' ? JSON.stringify(input) : input as string;
+  const args: string[] = [filter, ...inputFlag, outputFlag, ...flags];
+
+  return { args, stdin }
+}
+
+export const commandFactory = (filter: string, input: Input, userOptions: PartialOptions = {}) => {
+  const options: Options = {
+    ...optionDefaults,
+    ...userOptions
+  };
+
+  const {args, stdin} = parseOptions(filter, input, options);
 
   return {
-    command,
-    args: result.args,
-    stdin: result.stdin
+    command: options.jqPath,
+    args,
+    stdin,
+    cwd: options.cwd
   }
 }

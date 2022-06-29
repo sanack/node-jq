@@ -1,16 +1,15 @@
 import exec from './exec'
-import { commandFactory } from './command'
-import { PartialOptions } from "./options"
+import { commandFactory, PartialOptions } from './command'
 
-export const run = (filter: string, json: unknown | string | undefined | null, options?: PartialOptions, jqPath?: string, cwd?: string): Promise<object | string> => {
+export const run = (filter: string, json: unknown | string | undefined | null, options?: PartialOptions): Promise<object | string> => {
   return new Promise((resolve, reject) => {
-    const { command, args, stdin } = commandFactory(
+    const { command, args, stdin, cwd } = commandFactory(
       filter,
       json,
       options,
-      jqPath
-    )
-    exec(command, args, stdin, cwd)
+    );
+
+    return exec(command, args, stdin, cwd)
       .then((stdout) => {
         if (options?.output === 'json') {
           let result

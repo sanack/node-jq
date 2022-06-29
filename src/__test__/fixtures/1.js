@@ -1,6 +1,6 @@
 const json = {
-  foo: 'bar',
-  random: 123
-}
+  foo: "bar",
+  random: 123,
+};
 
-console.log(json)
+console.log(json);

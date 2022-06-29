@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "moduleResolution": "node",
+    "lib": ["esnext"],
+    "strict": true,
+    "sourceMap": true,
+    "allowSyntheticDefaultImports": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "downlevelIteration": true,
+    "esModuleInterop": true,
+    "importHelpers": true,
+    "noEmitHelpers": true,
+    "resolveJsonModule": true,
+    "noImplicitAny": true,
+    "outDir": "build",
+    "skipLibCheck": true
+  },
+  "rootDir": "src",
+  "exclude": ["node_modules/**", "**/dist/**", "**/build/**", "**/bin/**"]
+}

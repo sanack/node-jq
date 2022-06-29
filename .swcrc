@@ -1,5 +1,5 @@
 {
-  "test": ".js",
+  "test": ".ts",
   "module": {
     "type": "commonjs"
   },
@@ -9,8 +9,8 @@
     "externalHelpers": false,
 
     "parser": {
-      "syntax": "ecmascript",
-      "jsx": true,
+      "syntax": "typescript",
+      "jsx": false,
       "decorators": false,
       "dynamicImport": false
     }

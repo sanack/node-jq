@@ -2,7 +2,6 @@
   "name": "node-jq",
   "version": "0.0.0-semantic-release",
   "description": "Run jq in node",
-  "main": "lib/jq.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/sanack/node-jq"

@@ -1,9 +1,9 @@
 import childProcess from 'child_process'
-import stripFinalNewline from 'strip-final-newline'
+import stripFinalNewline from './strip-final-newline'
 
 const TEN_MEBIBYTE = 1024 * 1024 * 10
 
-const exec = (command, args, stdin, cwd) => {
+const exec = (command: string, args: string[], stdin: string, cwd?: string): Promise<string> => {
   return new Promise((resolve, reject) => {
     let stdout = ''
     let stderr = ''
@@ -13,7 +13,7 @@ const exec = (command, args, stdin, cwd) => {
     const process = childProcess.spawn(command, args, spawnOptions)
 
     if (stdin) {
-      process.stdin.setEncoding('utf-8')
+      process.stdin.setDefaultEncoding('utf-8')
       process.stdin.write(stdin)
       process.stdin.end()
     }

@@ -4,22 +4,15 @@ import {
   parseOptions,
   optionsSchema,
   preSpawnSchema,
-  spawnSchema
+  spawnSchema,
+  PartialOptions
 } from './options'
 
 const JQ_PATH = process.env.JQ_PATH || path.join(__dirname, '..', 'bin', 'jq')
 
-export const FILTER_UNDEFINED_ERROR =
-  'node-jq: invalid filter argument supplied: "undefined"'
-export const INPUT_JSON_UNDEFINED_ERROR =
-  'node-jq: invalid json argument supplied: "undefined"'
-export const INPUT_STRING_ERROR =
-  'node-jq: invalid json string argument supplied'
-
 const NODE_JQ_ERROR_TEMPLATE =
   'node-jq: invalid {#label} ' +
-  'argument supplied{if(#label == "path" && #type == "json", " (not a .json file)", "")}' +
-  '{if(#label == "path" && #type == "path", " (not a valid path)", "")}: ' +
+  'argument supplied: ' +
   '"{if(#value != undefined, #value, "undefined")}"'
 
 const messages = {
@@ -29,7 +22,7 @@ const messages = {
   'string.empty': NODE_JQ_ERROR_TEMPLATE
 }
 
-const validateArguments = (filter, json, options) => {
+const validateArguments = (filter: string, json: unknown, options?: PartialOptions) => {
   const context = { filter, json }
   const validatedOptions = Joi.attempt(options, optionsSchema)
   const validatedPreSpawn = Joi.attempt(
@@ -48,19 +41,19 @@ const validateArguments = (filter, json, options) => {
     { context: { ...validatedPreSpawn, options: validatedOptions } }
   )
 
-  if (validatedOptions.input === 'file') {
-    return {
-      args: validatedArgs,
-      stdin: validatedSpawn.stdin
-    }
-  }
   return {
     args: validatedArgs,
     stdin: validatedSpawn.stdin
   }
 }
 
-export const commandFactory = (filter, json, options = {}, jqPath) => {
+type Command = {
+  command: string,
+  args: string[],
+  stdin: string
+}
+
+export const commandFactory = (filter: string, json: unknown, options?: PartialOptions, jqPath?: string): Command => {
   const command = jqPath ? path.join(jqPath, './jq') : JQ_PATH
   const result = validateArguments(filter, json, options)
 

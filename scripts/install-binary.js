@@ -1,64 +1,64 @@
 #!/usr/bin/env node
 
-'use strict'
+"use strict";
 
-const binBuild = require('bin-build')
-const path = require('path')
-const tempfile = require('tempfile')
-const fs = require('fs')
-const download = require('download')
+const path = require("path");
+const tempfile = require("tempfile");
+const fs = require("fs");
+const download = require("download");
+const childProcess = require("child_process");
 
-const platform = process.platform
-const arch = process.arch
+const platform = process.platform;
+const arch = process.arch;
 
 const JQ_INFO = {
-  name: 'jq',
-  url: 'https://github.com/stedolan/jq/releases/download/',
-  version: 'jq-1.6'
-}
+  name: "jq",
+  url: "https://github.com/stedolan/jq/releases/download/",
+  version: "jq-1.6",
+};
 
 const JQ_NAME_MAP = {
-  def: 'jq',
-  win32: 'jq.exe'
-}
+  def: "jq",
+  win32: "jq.exe",
+};
 const JQ_NAME =
-  platform in JQ_NAME_MAP ? JQ_NAME_MAP[platform] : JQ_NAME_MAP.def
+  platform in JQ_NAME_MAP ? JQ_NAME_MAP[platform] : JQ_NAME_MAP.def;
 
-const OUTPUT_DIR = path.join(__dirname, '..', 'bin')
+const OUTPUT_DIR = path.join(__dirname, "..", "bin");
 
 const fileExist = (path) => {
   try {
-    return fs.existsSync(path)
+    return fs.existsSync(path);
   } catch (err) {
-    return false
+    return false;
   }
-}
+};
 
 if (fileExist(path.join(OUTPUT_DIR, JQ_NAME))) {
-  console.log('jq is already installed')
-  process.exit(0)
+  console.log("jq is already installed");
+  process.exit(0);
 }
 
-if (process.env.NODE_JQ_SKIP_INSTALL_BINARY === 'true') {
-  console.log('node-jq is skipping the download of jq binary')
-  process.exit(0)
+if (process.env.NODE_JQ_SKIP_INSTALL_BINARY === "true") {
+  console.log("node-jq is skipping the download of jq binary");
+  process.exit(0);
 }
 
 // if platform is missing, download source instead of executable
 const DOWNLOAD_MAP = {
   win32: {
-    def: 'jq-win32.exe',
-    x64: 'jq-win64.exe'
+    def: "jq-win32.exe",
+    x64: "jq-win64.exe",
   },
   darwin: {
-    def: 'jq-osx-amd64',
-    x64: 'jq-osx-amd64'
+    def: "jq-osx-amd64",
+    x64: "jq-osx-amd64",
   },
   linux: {
-    def: 'jq-linux32',
-    x64: 'jq-linux64'
-  }
-}
+    def: "jq-linux32",
+    x64: "jq-linux64",
+  },
+};
 
 if (platform in DOWNLOAD_MAP) {
   // download the executable
@@ -66,45 +66,48 @@ if (platform in DOWNLOAD_MAP) {
   const filename =
     arch in DOWNLOAD_MAP[platform]
       ? DOWNLOAD_MAP[platform][arch]
-      : DOWNLOAD_MAP[platform].def
+      : DOWNLOAD_MAP[platform].def;
 
-  const url = `${JQ_INFO.url}${JQ_INFO.version}/${filename}`
+  const url = `${JQ_INFO.url}${JQ_INFO.version}/${filename}`;
 
-  console.log(`Downloading jq from ${url}`)
+  console.log(`Downloading jq from ${url}`);
   download(url, OUTPUT_DIR)
     .then(() => {
-      const distPath = path.join(OUTPUT_DIR, JQ_NAME)
-      fs.renameSync(path.join(OUTPUT_DIR, filename), distPath)
+      const distPath = path.join(OUTPUT_DIR, JQ_NAME);
+      fs.renameSync(path.join(OUTPUT_DIR, filename), distPath);
       if (fileExist(distPath)) {
         // fs.chmodSync(distPath, fs.constants.S_IXUSR || 0o100)
         // Huan(202111): we need the read permission so that the build system can pack the node_modules/ folder,
         // i.e. build with Heroku CI/CD, docker build, etc.
-        fs.chmodSync(distPath, 0o755)
+        fs.chmodSync(distPath, 0o755);
       }
-      console.log(`Downloaded in ${OUTPUT_DIR}`)
+      console.log(`Downloaded in ${OUTPUT_DIR}`);
     })
-    .catch(err => {
-      console.error(err)
-      process.exit(1)
-    })
+    .catch((err) => {
+      console.error(err);
+      process.exit(1);
+    });
 } else {
   // download source and build
-
-  const url = `${JQ_INFO.url}/${JQ_INFO.version}/${JQ_INFO.version}.tar.gz`
-
-  console.log(`Building jq from ${url}`)
-  binBuild
-    .url(url, [
-      'autoreconf -fi',
-      `./configure --disable-maintainer-mode --with-oniguruma=builtin --prefix=${tempfile()} --bindir=${OUTPUT_DIR}`,
-      'make -j8',
-      'make install'
-    ])
+  const url = `${JQ_INFO.url}/${JQ_INFO.version}/${JQ_INFO.version}.tar.gz`;
+  console.log(`Building jq from ${url}`);
+  const tmp = tempfile();
+  const buildCommand = [
+    "autoreconf -fi",
+    `./configure --disable-maintainer-mode --with-oniguruma=builtin --prefix=${tempfile()} --bindir=${OUTPUT_DIR}`,
+    "make -j8",
+    "make install",
+  ];
+  download(url, tmp, {
+    extract: true,
+    strip: 1,
+  })
+    .then(() => childProcess.exec(buildCommand, tmp))
     .then(() => {
-      console.log(`jq installed successfully on ${OUTPUT_DIR}`)
+      console.log(`jq installed successfully on ${OUTPUT_DIR}`);
     })
-    .catch(err => {
-      console.error(err)
-      process.exit(1)
-    })
+    .catch((err) => {
+      console.error(err);
+      process.exit(1);
+    });
 }

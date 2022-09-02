@@ -12,6 +12,28 @@ const exec = (command, args, stdin, cwd) => {
 
     const process = childProcess.spawn(command, args, spawnOptions)
 
+    // Both the 'error' and 'close' handlers can close the Promise, so guard
+    // against them both closing it.
+    let promiseIsClosed = false
+
+    process.on('error', err => {
+      if (!promiseIsClosed) {
+        promiseIsClosed = true
+        return reject(err)
+      }
+    })
+
+    process.on('close', code => {
+      if (!promiseIsClosed) {
+        promiseIsClosed = true
+        if (code !== 0) {
+          return reject(Error(stderr))
+        } else {
+          return resolve(stripFinalNewline(stdout))
+        }
+      }
+    })
+
     if (stdin) {
       process.stdin.setEncoding('utf-8')
       process.stdin.write(stdin)
@@ -25,14 +47,6 @@ const exec = (command, args, stdin, cwd) => {
 
     process.stderr.on('data', data => {
       stderr += data
-    })
-
-    process.on('close', code => {
-      if (code !== 0) {
-        return reject(Error(stderr))
-      } else {
-        return resolve(stripFinalNewline(stdout))
-      }
     })
   })
 }

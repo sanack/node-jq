@@ -14,14 +14,6 @@ const exec = (command, args, stdin, cwd) => {
 
     // All of these handlers can close the Promise, so guard against rejecting it twice.
     let promiseAlreadyRejected = false
-    if (stdin) {
-      process.stdin.on('error', err => {
-        if (!promiseAlreadyRejected) {
-          promiseAlreadyRejected = true
-          return reject(err)
-        }
-      })
-    }
     process.on('close', code => {
       if (!promiseAlreadyRejected) {
         promiseAlreadyRejected = true
@@ -34,6 +26,12 @@ const exec = (command, args, stdin, cwd) => {
     })
 
     if (stdin) {
+      process.stdin.on('error', err => {
+        if (!promiseAlreadyRejected) {
+          promiseAlreadyRejected = true
+          return reject(err)
+        }
+      })
       process.stdin.setEncoding('utf-8')
       process.stdin.write(stdin)
       process.stdin.end()

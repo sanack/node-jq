@@ -12,25 +12,19 @@ const exec = (command, args, stdin, cwd) => {
 
     const process = childProcess.spawn(command, args, spawnOptions)
 
-    // All of these handlers can close the Promise, so guard closing it twice.
-    let promiseIsClosed = false
-
-    process.on('error', err => {
-      if (!promiseIsClosed) {
-        promiseIsClosed = true
-        return reject(err)
-      }
-    })
-    process.stdin.on('error', err => {
-      if (!promiseIsClosed) {
-        promiseIsClosed = true
-        return reject(err)
-      }
-    })
-
+    // All of these handlers can close the Promise, so guard against rejecting it twice.
+    let promiseAlreadyRejected = false
+    if (stdin) {
+      process.stdin.on('error', err => {
+        if (!promiseAlreadyRejected) {
+          promiseAlreadyRejected = true
+          return reject(err)
+        }
+      })
+    }
     process.on('close', code => {
-      if (!promiseIsClosed) {
-        promiseIsClosed = true
+      if (!promiseAlreadyRejected) {
+        promiseAlreadyRejected = true
         if (code !== 0) {
           return reject(Error(stderr))
         } else {

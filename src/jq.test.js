@@ -75,7 +75,7 @@ describe('jq core', () => {
       })
   })
 
-  it('should catch EPIPE errors from child process stdin', done => {
+  it('should catch errors from child process stdin', done => {
     // This is a very specific case of error, only triggered if:
     // 1) The jq process exits early (e.g. due to an invalid filter)
     // AND
@@ -83,15 +83,20 @@ describe('jq core', () => {
     //    (which will take longer to do than jq takes to exit).
     const largeJsonString = JSON.parse(readFileSync(PATH_LARGE_JSON_FIXTURE))
     run(FILTER_INVALID, largeJsonString, { input: 'json' })
-      .then(() => {
-        done('Expected an EPIPE to be thrown')
+      .then(result => {
+        done('Expected an error to be thrown from child process stdin')
       })
       .catch(error => {
         expect(error).to.be.an.instanceof(Error)
-        expect(error.message).to.equal('write EPIPE')
-        expect(error.code).to.equal('EPIPE')
+        // On Mac/Linux, the error code is "EPIPE".
+        // On Windows, the equivalent code is "EOF".
+        expect(error.message).to.be.oneOf(['write EPIPE', 'write EOF'])
+        expect(error.code).to.be.oneOf(['EPIPE', 'EOF'])
         expect(error.syscall).to.equal('write')
         done()
+      })
+      .catch(error => {
+        done(error)
       })
   })
 

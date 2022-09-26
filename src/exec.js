@@ -12,7 +12,26 @@ const exec = (command, args, stdin, cwd) => {
 
     const process = childProcess.spawn(command, args, spawnOptions)
 
+    // All of these handlers can close the Promise, so guard against rejecting it twice.
+    let promiseAlreadyRejected = false
+    process.on('close', code => {
+      if (!promiseAlreadyRejected) {
+        promiseAlreadyRejected = true
+        if (code !== 0) {
+          return reject(Error(stderr))
+        } else {
+          return resolve(stripFinalNewline(stdout))
+        }
+      }
+    })
+
     if (stdin) {
+      process.stdin.on('error', err => {
+        if (!promiseAlreadyRejected) {
+          promiseAlreadyRejected = true
+          return reject(err)
+        }
+      })
       process.stdin.setEncoding('utf-8')
       process.stdin.write(stdin)
       process.stdin.end()
@@ -25,14 +44,6 @@ const exec = (command, args, stdin, cwd) => {
 
     process.stderr.on('data', data => {
       stderr += data
-    })
-
-    process.on('close', code => {
-      if (code !== 0) {
-        return reject(Error(stderr))
-      } else {
-        return resolve(stripFinalNewline(stdout))
-      }
     })
   })
 }

@@ -1,5 +1,6 @@
 import { expect } from 'chai'
 import path from 'path'
+import { readFileSync } from 'fs'
 
 import { run } from './jq'
 import { FILTER_UNDEFINED_ERROR } from './command'
@@ -67,6 +68,31 @@ describe('jq core', () => {
       .catch(error => {
         expect(error).to.be.an.instanceof(Error)
         expect(error.message).to.match(ERROR_INVALID_FILTER)
+        done()
+      })
+      .catch(error => {
+        done(error)
+      })
+  })
+
+  it('should catch errors from child process stdin', done => {
+    // This is a very specific case of error, only triggered if:
+    // 1) The jq process exits early (e.g. due to an invalid filter)
+    // AND
+    // 2) We are trying to send a large amount of data over stdin,
+    //    (which will take longer to do than jq takes to exit).
+    const largeJsonString = JSON.parse(readFileSync(PATH_LARGE_JSON_FIXTURE))
+    run(FILTER_INVALID, largeJsonString, { input: 'json' })
+      .then(result => {
+        done('Expected an error to be thrown from child process stdin')
+      })
+      .catch(error => {
+        expect(error).to.be.an.instanceof(Error)
+        // On Mac/Linux, the error code is "EPIPE".
+        // On Windows, the equivalent code is "EOF".
+        expect(error.message).to.be.oneOf(['write EPIPE', 'write EOF'])
+        expect(error.code).to.be.oneOf(['EPIPE', 'EOF'])
+        expect(error.syscall).to.equal('write')
         done()
       })
       .catch(error => {

@@ -66,7 +66,7 @@
     "copyfiles": "^2.4.1",
     "mocha": "^10.0.0",
     "nyc": "^15.1.0",
-    "semantic-release": "^19.0.2",
+    "semantic-release": "^20.0.2",
     "snazzy": "^9.0.0",
     "standard": "^17.0.0",
     "validate-commit-msg": "^2.14.0"

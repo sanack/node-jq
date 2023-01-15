@@ -6,7 +6,25 @@ const binBuild = require('bin-build')
 const path = require('path')
 const tempfile = require('tempfile')
 const fs = require('fs')
-const download = require('download')
+const { DownloaderHelper } = require('node-downloader-helper')
+
+async function download (url, saveDirectory) {
+  const downloader = new DownloaderHelper(url, saveDirectory)
+
+  return new Promise((resolve, reject) => {
+    downloader.on('end', () => resolve())
+    downloader.on('error', (err) => reject(err))
+    downloader.on('progress.throttled', (downloadEvents) => {
+      const percentageComplete =
+        downloadEvents.progress < 100
+          ? downloadEvents.progress.toPrecision(2)
+          : 100
+      console.info(`Downloaded: ${percentageComplete}%`)
+    })
+
+    downloader.start()
+  })
+}
 
 const platform = process.platform
 const arch = process.arch
@@ -32,6 +50,11 @@ const fileExist = (path) => {
   } catch (err) {
     return false
   }
+}
+
+if (!fs.existsSync(OUTPUT_DIR)) {
+  fs.mkdirSync(OUTPUT_DIR)
+  console.info(`${OUTPUT_DIR} directory was created`)
 }
 
 if (fileExist(path.join(OUTPUT_DIR, JQ_NAME))) {

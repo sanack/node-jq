@@ -59,7 +59,7 @@ jobs:
 
       - name: Semantic Release
         if: success() && github.ref == 'refs/heads/main' && ${{ runner.os }} == 'ubuntu-latest' && 16 == ${{ runner.node-version }}
-        uses: cycjimmy/semantic-release-action@v2
+        uses: cycjimmy/semantic-release-action@v3
         with:
           branches: "main"
           extra_plugins: |

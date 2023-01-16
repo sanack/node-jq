@@ -48,9 +48,9 @@
   ],
   "dependencies": {
     "bin-build": "^3.0.0",
-    "download": "^8.0.0",
     "is-valid-path": "^0.1.1",
     "joi": "^17.4.0",
+    "node-downloader-helper": "^2.1.6",
     "strip-final-newline": "^2.0.0",
     "tempfile": "^3.0.0"
   },

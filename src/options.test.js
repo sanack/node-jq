@@ -378,6 +378,25 @@ describe('options', () => {
     })
   })
 
+  describe('inherited env var', () => {
+    it('process.env should not be sent in to jq execution', done => {
+      process.env.X_TEST_ENV_VAR = 'TEST_VALUE'
+      run('$ENV', PATH_JSON_FIXTURE, {
+        output: 'string'
+      })
+        .then(output => {
+          expect(output).to.be.a('string')
+          expect(output).to.not.contain('X_TEST_ENV_VAR')
+          done()
+        })
+        .catch(error => {
+          done(error)
+        }).finally(() => {
+          delete process.env.X_TEST_ENV_VAR
+        })
+    })
+  })
+
   describe('raw: true', () => {
     it('output should be able to output raw strings instead of JSON texts', done => {
       run('.name', PATH_JSON_FIXTURE, {

@@ -8,7 +8,7 @@ const exec = (command, args, stdin, cwd) => {
     let stdout = ''
     let stderr = ''
 
-    const spawnOptions = { maxBuffer: TEN_MEBIBYTE, cwd }
+    const spawnOptions = { maxBuffer: TEN_MEBIBYTE, cwd, env: {} }
 
     const process = childProcess.spawn(command, args, spawnOptions)
 

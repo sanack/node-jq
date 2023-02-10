@@ -47,7 +47,6 @@
     "docs"
   ],
   "dependencies": {
-    "bin-build": "^3.0.0",
     "is-valid-path": "^0.1.1",
     "joi": "^17.4.0",
     "node-downloader-helper": "^2.1.6",
@@ -61,6 +60,7 @@
     "@swc-node/register": "^1.4.0",
     "@swc/cli": "^0.1.57",
     "@swc/core": "^1.2.161",
+    "bin-build": "^3.0.0",
     "chai": "^4.2.0",
     "codeclimate-test-reporter": "^0.5.1",
     "copyfiles": "^2.4.1",

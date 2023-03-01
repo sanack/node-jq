@@ -52,7 +52,7 @@
     "joi": "^17.4.0",
     "node-downloader-helper": "^2.1.6",
     "strip-final-newline": "^2.0.0",
-    "tempfile": "^3.0.0"
+    "tempfile": "^5.0.0"
   },
   "devDependencies": {
     "@arkweid/lefthook": "^0.7.7",

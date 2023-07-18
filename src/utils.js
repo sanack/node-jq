@@ -6,7 +6,7 @@ export const INVALID_JSON_PATH_ERROR =
   'node-jq: invalid path argument supplied (not a .json file)'
 
 export const isJSONPath = (path) => {
-  return /\.json$/.test(path)
+  return /\.json|.jsonl$/.test(path)
 }
 
 export const validateJSONPath = (path) => {

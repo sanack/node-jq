@@ -5,11 +5,16 @@ import { isJSONPath } from './utils'
 const PATH_FIXTURES = path.join(__dirname, 'fixtures')
 const PATH_JSON_FIXTURE = path.join(PATH_FIXTURES, '1.json')
 const PATH_JS_FIXTURE = path.join(PATH_FIXTURES, '1.js')
+const PATH_JSONL_FIXTURE = path.join(PATH_FIXTURES, '1.jsonl')
 
 describe('utils', () => {
   describe('#isJSONPath', () => {
     it('should return true when you give a json file', () => {
       expect(isJSONPath(PATH_JSON_FIXTURE)).to.equal(true)
+    })
+
+    it('should return true when you give a json file', () => {
+      expect(isJSONPath(PATH_JSONL_FIXTURE)).to.equal(true)
     })
 
     it('should return false when you a non-json file', () => {

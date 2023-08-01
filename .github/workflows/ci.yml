@@ -22,6 +22,8 @@ jobs:
         node-version:
           - 12
           - 16
+          - 18
+          - 20
 
     steps:
       - name: Checkout code

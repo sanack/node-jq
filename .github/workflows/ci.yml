@@ -50,7 +50,7 @@ jobs:
 
       - name: Generate code coverage
         if: success() && github.ref == 'refs/heads/main' && ${{ runner.os }} == 'ubuntu-latest' && 16 == ${{ runner.node-version }}
-        uses: paambaati/codeclimate-action@v3.0.0
+        uses: paambaati/codeclimate-action@v5.0.0
         env:
           CC_TEST_REPORTER_ID: b4ef7769e0f8f04456e8e1168b4beb44561bd5ce9ca216458a164e19c4cf7308
         with:

@@ -37,6 +37,8 @@ jobs:
         with:
           path: '**/node_modules'
           key: ${{ matrix.os }}-modules-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ matrix.os }}-modules-
 
       - name: Install
         run: npm install --prefer-offline

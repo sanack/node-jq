@@ -24,15 +24,15 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Use Node ${{ runner.node-version }}
+      - name: Use Node ${{ matrix.node-version }}
         uses: actions/setup-node@v2
         with:
-          node-version: ${{ runner.node-version }}
+          node-version: ${{ matrix.node-version }}
 
       - uses: actions/cache@v2
         with:
           path: '**/node_modules'
-          key: ${{ runner.os }}-modules-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ matrix.os }}-modules-${{ hashFiles('**/package-lock.json') }}
 
       - name: Install
         run: npm install --prefer-offline
@@ -49,7 +49,7 @@ jobs:
         run: npm run test
 
       - name: Generate code coverage
-        if: success() && github.ref == 'refs/heads/main' && ${{ runner.os }} == 'ubuntu-latest' && 16 == ${{ runner.node-version }}
+        if: success() && github.ref == 'refs/heads/main' && ${{ matrix.os }} == 'ubuntu-latest' && 16 == ${{ matrix.node-version }}
         uses: paambaati/codeclimate-action@v5.0.0
         env:
           CC_TEST_REPORTER_ID: b4ef7769e0f8f04456e8e1168b4beb44561bd5ce9ca216458a164e19c4cf7308
@@ -58,7 +58,7 @@ jobs:
           debug: true
 
       - name: Semantic Release
-        if: success() && github.ref == 'refs/heads/main' && ${{ runner.os }} == 'ubuntu-latest' && 16 == ${{ runner.node-version }}
+        if: success() && github.ref == 'refs/heads/main' && ${{ matrix.os }} == 'ubuntu-latest' && 16 == ${{ matrix.node-version }}
         uses: cycjimmy/semantic-release-action@v3
         with:
           branches: "main"

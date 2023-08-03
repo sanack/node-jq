@@ -22,7 +22,7 @@
     "semantic-release": "semantic-release"
   },
   "engines": {
-    "node": ">=12"
+    "node": ">=16"
   },
   "keywords": [
     "jq",

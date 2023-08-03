@@ -7,7 +7,7 @@ on:
       - main
 
 jobs:
-  build:
+  build-test:
     name: Build and test
 
     runs-on: ${{ matrix.os }}
@@ -20,7 +20,6 @@ jobs:
           - ubuntu-latest
           - windows-latest
         node-version:
-          - 12
           - 16
           - 18
           - 20
@@ -54,7 +53,6 @@ jobs:
 
       - name: Test
         run: npm run test
-
 #       - name: Generate code coverage
 #         if: success() && github.ref == 'refs/heads/main' && ${{ matrix.os }} == 'ubuntu-latest' && 16 == ${{ matrix.node-version }}
 #         uses: paambaati/codeclimate-action@v5.0.0
@@ -63,14 +61,3 @@ jobs:
 #         with:
 #           coverageCommand: npm run coverage
 #           debug: true
-
-      - name: Semantic Release
-        if: success() && github.ref == 'refs/heads/main' && ${{ matrix.os }} == 'ubuntu-latest' && 16 == ${{ matrix.node-version }}
-        uses: cycjimmy/semantic-release-action@v3
-        with:
-          branches: 'main'
-          extra_plugins: |
-            @semantic-release/changelog
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

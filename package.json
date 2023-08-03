@@ -22,7 +22,7 @@
     "semantic-release": "semantic-release"
   },
   "engines": {
-    "node": ">=12"
+    "node": ">=16"
   },
   "keywords": [
     "jq",
@@ -56,8 +56,10 @@
   },
   "devDependencies": {
     "@arkweid/lefthook": "^0.7.7",
-    "@semantic-release/changelog": "^6.0.1",
+    "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
+    "@semantic-release/npm": "^10.0.4",
+    "@semantic-release/release-notes-generator": "^11.0.4",
     "@swc-node/register": "^1.4.0",
     "@swc/cli": "^0.1.57",
     "@swc/core": "^1.2.161",
@@ -66,7 +68,7 @@
     "copyfiles": "^2.4.1",
     "mocha": "^10.0.0",
     "nyc": "^15.1.0",
-    "semantic-release": "^19.0.2",
+    "semantic-release": "^21.0.7",
     "snazzy": "^9.0.0",
     "standard": "^17.0.0",
     "validate-commit-msg": "^2.14.0"

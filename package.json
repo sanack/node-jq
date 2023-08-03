@@ -57,7 +57,6 @@
   "devDependencies": {
     "@arkweid/lefthook": "^0.7.7",
     "@semantic-release/changelog": "^6.0.3",
-    "@semantic-release/git": "^10.0.1",
     "@semantic-release/npm": "^10.0.4",
     "@semantic-release/release-notes-generator": "^11.0.4",
     "@swc-node/register": "^1.4.0",

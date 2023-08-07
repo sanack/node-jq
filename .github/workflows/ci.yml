@@ -54,11 +54,50 @@ jobs:
       - name: Test
         run: npm run test
 
-#       - name: Generate code coverage
-#         if: success() && github.ref == 'refs/heads/main' && ${{ matrix.os }} == 'ubuntu-latest' && 16 == ${{ matrix.node-version }}
-#         uses: paambaati/codeclimate-action@v5.0.0
-#         env:
-#           CC_TEST_REPORTER_ID: b4ef7769e0f8f04456e8e1168b4beb44561bd5ce9ca216458a164e19c4cf7308
-#         with:
-#           coverageCommand: npm run coverage
-#           debug: true
+      #       - name: Generate code coverage
+      #         if: success() && github.ref == 'refs/heads/main' && ${{ matrix.os }} == 'ubuntu-latest' && 16 == ${{ matrix.node-version }}
+      #         uses: paambaati/codeclimate-action@v5.0.0
+      #         env:
+      #           CC_TEST_REPORTER_ID: b4ef7769e0f8f04456e8e1168b4beb44561bd5ce9ca216458a164e19c4cf7308
+      #         with:
+      #           coverageCommand: npm run coverage
+      #           debug: true
+
+  release:
+    name: Release
+    needs: build-test
+    if: github.ref == 'refs/heads/main'
+    env:
+      NODE_VERSION: lts/*
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # to be able to publish a GitHub release
+      issues: write # to be able to comment on released issues
+      pull-requests: write # to be able to comment on released pull requests
+      id-token: write # to enable use of OIDC for npm provenance
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Use Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm clean-install
+
+      - name: Verify the integrity of provenance attestations and registry signatures for installed dependencies
+        run: npm audit signatures
+
+      - name: Build
+        run: |
+          npm run build
+          npm run copy-ts-defintions
+
+      - name: Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npm run semantic-release

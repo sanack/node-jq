@@ -53,6 +53,7 @@ jobs:
 
       - name: Test
         run: npm run test
+
 #       - name: Generate code coverage
 #         if: success() && github.ref == 'refs/heads/main' && ${{ matrix.os }} == 'ubuntu-latest' && 16 == ${{ matrix.node-version }}
 #         uses: paambaati/codeclimate-action@v5.0.0

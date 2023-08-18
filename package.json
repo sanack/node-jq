@@ -7,6 +7,9 @@
     "type": "git",
     "url": "https://github.com/sanack/node-jq"
   },
+  "bin": {
+    "node-jq": "bin/jq"
+  },
   "scripts": {
     "pretest": "npm run install-binary",
     "install-binary": "node scripts/install-binary.js",

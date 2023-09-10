@@ -6,7 +6,7 @@
 ![https://lima.codeclimate.com/github/sanack/node-jq/coverage](https://lima.codeclimate.com/github/sanack/node-jq/badges/coverage.svg)
 ![https://github.com/sanack/node-jq/actions/workflows/ci.yml](https://github.com/sanack/node-jq/actions/workflows/ci.yml/badge.svg)
 
-[node-jq](https://github.com/sanack/node-jq) is a Node.js wrapper for [jq](https://stedolan.github.io/jq/) - a lightweight and flexible command-line JSON processor
+[node-jq](https://github.com/sanack/node-jq) is a Node.js wrapper for [jq](https://jqlang.github.io/jq/) - a lightweight and flexible command-line JSON processor
 
 ---
 
@@ -20,7 +20,7 @@ $ yarn add node-jq
 
 ## Advanced installation
 
-By default, `node-jq` downloads `jq` during the installation process with a post-install script. Depending on your SO downloads from [https://github.com/stedolan/jq/releases] into `./node_modules/node-jq/bin/jq` to avoid colisions with any global installation. Check #161 #167 #171 for more information. You can safely rely on this location for your installed `jq`, we won't change this path without a major version upgrade.
+By default, `node-jq` downloads `jq` during the installation process with a post-install script. Depending on your SO downloads from [https://github.com/jqlang/jq/releases] into `./node_modules/node-jq/bin/jq` to avoid colisions with any global installation. Check #161 #167 #171 for more information. You can safely rely on this location for your installed `jq`, we won't change this path without a major version upgrade.
 
 If you want to skip the installation step of `jq`, you can set `NODE_JQ_SKIP_INSTALL_BINARY` to `true` or ignore the post-install script from the installation `npm install node-jq --ignore-scripts`.
 
@@ -262,7 +262,7 @@ Seems hard to learn, but it really isn't.
 
 Take a look at [this great introduction](https://robots.thoughtbot.com/jq-is-sed-for-json) or a [jq lesson](http://programminghistorian.org/lessons/json-and-jq).
 
-You can check out the [official manual](https://stedolan.github.io/jq/manual) and fiddle around in the online playground [jqplay.org](https://jqplay.org).
+You can check out the [official manual](https://jqlang.github.io/jq/manual) and fiddle around in the online playground [jqplay.org](https://jqplay.org).
 
 ## License
 

@@ -31,8 +31,8 @@ const arch = process.arch
 
 const JQ_INFO = {
   name: 'jq',
-  url: 'https://github.com/stedolan/jq/releases/download/',
-  version: 'jq-1.6'
+  url: 'https://github.com/jqlang/jq/releases/download/',
+  version: 'jq-1.7'
 }
 
 const JQ_NAME_MAP = {
@@ -67,30 +67,27 @@ if (process.env.NODE_JQ_SKIP_INSTALL_BINARY === 'true') {
   process.exit(0)
 }
 
-// if platform is missing, download source instead of executable
+// if platform or arch is missing, download source instead of executable
 const DOWNLOAD_MAP = {
   win32: {
-    def: 'jq-win32.exe',
-    x64: 'jq-win64.exe'
+    x64: 'jq-windows-amd64.exe',
+    ia32: 'jq-windows-i386.exe'
   },
   darwin: {
-    def: 'jq-osx-amd64',
-    x64: 'jq-osx-amd64'
+    x64: 'jq-macos-amd64',
+    arm64: 'jq-macos-arm64'
   },
   linux: {
-    def: 'jq-linux32',
-    x64: 'jq-linux64'
+    x64: 'jq-linux-amd64',
+    ia32: 'jq-linux-i386',
+    arm64: 'jq-linux-arm64'
   }
 }
 
-if (platform in DOWNLOAD_MAP) {
+if (platform in DOWNLOAD_MAP && arch in DOWNLOAD_MAP[platform]) {
   // download the executable
 
-  const filename =
-    arch in DOWNLOAD_MAP[platform]
-      ? DOWNLOAD_MAP[platform][arch]
-      : DOWNLOAD_MAP[platform].def
-
+  const filename = DOWNLOAD_MAP[platform][arch]
   const url = `${JQ_INFO.url}${JQ_INFO.version}/${filename}`
 
   console.log(`Downloading jq from ${url}`)
@@ -118,8 +115,7 @@ if (platform in DOWNLOAD_MAP) {
   console.log(`Building jq from ${url}`)
   binBuild
     .url(url, [
-      'autoreconf -fi',
-      `./configure --disable-maintainer-mode --with-oniguruma=builtin --prefix=${tempfile()} --bindir=${OUTPUT_DIR}`,
+      `./configure --with-oniguruma=builtin --prefix=${tempfile()} --bindir=${OUTPUT_DIR}`,
       'make -j8',
       'make install'
     ])

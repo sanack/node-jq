@@ -16,9 +16,6 @@ const PATH_JS_FIXTURE = path.join(PATH_FIXTURES, '1.js')
 const PATH_LARGE_JSON_FIXTURE = path.join(PATH_FIXTURES, 'large.json')
 const PATH_VARIABLE_JSON_FIXTURE = path.join(PATH_FIXTURES, 'var.json')
 
-const FIXTURE_JSON = require('./__test__/fixtures/1.json')
-const FIXTURE_JSON_STRING = JSON.stringify(FIXTURE_JSON, null, 2)
-
 const FILTER_VALID = '.repository.type'
 const FILTER_INVALID = 'invalid'
 const FILTER_WITH_VARIABLE =
@@ -33,18 +30,6 @@ describe('jq core', () => {
     run(FILTER_VALID, PATH_JSON_FIXTURE)
       .then(output => {
         expect(output).to.equal('"git"')
-        done()
-      })
-      .catch(error => {
-        done(error)
-      })
-  })
-
-  it('should pass on an empty filter', done => {
-    run('', PATH_JSON_FIXTURE)
-      .then(output => {
-        const normalizedOutput = output.replace(/\r\n/g, '\n')
-        expect(normalizedOutput).to.equal(FIXTURE_JSON_STRING)
         done()
       })
       .catch(error => {

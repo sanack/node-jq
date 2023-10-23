@@ -3,12 +3,12 @@ import stripFinalNewline from 'strip-final-newline'
 
 const TEN_MEBIBYTE = 1024 * 1024 * 10
 
-const exec = (command, args, stdin, cwd) => {
+const exec = (command, args, stdin, cwd, detached) => {
   return new Promise((resolve, reject) => {
     let stdout = ''
     let stderr = ''
 
-    const spawnOptions = { maxBuffer: TEN_MEBIBYTE, cwd, env: {} }
+    const spawnOptions = { maxBuffer: TEN_MEBIBYTE, cwd, detached, env: {} }
 
     const process = childProcess.spawn(command, args, spawnOptions)
 

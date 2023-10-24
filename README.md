@@ -229,6 +229,41 @@ jq.run('.', ['/path/to/file.json'], { output: 'json', sort: true }).then(console
 // },
 ```
 
+### cwd
+
+|           Description            |   Values   |    Default    |
+|:--------------------------------:|:----------:|:-------------:|
+| Set working dir for `jq` process | valid path | process.cwd() |
+
+
+```javascript
+jq.run('.', ['file.json'], { output: 'json', sort: true }, '/path/to').then(console.log)
+// {
+//   "a": 2,
+//   "b": 1
+// },
+```
+
+### detached
+
+|             Description              |     Values      | Default  |
+|:------------------------------------:|:---------------:|:--------:|
+| Run `jq` process as detached process | `true`, `false` | `false`  |
+
+By default `jq` process will run 'attached' to the main process. That means that any interrupt signal main process receives will be propagated to `jq` process. For example, if main process receives `SIGTERM`, `jq` will also receive it and exit immediately.
+
+However, in some cases you might **not** want `jq` to exit immediately and let it exit normally. For example, if you want to implement a graceful shutdown - main process receives `SIGTERM`, it finishes processing current json file and exits after processing is completed.
+
+To achieve that run `jq` detached and NodeJS will not propagate `SIGTERM` to `jq` process allowing it to run until it completes.
+
+```javascript
+jq.run('.', ['file.json'], { output: 'json', sort: true }, undefined, true).then(console.log)
+// {
+//   "a": 2,
+//   "b": 1
+// },
+```
+
 ## Projects using **node-jq**
 
 - **[atom-jq](https://github.com/sanack/atom-jq)**: an [Atom](https://atom.io/) package for manipulating JSON

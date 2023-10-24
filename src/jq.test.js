@@ -181,4 +181,15 @@ describe('jq core', () => {
         done(error)
       })
   })
+
+  it('should run as detached', done => {
+    run(FILTER_VALID, PATH_JSON_FIXTURE, undefined, undefined, undefined, true)
+      .then(output => {
+        expect(output).to.equal('"git"')
+        done()
+      })
+      .catch(error => {
+        done(error)
+      })
+  })
 })

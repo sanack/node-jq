@@ -1,7 +1,7 @@
 import exec from './exec'
 import { commandFactory } from './command'
 
-export const run = (filter, json, options = {}, jqPath, cwd) => {
+export const run = (filter, json, options = {}, jqPath, cwd, detached) => {
   return new Promise((resolve, reject) => {
     const { command, args, stdin } = commandFactory(
       filter,
@@ -10,7 +10,7 @@ export const run = (filter, json, options = {}, jqPath, cwd) => {
       jqPath
     )
 
-    exec(command, args, stdin, cwd)
+    exec(command, args, stdin, cwd, detached)
       .then((stdout) => {
         if (options.output === 'json') {
           let result

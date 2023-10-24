@@ -18,6 +18,14 @@ $ npm install node-jq --save
 $ yarn add node-jq
 ```
 
+## Fast
+
+You can use `jq` directly after installing it:
+
+```bash
+npx jq '.foo' package.json
+```
+
 ## Advanced installation
 
 By default, `node-jq` downloads `jq` during the installation process with a post-install script. Depending on your SO downloads from [https://github.com/jqlang/jq/releases] into `./node_modules/node-jq/bin/jq` to avoid colisions with any global installation. Check #161 #167 #171 for more information. You can safely rely on this location for your installed `jq`, we won't change this path without a major version upgrade.

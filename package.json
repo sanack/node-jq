@@ -1,11 +1,15 @@
 {
   "name": "node-jq",
-  "version": "4.1.0-rc.0",
+  "version": "0.0.0-automated-versioning",
   "description": "Run jq in node",
   "main": "lib/jq.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/sanack/node-jq"
+  },
+  "bin": {
+    "node-jq": "bin/jq",
+    "jq": "bin/jq"
   },
   "scripts": {
     "pretest": "npm run install-binary",

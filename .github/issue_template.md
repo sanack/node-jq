@@ -15,13 +15,9 @@
 
 If this is a feature request, explain why it should be added. Specific use-cases are best.
 
-For bug reports, please provide as much *relevant* info as possible and create a minimum reproduction with this [codesandbox](https://codesandbox.io/s/node-jq-issue-playground-4kqhr).
+For bug reports, please provide as much *relevant* info as possible and create a minimum reproduction by using this [playground](https://replit.com/@DavidSancho/try-node-jq?v=1#index.js) template.
 
-### Test Source
-
-```js
-// Avoid posting many lines of source code that aren't related with the issue.
-```
+If a playground is provided there's a much higher chance of your issue being resolved quickly.
 
 ### Error Message & Stack Trace
 

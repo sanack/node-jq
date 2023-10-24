@@ -7,7 +7,6 @@
   "jsc": {
     "target": "es3",
     "externalHelpers": false,
-
     "parser": {
       "syntax": "ecmascript",
       "jsx": true,

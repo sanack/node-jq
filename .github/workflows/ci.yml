@@ -95,6 +95,7 @@ jobs:
         run: |
           npm run build
           npm run copy-ts-defintions
+          rm -rf bin
 
       - name: Release
         env:

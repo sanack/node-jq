@@ -23,7 +23,7 @@ $ yarn add node-jq
 You can use `jq` directly after installing it:
 
 ```bash
-npx jq '.foo' package.json
+npx node-jq '.foo' package.json
 ```
 
 ## Advanced installation

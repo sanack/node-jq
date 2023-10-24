@@ -3,7 +3,7 @@
 
 ![https://www.npmjs.com/package/node-jq](https://img.shields.io/npm/dm/node-jq.svg?maxAge=3600)
 ![https://www.npmjs.com/package/node-jq](https://img.shields.io/npm/v/node-jq.svg?maxAge=3600)
-![https://lima.codeclimate.com/github/sanack/node-jq/coverage](https://lima.codeclimate.com/github/sanack/node-jq/badges/coverage.svg)
+![https://codeclimate.com/github/sanack/node-jq/coverage](https://codeclimate.com/github/sanack/node-jq/badges/coverage.svg)
 ![https://github.com/sanack/node-jq/actions/workflows/ci.yml](https://github.com/sanack/node-jq/actions/workflows/ci.yml/badge.svg)
 
 [node-jq](https://github.com/sanack/node-jq) is a Node.js wrapper for [jq](https://jqlang.github.io/jq/) - a lightweight and flexible command-line JSON processor

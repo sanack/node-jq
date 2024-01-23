@@ -378,21 +378,19 @@ describe('options', () => {
     })
   })
 
-  describe('send custom args',() => {
-    it("should send custom args to jq execution", done => {
+  describe('send custom args', () => {
+    it('should send custom args to jq execution', done => {
       run('{"fruit":$myfruit}', PATH_JSON_FIXTURE, {
         input: 'file',
         output: 'json',
-        args: ['--arg','myfruit','orange'],
+        args: ['--arg', 'myfruit', 'orange']
       })
-      .then(output => {
-        
-        expect(output).to.eql({fruit:"orange"})
-        done()
-      })
-      .catch(e => done(e))
+        .then(output => {
+          expect(output).to.eql({ fruit: 'orange' })
+          done()
+        })
+        .catch(e => done(e))
     })
-
   })
 
   describe('inherited env var', () => {

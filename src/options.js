@@ -35,7 +35,7 @@ export const optionsSchema = Joi.object({
   raw: strictBoolean,
   slurp: strictBoolean,
   sort: strictBoolean,
-  args: [Joi.array().items(Joi.string()), Joi.string()],
+  args: [Joi.array().items(Joi.string()), Joi.string()]
 
 })
 

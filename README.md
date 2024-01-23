@@ -221,9 +221,9 @@ jq.run('.', ['/path/to/file.json','/path/to/other_file.json'], { output: 'json',
 
 ### sort
 
-|         Description                   |     Values      |  Default  |
-|:-------------------------------------:|:---------------:|:---------:|
-| Sort object keys in alphabetical order| `true`, `false` | undefined |
+|         Description                   |     Values      | Default |
+|:-------------------------------------:|:---------------:|:-------:|
+| Sort object keys in alphabetical order| `true`, `false` | `false` |
 
 #### `sort: true`
 

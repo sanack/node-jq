@@ -378,10 +378,25 @@ describe('options', () => {
     })
   })
 
-  describe('send custom args', () => {
+  describe('send custom args when input = file', () => {
     it('should send custom args to jq execution', done => {
       run('{"fruit":$myfruit}', PATH_JSON_FIXTURE, {
         input: 'file',
+        output: 'json',
+        args: ['--arg', 'myfruit', 'orange']
+      })
+        .then(output => {
+          expect(output).to.eql({ fruit: 'orange' })
+          done()
+        })
+        .catch(e => done(e))
+    })
+  })
+
+  describe('send custom args when input = json', () => {
+    it('should send custom args to jq execution', done => {
+      run('{"fruit":$myfruit}', {}, {
+        input: 'json',
         output: 'json',
         args: ['--arg', 'myfruit', 'orange']
       })

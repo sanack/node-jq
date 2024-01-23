@@ -105,7 +105,7 @@ export const parseOptions = (options = {}, filter, json) => {
       .reduce((list, key) => list.concat(validatedSpawn.args[key]), [])
       .concat(filter, json)
   }
-  return Object.values(validatedSpawn.args).concat(filter)
+  return Object.values(validatedSpawn.args).flat().concat(filter)
 }
 
 export const optionDefaults = Joi.attempt({}, optionsSchema)

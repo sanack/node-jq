@@ -83,12 +83,13 @@ export const spawnSchema = Joi.object({
       then: Joi.array().default(Joi.ref('$options.args', {
         adjust: (value) => {
           return Object.keys(value).map((key) => {
-            switch(typeof value[key]) {
+            switch (typeof value[key]) {
+              case 'string':
+                return ['--arg', key, value[key]]
+              case 'object':
+                return ['--argjson', key, JSON.stringify(value[key])]
               default:
-              case "string":
-                  return ["--arg",key,value[key]];
-              case "object":
-                  return ["--argjson",key,JSON.stringify(value[key])]
+                return ['--arg', key, value[key]]
             }
           }).flat()
         }

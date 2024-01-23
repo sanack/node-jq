@@ -383,16 +383,15 @@ describe('options', () => {
       run('{"fruit":$myfruit,"fruit2":$myfruit2}', {}, {
         input: 'json',
         output: 'json',
-        args: {myfruit:{hello:'orange'},myfruit2:"banana"}
+        args: { myfruit: { hello: 'orange' }, myfruit2: 'banana' }
       })
         .then(output => {
-          expect(output).to.eql({ fruit: {hello:'orange'}, fruit2: "banana" })
+          expect(output).to.eql({ fruit: { hello: 'orange' }, fruit2: 'banana' })
           done()
         })
         .catch(e => done(e))
     })
   })
-
 
   describe('inherited env var', () => {
     it('process.env should not be sent in to jq execution', done => {

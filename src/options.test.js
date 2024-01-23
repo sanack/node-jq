@@ -378,6 +378,23 @@ describe('options', () => {
     })
   })
 
+  describe('send custom args',() => {
+    it("should send custom args to jq execution", done => {
+      run('{"fruit":$myfruit}', PATH_JSON_FIXTURE, {
+        input: 'file',
+        output: 'json',
+        args: ['--arg','myfruit','orange'],
+      })
+      .then(output => {
+        
+        expect(output).to.eql({fruit:"orange"})
+        done()
+      })
+      .catch(e => done(e))
+    })
+
+  })
+
   describe('inherited env var', () => {
     it('process.env should not be sent in to jq execution', done => {
       process.env.X_TEST_ENV_VAR = 'TEST_VALUE'

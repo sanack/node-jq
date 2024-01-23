@@ -34,7 +34,9 @@ export const optionsSchema = Joi.object({
   output: Joi.string().default('pretty').valid('string', 'compact', 'pretty', 'json'),
   raw: strictBoolean,
   slurp: strictBoolean,
-  sort: strictBoolean
+  sort: strictBoolean,
+  args: [Joi.array().items(Joi.string()), Joi.string()],
+
 })
 
 export const preSpawnSchema = Joi.object({
@@ -76,7 +78,34 @@ export const spawnSchema = Joi.object({
     }),
     raw: createBooleanSchema('$options.raw', '-r'),
     slurp: createBooleanSchema('$options.slurp', '--slurp'),
-    sort: createBooleanSchema('$options.sort', '--sort-keys')
+    sort: createBooleanSchema('$options.sort', '--sort-keys'),
+    args: Joi.array().when('$options.args', {
+      // switch: [
+      //   // { 
+      //   //   is: Joi.array().items(Joi.string()),
+      //   //   then: Joi.array().default(Joi.ref('$options.args', {
+      //   //     adjust: (value) => {
+      //   //       return [].concat(value)
+      //   //     }
+      //   //   }))
+      //   // },
+      //   { 
+      //     is: Joi.string(),
+      //     then: Joi.array().default(Joi.ref('$options.args', {
+      //       adjust: (value) => {
+      //         console.log('value', value)
+      //         return [].concat(value)
+      //       }
+      //     }))
+      //   }
+      // ]
+      is: [Joi.array().items(Joi.string()), Joi.string()],
+      then: Joi.array().default(Joi.ref('$options.args', {
+        adjust: (value) => {
+          return [].concat(value)
+        }
+      }))
+    })
   }).default(),
   stdin: Joi.string().default('').alter({
     json: (schema) => schema.default(Joi.ref('$json', {

@@ -221,9 +221,9 @@ jq.run('.', ['/path/to/file.json','/path/to/other_file.json'], { output: 'json',
 
 ### sort
 
-|         Description                   |     Values      | Default |
-|:-------------------------------------:|:---------------:|:-------:|
-| Sort object keys in alphabetical order| `true`, `false` | `false` |
+|         Description                   |     Values      |  Default  |
+|:-------------------------------------:|:---------------:|:---------:|
+| Sort object keys in alphabetical order| `true`, `false` | undefined |
 
 #### `sort: true`
 
@@ -235,6 +235,23 @@ jq.run('.', ['/path/to/file.json'], { output: 'json', sort: true }).then(console
 //   "a": 2,
 //   "b": 1
 // },
+```
+
+### args
+
+|         Description                   |        Values        |   Default   |
+|:-------------------------------------:|:--------------------:|:-----------:|
+| Send custom args to the jq command    | `[string]`, `string` | `undefined` |
+
+#### `args: ['--arg','myfruit','orange']`
+
+Adds the `--arg myfruit orange` arguments to the internal jq command
+
+```javascript
+jq.run('{"fruit":$myfruit}', ['/path/to/file.json'], { output: 'json', sort: true, args: ['--arg','myfruit','orange'] }).then(console.log)
+// {
+//   fruit: "orange"
+// }
 ```
 
 ### cwd

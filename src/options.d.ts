@@ -13,5 +13,6 @@ interface IOptions {
     raw: boolean,
     slurp: boolean,
     sort: boolean,
+    args: string | string[]
 }
 export type PartialOptions = Partial<IOptions>

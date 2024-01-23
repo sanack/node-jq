@@ -35,8 +35,7 @@ export const optionsSchema = Joi.object({
   raw: strictBoolean,
   slurp: strictBoolean,
   sort: strictBoolean,
-  args: [Joi.array().items(Joi.string()), Joi.string()]
-
+  args: Joi.object().unknown()
 })
 
 export const preSpawnSchema = Joi.object({
@@ -80,10 +79,18 @@ export const spawnSchema = Joi.object({
     slurp: createBooleanSchema('$options.slurp', '--slurp'),
     sort: createBooleanSchema('$options.sort', '--sort-keys'),
     args: Joi.array().when('$options.args', {
-      is: [Joi.array().items(Joi.string()), Joi.string()],
+      is: Joi.object().required(),
       then: Joi.array().default(Joi.ref('$options.args', {
         adjust: (value) => {
-          return [].concat(value)
+          return Object.keys(value).map((key) => {
+            switch(typeof value[key]) {
+              default:
+              case "string":
+                  return ["--arg",key,value[key]];
+              case "object":
+                  return ["--argjson",key,JSON.stringify(value[key])]
+            }
+          }).flat()
         }
       }))
     })

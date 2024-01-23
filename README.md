@@ -241,16 +241,19 @@ jq.run('.', ['/path/to/file.json'], { output: 'json', sort: true }).then(console
 
 |         Description                   |        Values        |   Default   |
 |:-------------------------------------:|:--------------------:|:-----------:|
-| Send custom args to the jq command    | `[string]`, `string` | `undefined` |
+| Send custom args to the jq command    | `[object]`           | `undefined` |
 
-#### `args: ['--arg','myfruit','orange']`
+#### `args: { myfruit: { hello: 'orange'}, myfruit2: "banana" }`
 
-Adds the `--arg myfruit orange` arguments to the internal jq command
+Adds the `--argjson myfruit "{ 'hello': 'orange' }" --arg myfruit2 orange` arguments to the internal jq command
 
 ```javascript
-jq.run('{"fruit":$myfruit}', ['/path/to/file.json'], { output: 'json', sort: true, args: ['--arg','myfruit','orange'] }).then(console.log)
+jq.run('{"fruit":$myfruit,"fruit2":$myfruit2}', ['/path/to/file.json'], { output: 'json', sort: true, args: { myfruit: { hello: 'orange' }, myfruit2: "banana" } }).then(console.log)
 // {
-//   fruit: "orange"
+//   fruit: { 
+//      hello: "orange" 
+//   },
+//   fruit2: "banana"
 // }
 ```
 

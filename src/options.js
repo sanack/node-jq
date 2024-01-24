@@ -34,7 +34,8 @@ export const optionsSchema = Joi.object({
   output: Joi.string().default('pretty').valid('string', 'compact', 'pretty', 'json'),
   raw: strictBoolean,
   slurp: strictBoolean,
-  sort: strictBoolean
+  sort: strictBoolean,
+  args: Joi.object().unknown()
 })
 
 export const preSpawnSchema = Joi.object({
@@ -76,7 +77,24 @@ export const spawnSchema = Joi.object({
     }),
     raw: createBooleanSchema('$options.raw', '-r'),
     slurp: createBooleanSchema('$options.slurp', '--slurp'),
-    sort: createBooleanSchema('$options.sort', '--sort-keys')
+    sort: createBooleanSchema('$options.sort', '--sort-keys'),
+    args: Joi.array().when('$options.args', {
+      is: Joi.object().required(),
+      then: Joi.array().default(Joi.ref('$options.args', {
+        adjust: (value) => {
+          return Object.keys(value).map((key) => {
+            switch (typeof value[key]) {
+              case 'string':
+                return ['--arg', key, value[key]]
+              case 'object':
+                return ['--argjson', key, JSON.stringify(value[key])]
+              default:
+                return ['--arg', key, value[key]]
+            }
+          }).flat()
+        }
+      }))
+    })
   }).default(),
   stdin: Joi.string().default('').alter({
     json: (schema) => schema.default(Joi.ref('$json', {
@@ -95,7 +113,7 @@ export const parseOptions = (options = {}, filter, json) => {
       .reduce((list, key) => list.concat(validatedSpawn.args[key]), [])
       .concat(filter, json)
   }
-  return Object.values(validatedSpawn.args).concat(filter)
+  return Object.values(validatedSpawn.args).flat().concat(filter)
 }
 
 export const optionDefaults = Joi.attempt({}, optionsSchema)

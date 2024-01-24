@@ -378,6 +378,45 @@ describe('options', () => {
     })
   })
 
+  describe('send args as option', () => {
+    it('should send --arg to jq execution', done => {
+      run('{"fruit":$myfruit}', {}, {
+        input: 'json',
+        output: 'json',
+        args: { myfruit: 'orange' }
+      })
+        .then(output => {
+          expect(output).to.eql({ fruit: 'orange' })
+          done()
+        })
+        .catch(e => done(e))
+    })
+    it('should send --argjson to jq execution', done => {
+      run('{"fruit":$myfruit}', {}, {
+        input: 'json',
+        output: 'json',
+        args: { myfruit: { hello: 'orange' } }
+      })
+        .then(output => {
+          expect(output).to.eql({ fruit: { hello: 'orange' } })
+          done()
+        })
+        .catch(e => done(e))
+    })
+    it('should send both --arg and --argjson to jq execution', done => {
+      run('{"fruit":$myfruit,"fruit2":$myfruit2}', {}, {
+        input: 'json',
+        output: 'json',
+        args: { myfruit: { hello: 'orange' }, myfruit2: 'banana' }
+      })
+        .then(output => {
+          expect(output).to.eql({ fruit: { hello: 'orange' }, fruit2: 'banana' })
+          done()
+        })
+        .catch(e => done(e))
+    })
+  })
+
   describe('inherited env var', () => {
     it('process.env should not be sent in to jq execution', done => {
       process.env.X_TEST_ENV_VAR = 'TEST_VALUE'

@@ -379,7 +379,31 @@ describe('options', () => {
   })
 
   describe('send args as option', () => {
-    it('should send args to jq execution', done => {
+    it('should send --arg to jq execution', done => {
+      run('{"fruit":$myfruit}', {}, {
+        input: 'json',
+        output: 'json',
+        args: { myfruit: 'orange' }
+      })
+        .then(output => {
+          expect(output).to.eql({ fruit: 'orange' })
+          done()
+        })
+        .catch(e => done(e))
+    })
+    it('should send --argjson to jq execution', done => {
+      run('{"fruit":$myfruit}', {}, {
+        input: 'json',
+        output: 'json',
+        args: { myfruit: { hello: 'orange' } }
+      })
+        .then(output => {
+          expect(output).to.eql({ fruit: { hello: 'orange' } })
+          done()
+        })
+        .catch(e => done(e))
+    })
+    it('should send both --arg and --argjson to jq execution', done => {
       run('{"fruit":$myfruit,"fruit2":$myfruit2}', {}, {
         input: 'json',
         output: 'json',

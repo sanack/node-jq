@@ -65,7 +65,7 @@
     "@semantic-release/npm": "^10.0.4",
     "@semantic-release/release-notes-generator": "^11.0.4",
     "@swc-node/register": "^1.4.0",
-    "@swc/cli": "^0.1.57",
+    "@swc/cli": "^0.3.6",
     "@swc/core": "^1.2.161",
     "chai": "^4.2.0",
     "codeclimate-test-reporter": "^0.5.1",

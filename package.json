@@ -18,7 +18,7 @@
     "lint": "standard --verbose | snazzy",
     "build": "swc ./src --delete-dir-on-start -d lib",
     "copy-ts-defintions": "copyfiles src/*.d.ts lib -f",
-    "postinstall": "npm run install-binary",
+    "preinstall": "npm run install-binary",
     "coverage": "nyc report --reporter=lcov",
     "precodeclimate": "npm run coverage",
     "codeclimate": "codeclimate-test-reporter < coverage/lcov.info",

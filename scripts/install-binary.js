@@ -17,8 +17,8 @@ async function download (url, saveDirectory) {
     downloader.on('progress.throttled', (downloadEvents) => {
       const percentageComplete =
           downloadEvents.progress < 100
-              ? downloadEvents.progress.toPrecision(2)
-              : 100
+            ? downloadEvents.progress.toPrecision(2)
+            : 100
       console.info(`Downloaded: ${percentageComplete}%`)
     })
 
@@ -42,17 +42,17 @@ const JQ_NAME_MAP = {
 const JQ_NAME =
     platform in JQ_NAME_MAP ? JQ_NAME_MAP[platform] : JQ_NAME_MAP.def
 
-const PACKAGE_FOLDER =  path.join(__dirname, '..')
-const PACKAGE_FILE =  path.join(PACKAGE_FOLDER, 'package.json')
+const PACKAGE_FOLDER = path.join(__dirname, '..')
+const PACKAGE_FILE = path.join(PACKAGE_FOLDER, 'package.json')
 const OUTPUT_DIR = path.join(__dirname, '..', 'bin')
 const OUTPUT_FILE = path.join(OUTPUT_DIR, JQ_NAME)
 
 const renamePackageBin = () => {
-  const __package = JSON.parse(fs.readFileSync(PACKAGE_FILE,{encoding: "utf-8"}))
+  const __package = JSON.parse(fs.readFileSync(PACKAGE_FILE, { encoding: 'utf-8' }))
   __package.bin = {
-    "node-jq": path.relative(PACKAGE_FOLDER,OUTPUT_FILE).split("\\").join('/')
+    'node-jq': path.relative(PACKAGE_FOLDER, OUTPUT_FILE).split('\\').join('/')
   }
-  fs.writeFileSync(PACKAGE_FILE,JSON.stringify(__package,null,"\t"));
+  fs.writeFileSync(PACKAGE_FILE, JSON.stringify(__package, null, '\t'))
 }
 
 const fileExist = (path) => {
@@ -104,21 +104,21 @@ if (platform in DOWNLOAD_MAP && arch in DOWNLOAD_MAP[platform]) {
 
   console.log(`Downloading jq from ${url}`)
   download(url, OUTPUT_DIR)
-      .then(() => {
-        fs.renameSync(path.join(OUTPUT_DIR, filename), OUTPUT_FILE)
-        if (fileExist(OUTPUT_FILE)) {
-          // fs.chmodSync(OUTPUT_FILE, fs.constants.S_IXUSR || 0o100)
-          // Huan(202111): we need the read permission so that the build system can pack the node_modules/ folder,
-          // i.e. build with Heroku CI/CD, docker build, etc.
-          fs.chmodSync(OUTPUT_FILE, 0o755)
-        }
-        renamePackageBin()
-        console.log(`Downloaded in ${OUTPUT_DIR}`)
-      })
-      .catch(err => {
-        console.error(err)
-        process.exit(1)
-      })
+    .then(() => {
+      fs.renameSync(path.join(OUTPUT_DIR, filename), OUTPUT_FILE)
+      if (fileExist(OUTPUT_FILE)) {
+        // fs.chmodSync(OUTPUT_FILE, fs.constants.S_IXUSR || 0o100)
+        // Huan(202111): we need the read permission so that the build system can pack the node_modules/ folder,
+        // i.e. build with Heroku CI/CD, docker build, etc.
+        fs.chmodSync(OUTPUT_FILE, 0o755)
+      }
+      renamePackageBin()
+      console.log(`Downloaded in ${OUTPUT_DIR}`)
+    })
+    .catch(err => {
+      console.error(err)
+      process.exit(1)
+    })
 } else {
   // download source and build
 
@@ -126,17 +126,17 @@ if (platform in DOWNLOAD_MAP && arch in DOWNLOAD_MAP[platform]) {
 
   console.log(`Building jq from ${url}`)
   binBuild
-      .url(url, [
+    .url(url, [
         `./configure --with-oniguruma=builtin --prefix=${tempfile()} --bindir=${OUTPUT_DIR}`,
         'make -j8',
         'make install'
-      ])
-      .then(() => {
-        renamePackageBin()
-        console.log(`jq installed successfully on ${OUTPUT_DIR}`)
-      })
-      .catch(err => {
-        console.error(err)
-        process.exit(1)
-      })
+    ])
+    .then(() => {
+      renamePackageBin()
+      console.log(`jq installed successfully on ${OUTPUT_DIR}`)
+    })
+    .catch(err => {
+      console.error(err)
+      process.exit(1)
+    })
 }

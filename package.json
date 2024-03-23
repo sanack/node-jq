@@ -1,86 +1,86 @@
 {
-  "name": "node-jq",
-  "version": "0.0.0-semantic-release",
-  "description": "Run jq in node",
-  "main": "lib/jq.js",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/sanack/node-jq"
-  },
-  "bin": {
-    "node-jq": "bin/jq"
-  },
-  "scripts": {
-    "pretest": "npm run install-binary",
-    "install-binary": "node scripts/install-binary.js",
-    "test": "nyc mocha src/*.test.js -r @swc-node/register",
-    "test:watch": "npm test -- --watch",
-    "lint": "standard --verbose | snazzy",
-    "build": "swc ./src --delete-dir-on-start -d lib",
-    "copy-ts-defintions": "copyfiles src/*.d.ts lib -f",
-    "preinstall": "npm run install-binary",
-    "coverage": "nyc report --reporter=lcov",
-    "precodeclimate": "npm run coverage",
-    "codeclimate": "codeclimate-test-reporter < coverage/lcov.info",
-    "semantic-release": "semantic-release"
-  },
-  "engines": {
-    "node": ">= 16"
-  },
-  "keywords": [
-    "jq",
-    "json"
-  ],
-  "author": "sanack",
-  "contributors": [
-    {
-      "name": "davesnx",
-      "email": "dsnxmoreno@gmail.com"
-    },
-    {
-      "name": "mackermans",
-      "email": "maarten.ackermans@gmail.com"
-    }
-  ],
-  "license": "MIT",
-  "files": [
-    "src",
-    "lib",
-    "scripts",
-    "docs"
-  ],
-  "dependencies": {
-    "bin-build": "^3.0.0",
-    "is-valid-path": "^0.1.1",
-    "joi": "^17.4.0",
-    "node-downloader-helper": "^2.1.6",
-    "strip-final-newline": "^2.0.0",
-    "tempfile": "^3.0.0"
-  },
-  "devDependencies": {
-    "@arkweid/lefthook": "^0.7.7",
-    "@semantic-release/changelog": "^6.0.3",
-    "@semantic-release/commit-analyzer": "^10.0.1",
-    "@semantic-release/github": "^9.0.4",
-    "@semantic-release/npm": "^10.0.4",
-    "@semantic-release/release-notes-generator": "^11.0.4",
-    "@swc-node/register": "^1.4.0",
-    "@swc/cli": "^0.1.57",
-    "@swc/core": "^1.2.161",
-    "chai": "^4.2.0",
-    "codeclimate-test-reporter": "^0.5.1",
-    "copyfiles": "^2.4.1",
-    "mocha": "^10.0.0",
-    "nyc": "^15.1.0",
-    "semantic-release": "^21.0.7",
-    "snazzy": "^9.0.0",
-    "standard": "^17.0.0",
-    "validate-commit-msg": "^2.14.0"
-  },
-  "standard": {
-    "global": [
-      "describe",
-      "it"
-    ]
-  }
+	"name": "node-jq",
+	"version": "0.0.0-semantic-release",
+	"description": "Run jq in node",
+	"main": "lib/jq.js",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/sanack/node-jq"
+	},
+	"bin": {
+		"node-jq": "bin/jq.exe"
+	},
+	"scripts": {
+		"pretest": "npm run install-binary",
+		"install-binary": "node scripts/install-binary.js",
+		"test": "nyc mocha src/*.test.js -r @swc-node/register",
+		"test:watch": "npm test -- --watch",
+		"lint": "standard --verbose | snazzy",
+		"build": "swc ./src --delete-dir-on-start -d lib",
+		"copy-ts-defintions": "copyfiles src/*.d.ts lib -f",
+		"preinstall": "npm run install-binary",
+		"coverage": "nyc report --reporter=lcov",
+		"precodeclimate": "npm run coverage",
+		"codeclimate": "codeclimate-test-reporter < coverage/lcov.info",
+		"semantic-release": "semantic-release"
+	},
+	"engines": {
+		"node": ">= 16"
+	},
+	"keywords": [
+		"jq",
+		"json"
+	],
+	"author": "sanack",
+	"contributors": [
+		{
+			"name": "davesnx",
+			"email": "dsnxmoreno@gmail.com"
+		},
+		{
+			"name": "mackermans",
+			"email": "maarten.ackermans@gmail.com"
+		}
+	],
+	"license": "MIT",
+	"files": [
+		"src",
+		"lib",
+		"scripts",
+		"docs"
+	],
+	"dependencies": {
+		"bin-build": "^3.0.0",
+		"is-valid-path": "^0.1.1",
+		"joi": "^17.4.0",
+		"node-downloader-helper": "^2.1.6",
+		"strip-final-newline": "^2.0.0",
+		"tempfile": "^3.0.0"
+	},
+	"devDependencies": {
+		"@arkweid/lefthook": "^0.7.7",
+		"@semantic-release/changelog": "^6.0.3",
+		"@semantic-release/commit-analyzer": "^10.0.1",
+		"@semantic-release/github": "^9.0.4",
+		"@semantic-release/npm": "^10.0.4",
+		"@semantic-release/release-notes-generator": "^11.0.4",
+		"@swc-node/register": "^1.4.0",
+		"@swc/cli": "^0.1.57",
+		"@swc/core": "^1.2.161",
+		"chai": "^4.2.0",
+		"codeclimate-test-reporter": "^0.5.1",
+		"copyfiles": "^2.4.1",
+		"mocha": "^10.0.0",
+		"nyc": "^15.1.0",
+		"semantic-release": "^21.0.7",
+		"snazzy": "^9.0.0",
+		"standard": "^17.0.0",
+		"validate-commit-msg": "^2.14.0"
+	},
+	"standard": {
+		"global": [
+			"describe",
+			"it"
+		]
+	}
 }

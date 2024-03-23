@@ -47,6 +47,14 @@ const PACKAGE_FILE =  path.join(PACKAGE_FOLDER, 'package.json')
 const OUTPUT_DIR = path.join(__dirname, '..', 'bin')
 const OUTPUT_FILE = path.join(OUTPUT_DIR, JQ_NAME)
 
+const renamePackageBin = () => {
+  const __package = JSON.parse(fs.readFileSync(PACKAGE_FILE,{encoding: "utf-8"}))
+  __package.bin = {
+    "node-jq": path.relative(PACKAGE_FOLDER,OUTPUT_FILE).split("\\").join('/')
+  }
+  fs.writeFileSync(PACKAGE_FILE,JSON.stringify(__package,null,"\t"));
+}
+
 const fileExist = (path) => {
   try {
     return fs.existsSync(path)
@@ -62,6 +70,7 @@ if (!fs.existsSync(OUTPUT_DIR)) {
 
 if (fileExist(OUTPUT_FILE)) {
   console.log('jq is already installed')
+  renamePackageBin()
   process.exit(0)
 }
 
@@ -103,6 +112,7 @@ if (platform in DOWNLOAD_MAP && arch in DOWNLOAD_MAP[platform]) {
           // i.e. build with Heroku CI/CD, docker build, etc.
           fs.chmodSync(OUTPUT_FILE, 0o755)
         }
+        renamePackageBin()
         console.log(`Downloaded in ${OUTPUT_DIR}`)
       })
       .catch(err => {
@@ -122,6 +132,7 @@ if (platform in DOWNLOAD_MAP && arch in DOWNLOAD_MAP[platform]) {
         'make install'
       ])
       .then(() => {
+        renamePackageBin()
         console.log(`jq installed successfully on ${OUTPUT_DIR}`)
       })
       .catch(err => {

@@ -32,7 +32,6 @@ const exec = (command, args, stdin, cwd, detached) => {
           return reject(err)
         }
       })
-      process.stdin.setEncoding('utf-8')
       process.stdin.write(stdin)
       process.stdin.end()
     }

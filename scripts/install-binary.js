@@ -44,7 +44,6 @@ const JQ_NAME =
     platform in JQ_NAME_MAP ? JQ_NAME_MAP[platform] : JQ_NAME_MAP.def
 
 const PACKAGE_FOLDER = path.join(__dirname, '..')
-const PACKAGE_FILE = path.join(PACKAGE_FOLDER, 'package.json')
 const OUTPUT_DIR = path.join(__dirname, '..', 'bin')
 const OUTPUT_FILE = path.join(OUTPUT_DIR, JQ_NAME)
 

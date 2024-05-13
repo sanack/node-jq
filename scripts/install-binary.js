@@ -70,7 +70,6 @@ if (!fs.existsSync(OUTPUT_DIR)) {
 
 if (fileExist(OUTPUT_FILE)) {
   console.log('jq is already installed')
-  makeBinaryWorkInWindows()
   process.exit(0)
 }
 

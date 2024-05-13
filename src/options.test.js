@@ -94,7 +94,7 @@ describe('options', () => {
         run('.', null, { input: 'file' })
           .catch(error => {
             expect(error).to.be.an.instanceof(Error)
-            expect(error.message).to.equal(`${INVALID_PATH_ERROR}: "null"`)
+            expect(error.message).to.equal(`${INVALID_PATH_ERROR}: "undefined"`)
             done()
           })
           .catch(error => {
@@ -212,7 +212,7 @@ describe('options', () => {
         run('.', null, { input: 'string' })
           .catch(error => {
             expect(error).to.be.an.instanceof(Error)
-            expect(error.message).to.equal(`${INPUT_STRING_ERROR}: "null"`)
+            expect(error.message).to.equal(`${INPUT_STRING_ERROR}: "undefined"`)
             done()
           })
           .catch(error => {

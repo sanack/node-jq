@@ -7,6 +7,7 @@ const path = require('path')
 const tempfile = require('tempfile')
 const fs = require('fs')
 const { DownloaderHelper } = require('node-downloader-helper')
+const { execSync } = require('child_process')
 
 async function download (url, saveDirectory) {
   const downloader = new DownloaderHelper(url, saveDirectory)
@@ -48,11 +49,10 @@ const OUTPUT_DIR = path.join(__dirname, '..', 'bin')
 const OUTPUT_FILE = path.join(OUTPUT_DIR, JQ_NAME)
 
 const makeBinaryWorkInWindows = () => {
-  const __package = JSON.parse(fs.readFileSync(PACKAGE_FILE, { encoding: 'utf-8' }))
-  __package.bin = {
-    'node-jq': path.relative(PACKAGE_FOLDER, OUTPUT_FILE)
-  }
-  fs.writeFileSync(PACKAGE_FILE, JSON.stringify(__package, null, '\t'))
+  // Run "npm link" to make sure the binary files are symlinked
+  execSync('npm link .', {
+    cwd: PACKAGE_FOLDER
+  })
 }
 
 const fileExist = (path) => {

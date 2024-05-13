@@ -49,7 +49,7 @@ const OUTPUT_FILE = path.join(OUTPUT_DIR, JQ_NAME)
 
 const makeBinaryWorkInWindows = () => {
   // Run "npm link" to make sure the binary files are symlinked
-  execSync('npm link .', {
+  execSync('npm link . --ignore-scripts --audit false --fund false', {
     cwd: PACKAGE_FOLDER
   })
 }

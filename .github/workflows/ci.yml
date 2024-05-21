@@ -66,8 +66,6 @@ jobs:
     name: Release
     needs: build-test
     if: github.ref == 'refs/heads/main'
-    env:
-      NODE_VERSION: lts/*
     runs-on: ubuntu-latest
     permissions:
       contents: write # to be able to publish a GitHub release
@@ -82,7 +80,7 @@ jobs:
       - name: Use Node
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version-file: .tool-versions
 
       - name: Install dependencies
         run: npm clean-install

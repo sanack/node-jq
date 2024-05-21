@@ -13,6 +13,10 @@ export const run = (filter, json, options = {}, jqPath, cwd, detached) => {
     exec(command, args, stdin, cwd, detached)
       .then((stdout) => {
         if (options.output === 'json') {
+          if (stdout === '') {
+            return resolve(undefined)
+          }
+
           let result
           try {
             result = JSON.parse(stdout)

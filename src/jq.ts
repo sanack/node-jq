@@ -1,22 +1,30 @@
 import exec from './exec'
 import { commandFactory } from './command'
+import type { FilterInput, JsonInput, OptionsInput } from './options'
 
-export const run = (filter, json, options = {}, jqPath, cwd, detached) => {
+export const run = (
+  filter: FilterInput,
+  json: JsonInput,
+  options?: OptionsInput,
+  jqPath?: string,
+  cwd?: string,
+  detached?: boolean,
+): Promise<object | string> => {
   return new Promise((resolve, reject) => {
     const { command, args, stdin } = commandFactory(
       filter,
       json,
       options,
-      jqPath
+      jqPath,
     )
 
     exec(command, args, stdin, cwd, detached)
       .then((stdout) => {
-        if (options.output === 'json') {
-          let result
+        if (options?.output === 'json') {
+          let result: object | string
           try {
             result = JSON.parse(stdout)
-          } catch (error) {
+          } catch (_error) {
             result = stdout
           }
           return resolve(result)

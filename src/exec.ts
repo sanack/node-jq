@@ -3,7 +3,13 @@ import stripFinalNewline from 'strip-final-newline'
 
 const TEN_MEBIBYTE = 1024 * 1024 * 10
 
-const exec = (command, args, stdin, cwd, detached) => {
+const exec = (
+  command: string,
+  args: string[],
+  stdin: string,
+  cwd?: string,
+  detached?: boolean,
+): Promise<string> => {
   return new Promise((resolve, reject) => {
     let stdout = ''
     let stderr = ''
@@ -14,7 +20,7 @@ const exec = (command, args, stdin, cwd, detached) => {
 
     // All of these handlers can close the Promise, so guard against rejecting it twice.
     let promiseAlreadyRejected = false
-    process.on('close', code => {
+    process.on('close', (code) => {
       if (!promiseAlreadyRejected) {
         promiseAlreadyRejected = true
         if (code !== 0) {
@@ -26,7 +32,7 @@ const exec = (command, args, stdin, cwd, detached) => {
     })
 
     if (stdin) {
-      process.stdin.on('error', err => {
+      process.stdin.on('error', (err) => {
         if (!promiseAlreadyRejected) {
           promiseAlreadyRejected = true
           return reject(err)
@@ -37,11 +43,11 @@ const exec = (command, args, stdin, cwd, detached) => {
     }
 
     process.stdout.setEncoding('utf-8')
-    process.stdout.on('data', data => {
+    process.stdout.on('data', (data) => {
       stdout += data
     })
 
-    process.stderr.on('data', data => {
+    process.stderr.on('data', (data) => {
       stderr += data
     })
   })

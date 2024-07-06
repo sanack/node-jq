@@ -10,15 +10,12 @@ const FILTER_VALID = '.repository.type'
 
 const EMPTY_OPTION_RESULT = {
   command: path.join(__dirname, '../bin/jq'),
-  args: [
-    FILTER_VALID,
-    PATH_JSON_FIXTURE
-  ],
-  stdin: ''
+  args: [FILTER_VALID, PATH_JSON_FIXTURE],
+  stdin: '',
 }
 
 describe('command', () => {
-  it('factory should accept undefined options', done => {
+  it('factory should accept undefined options', (done) => {
     try {
       const result = commandFactory(FILTER_VALID, PATH_JSON_FIXTURE)
       expect(result).to.deep.equal(EMPTY_OPTION_RESULT)

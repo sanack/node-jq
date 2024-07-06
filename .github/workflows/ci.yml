@@ -36,7 +36,7 @@ jobs:
       - uses: actions/cache@v4
         with:
           key: ${{ matrix.os }}-modules-${{ hashFiles('**/package-lock.json') }}
-          path: "**/node_modules"
+          path: '**/node_modules'
           restore-keys: |
             ${{ matrix.os }}-modules-
 
@@ -46,7 +46,6 @@ jobs:
       - name: Build
         run: |
           npm run build
-          npm run copy-ts-defintions
 
       - name: Lint
         run: npm run lint
@@ -92,7 +91,6 @@ jobs:
       - name: Build
         run: |
           npm run build
-          npm run copy-ts-defintions
           rm -rf bin
 
       - name: Release

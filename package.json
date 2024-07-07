@@ -12,7 +12,7 @@
   },
   "scripts": {
     "pretest": "npm run install-binary",
-    "install-binary": "node scripts/install-binary.js",
+    "install-binary": "node scripts/install-binary.mjs",
     "test": "nyc mocha src/*.test.ts -r @swc-node/register",
     "test:watch": "npm test -- --watch",
     "lint": "eslint ./src",
@@ -49,11 +49,10 @@
     "lib"
   ],
   "dependencies": {
-    "bin-build": "^3.0.0",
     "is-valid-path": "^0.1.1",
-    "node-downloader-helper": "^2.1.6",
     "strip-final-newline": "^2.0.0",
-    "tempfile": "^3.0.0",
+    "tar": "^7.4.0",
+    "tempy": "^3.1.0",
     "zod": "^3.23.8"
   },
   "devDependencies": {

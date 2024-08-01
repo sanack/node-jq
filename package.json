@@ -61,7 +61,7 @@
     "@semantic-release/commit-analyzer": "^12.0.0",
     "@semantic-release/github": "^9.0.4",
     "@semantic-release/npm": "^10.0.4",
-    "@semantic-release/release-notes-generator": "^11.0.4",
+    "@semantic-release/release-notes-generator": "^14.0.1",
     "@swc-node/register": "^1.10.2",
     "@swc/cli": "^0.4.0",
     "@swc/core": "^1.2.161",

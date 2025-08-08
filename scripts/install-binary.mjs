@@ -2,6 +2,12 @@
 
 'use strict'
 
+// First check if the user has configured a local jq binary
+if (process.env.npm_config_jq_path) {
+  console.log(`Using configured local jq binary: ${process.env.npm_config_jq_path}`)
+  process.exit(0)
+}
+
 import { spawn } from 'node:child_process'
 import {
   chmodSync,

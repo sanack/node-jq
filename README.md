@@ -30,6 +30,8 @@ npx node-jq '.foo' package.json
 
 By default, `node-jq` downloads `jq` during the installation process with a post-install script. Depending on your SO downloads from [https://github.com/jqlang/jq/releases] into `./node_modules/node-jq/bin/jq` to avoid colisions with any global installation. Check #161 #167 #171 for more information. You can safely rely on this location for your installed `jq`, we won't change this path without a major version upgrade.
 
+### Skipping binary installation
+
 If you want to skip the installation step of `jq`, you can set `NODE_JQ_SKIP_INSTALL_BINARY` to `true` or ignore the post-install script from the installation `npm install node-jq --ignore-scripts`.
 
 ```bash
@@ -40,6 +42,31 @@ npm install node-jq
 ```bash
 npm install node-jq --ignore-scripts
 ```
+
+### Using a local jq binary
+
+If you have `jq` already installed on your system or in environments where downloading binaries is restricted, you can configure `node-jq` to use a local binary instead. Add the following to your `.npmrc` file:
+
+```bash
+# Use jq from system PATH
+jq-path=jq
+
+# Or specify an absolute path
+jq-path=/usr/local/bin/jq
+```
+
+Then install normally:
+
+```bash
+npm install node-jq --save
+```
+
+This approach is ideal for:
+- Corporate environments where web downloads are disallowed
+- Systems where `jq` is available through package managers
+- Build environments that need reproducible installations
+
+The configuration is automatically picked up from `.npmrc` and can be version-controlled with your project.
 
 ## Usage
 
@@ -109,8 +136,21 @@ jq.run(filter, jsonPath, options)
 
 ### path to jq binary
 
-By default, the `jq` binary installed with the package is used. If you have special needs or want to use another binary in a different
-path you can set the environment variable `JQ_PATH` to override the binary path.
+By default, the `jq` binary installed with the package is used. You can override this in several ways:
+
+1. **`.npmrc` configuration** (recommended for project-level settings):
+   ```bash
+   jq-path=jq
+   # or
+   jq-path=/usr/local/bin/jq
+   ```
+
+2. **Environment variable** (for runtime overrides):
+   ```bash
+   export JQ_PATH=/path/to/jq
+   ```
+
+The priority order is: `JQ_PATH` environment variable → `.npmrc` configuration → downloaded binary.
 
 ### input
 

@@ -7,7 +7,10 @@ import {
   type OptionsInput,
 } from './options'
 
-const JQ_PATH = process.env.JQ_PATH ?? path.join(__dirname, '..', 'bin', 'jq')
+const JQ_PATH =
+  process.env.JQ_PATH ??
+  process.env.npm_config_jq_path ??
+  path.join(__dirname, '..', 'bin', 'jq')
 
 const validateArguments = (
   filter: FilterInput,

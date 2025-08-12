@@ -1,11 +1,7 @@
 pre-push:
   parallel: true
-  commands:
-    test:
-      files: git diff --name-only HEAD @{push}
-      glob: "*.js"
+  jobs:
+    - name: test
       run: npm run test
-    lint:
-      files: git diff --name-only HEAD @{push}
-      glob: "*.js"
+    - name: lint
       run: npm run lint

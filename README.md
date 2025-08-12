@@ -28,45 +28,36 @@ npx node-jq '.foo' package.json
 
 ## Advanced installation
 
-By default, `node-jq` downloads `jq` during the installation process with a post-install script. Depending on your SO downloads from [https://github.com/jqlang/jq/releases] into `./node_modules/node-jq/bin/jq` to avoid colisions with any global installation. Check #161 #167 #171 for more information. You can safely rely on this location for your installed `jq`, we won't change this path without a major version upgrade.
+By default, `node-jq` downloads `jq` during the installation process with a post-install script. Depending on your OS it downloads from [https://github.com/jqlang/jq/releases] into `./node_modules/node-jq/bin/jq` to avoid colisions with any global installation. Check #161 #167 #171 for more information. You can safely rely on this location for your installed `jq`, we won't change this path without a major version upgrade.
 
-### Skipping binary installation
+### Skipping binary installation and use your local jq
 
-If you want to skip the installation step of `jq`, you can set `NODE_JQ_SKIP_INSTALL_BINARY` to `true` or ignore the post-install script from the installation `npm install node-jq --ignore-scripts`.
+If you want to skip the installation step of `jq`, you can do it with different mechanisms. `node-jq` will assume `jq` is in `$PATH` when skipping the installation.
 
-```bash
-export NODE_JQ_SKIP_INSTALL_BINARY=true
-npm install node-jq
-```
+Choose the one that fits best your needs:
 
-```bash
-npm install node-jq --ignore-scripts
-```
-
-### Using a local jq binary
-
-If you have `jq` already installed on your system or in environments where downloading binaries is restricted, you can configure `node-jq` to use a local binary instead. Add the following to your `.npmrc` file:
-
-```bash
-# Use jq from system PATH
-jq-path=jq
-
-# Or specify an absolute path
-jq-path=/usr/local/bin/jq
-```
-
-Then install normally:
-
-```bash
-npm install node-jq --save
-```
-
-This approach is ideal for:
-- Corporate environments where web downloads are disallowed
-- Systems where `jq` is available through package managers
-- Build environments that need reproducible installations
-
-The configuration is automatically picked up from `.npmrc` and can be version-controlled with your project.
+- Ignore the installation by not running it with: `npm install node-jq --ignore-scripts`
+  ```bash
+  npm install node-jq --ignore-scripts
+  ```
+- Set `NODE_JQ_SKIP_INSTALL_BINARY` environment variable to `true`.
+  ```bash
+  export NODE_JQ_SKIP_INSTALL_BINARY="true"
+  npm install node-jq
+  ```
+- Set `JQ_PATH` environment variable
+  ```bash
+  export JQ_PATH="../../jq"
+  npm install node-jq
+  ```
+- Set `jq_path` in `.npmrc` (npm config files https://docs.npmjs.com/cli/v8/configuring-npm/npmrc)
+  ```t
+  # .npmrc
+  jq_path=/usr/local/bin/jq
+  ```
+  ```bash
+  npm install node-jq
+  ```
 
 ## Usage
 
@@ -290,8 +281,8 @@ Adds the `--argjson myfruit "{ 'hello': 'orange' }" --arg myfruit2 orange` argum
 ```javascript
 jq.run('{"fruit":$myfruit,"fruit2":$myfruit2}', ['/path/to/file.json'], { output: 'json', sort: true, args: { myfruit: { hello: 'orange' }, myfruit2: "banana" } }).then(console.log)
 // {
-//   fruit: { 
-//      hello: "orange" 
+//   fruit: {
+//      hello: "orange"
 //   },
 //   fruit2: "banana"
 // }

@@ -174,7 +174,7 @@ describe('jq core', () => {
   })
 
   it('should allow custom cwd', (done) => {
-    run(FILTER_VALID, PATH_JSON_FIXTURE, undefined, undefined, CWD_OPTION)
+    run(FILTER_VALID, PATH_JSON_FIXTURE, undefined, CWD_OPTION)
       .then((output) => {
         expect(output).to.equal('"git"')
         done()
@@ -185,9 +185,31 @@ describe('jq core', () => {
   })
 
   it('should run as detached', (done) => {
-    run(FILTER_VALID, PATH_JSON_FIXTURE, undefined, undefined, undefined, true)
+    run(FILTER_VALID, PATH_JSON_FIXTURE, undefined, undefined, true)
       .then((output) => {
         expect(output).to.equal('"git"')
+        done()
+      })
+      .catch((error) => {
+        done(error)
+      })
+  })
+
+  it('should output empty string for a match on json output', (done) => {
+    run('.foo', { foo: '' }, { input: 'json', output: 'json' })
+      .then((output) => {
+        expect(output).to.equal('')
+        done()
+      })
+      .catch((error) => {
+        done(error)
+      })
+  })
+
+  it('should output undefined for no match on json output', (done) => {
+    run('select(.foo == "bar")', { foo: '' }, { input: 'json', output: 'json' })
+      .then((output) => {
+        expect(output).to.equal(undefined)
         done()
       })
       .catch((error) => {

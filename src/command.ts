@@ -58,13 +58,11 @@ export const commandFactory = (
   filter: FilterInput,
   json: JsonInput,
   options?: OptionsInput,
-  jqPath?: string,
 ): Command => {
-  const command = jqPath ? path.join(jqPath, './jq') : JQ_PATH
   const { args, stdin } = validateArguments(filter, json, options ?? {})
 
   return {
-    command,
+    command: JQ_PATH,
     args,
     stdin,
   }

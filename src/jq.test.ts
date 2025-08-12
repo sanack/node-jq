@@ -194,4 +194,26 @@ describe('jq core', () => {
         done(error)
       })
   })
+
+  it('should output empty string for a match on json output', (done) => {
+    run('.foo', { foo: '' }, { input: 'json', output: 'json' })
+      .then((output) => {
+        expect(output).to.equal('')
+        done()
+      })
+      .catch((error) => {
+        done(error)
+      })
+  })
+
+  it('should output undefined for no match on json output', (done) => {
+    run('select(.foo == "bar")', { foo: '' }, { input: 'json', output: 'json' })
+      .then((output) => {
+        expect(output).to.equal(undefined)
+        done()
+      })
+      .catch((error) => {
+        done(error)
+      })
+  })
 })

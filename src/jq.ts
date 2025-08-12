@@ -8,13 +8,16 @@ export const run = (
   options?: OptionsInput,
   cwd?: string,
   detached?: boolean,
-): Promise<object | string> => {
+): Promise<object | string | undefined> => {
   return new Promise((resolve, reject) => {
     const { command, args, stdin } = commandFactory(filter, json, options)
 
     exec(command, args, stdin, cwd, detached)
       .then((stdout) => {
         if (options?.output === 'json') {
+          if (stdout === '') {
+            return resolve(undefined)
+          }
           let result: object | string
           try {
             result = JSON.parse(stdout)

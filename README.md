@@ -281,8 +281,8 @@ Adds the `--argjson myfruit "{ 'hello': 'orange' }" --arg myfruit2 orange` argum
 ```javascript
 jq.run('{"fruit":$myfruit,"fruit2":$myfruit2}', ['/path/to/file.json'], { output: 'json', sort: true, args: { myfruit: { hello: 'orange' }, myfruit2: "banana" } }).then(console.log)
 // {
-//   fruit: { 
-//      hello: "orange" 
+//   fruit: {
+//      hello: "orange"
 //   },
 //   fruit2: "banana"
 // }

@@ -15,7 +15,7 @@
     "install-binary": "node scripts/install-binary.mjs",
     "test": "nyc mocha src/*.test.ts -r @swc-node/register",
     "test:watch": "npm test -- --watch",
-    "lint": "eslint ./src",
+    "lint": "eslint .",
     "build": "swc ./src --delete-dir-on-start -d lib --strip-leading-paths && tsc",
     "preinstall": "npm run install-binary",
     "coverage": "nyc report --reporter=lcov",

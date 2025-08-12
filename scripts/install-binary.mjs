@@ -5,19 +5,23 @@
 // First check if the user has configured the environment variable to skip the download of jq binary
 
 if (process.env.NODE_JQ_SKIP_INSTALL_BINARY === 'true') {
-  console.log('node-jq is skipping the download of jq binary');
-  process.exit(0);
+  console.log('node-jq is skipping the download of jq binary')
+  process.exit(0)
 }
 
 if (process.env.JQ_PATH) {
-  console.log('node-jq is skipping the download of jq binary');
-  console.log(`Using the configured jq binary by environment variable JQ_PATH at "${process.env.JQ_PATH}"`)
-  process.exit(0);
+  console.log('node-jq is skipping the download of jq binary')
+  console.log(
+    `Using the configured jq binary by environment variable JQ_PATH at "${process.env.JQ_PATH}"`,
+  )
+  process.exit(0)
 }
 
 if (process.env.npm_config_jq_path) {
   console.log('node-jq is skipping the download of jq binary')
-  console.log(`Using the configured jq binary by npm_config_jq_path at "${process.env.npm_config_jq_path}"`)
+  console.log(
+    `Using the configured jq binary by npm_config_jq_path at "${process.env.npm_config_jq_path}"`,
+  )
   process.exit(0)
 }
 

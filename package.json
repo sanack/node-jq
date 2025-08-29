@@ -47,7 +47,7 @@
     "scripts",
     "docs",
     "lib",
-    "bin/node-jq"
+    "node-jq"
   ],
   "dependencies": {
     "is-valid-path": "^0.1.1",

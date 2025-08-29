@@ -8,7 +8,7 @@
     "url": "https://github.com/sanack/node-jq"
   },
   "bin": {
-    "node-jq": "bin/node-jq.cjs"
+    "node-jq": "bin/node-jq"
   },
   "scripts": {
     "pretest": "npm run install-binary",

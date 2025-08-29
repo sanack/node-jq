@@ -16,6 +16,8 @@
 $ npm install node-jq --save
 # or
 $ yarn add node-jq
+# or
+$ pnpm install node-jq
 ```
 
 ## Fast

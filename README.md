@@ -22,7 +22,7 @@ $ pnpm install node-jq
 
 ## Fast
 
-You can use `jq` directly after installing it:
+You can use `jq` directly with `npx`:
 
 ```bash
 npx node-jq '.foo' package.json

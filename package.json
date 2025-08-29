@@ -46,7 +46,8 @@
   "files": [
     "scripts",
     "docs",
-    "lib"
+    "lib",
+    "bin/node-jq"
   ],
   "dependencies": {
     "is-valid-path": "^0.1.1",

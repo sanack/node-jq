@@ -92,7 +92,7 @@ jobs:
       - name: Build
         run: |
           npm run build
-          rm -rf bin
+          rm -rf bin/jq
 
       - name: Release
         env:

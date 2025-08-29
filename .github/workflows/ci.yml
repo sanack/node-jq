@@ -66,7 +66,7 @@ jobs:
   release:
     name: Release
     needs: build-test
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/beta'
     runs-on: ubuntu-latest
     permissions:
       contents: write # to be able to publish a GitHub release

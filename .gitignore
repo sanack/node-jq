@@ -50,5 +50,6 @@ coverage
 .monitor
 
 lib/
+bin/
 
 .npmrc

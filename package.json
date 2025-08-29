@@ -8,7 +8,7 @@
     "url": "https://github.com/sanack/node-jq"
   },
   "bin": {
-    "node-jq": "node-jq"
+    "node-jq": "bin/node-jq"
   },
   "scripts": {
     "pretest": "npm run install-binary",
@@ -17,7 +17,7 @@
     "test:watch": "npm test -- --watch",
     "lint": "eslint .",
     "build": "swc ./src --delete-dir-on-start -d lib --strip-leading-paths && tsc",
-    "postinstall": "npm run install-binary",
+    "preinstall": "npm run install-binary",
     "coverage": "nyc report --reporter=lcov",
     "precodeclimate": "npm run coverage",
     "codeclimate": "codeclimate-test-reporter < coverage/lcov.info",
@@ -47,7 +47,7 @@
     "scripts",
     "docs",
     "lib",
-    "node-jq"
+    "bin/node-jq"
   ],
   "dependencies": {
     "is-valid-path": "^0.1.1",

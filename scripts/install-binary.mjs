@@ -180,13 +180,11 @@ async function downloadFile(url, dest) {
 
     dataStream.on('end', () => {
       console.log('\nDownload complete')
-      fileStream.end()
-      resolve()
+      fileStream.end(() => resolve())
     })
 
     dataStream.on('error', (err) => {
-      fileStream.end()
-      reject(err)
+      fileStream.end(() => reject(err))
     })
   })
 }

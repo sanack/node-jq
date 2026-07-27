@@ -45,7 +45,7 @@ const ARCH = process.arch
 const JQ_INFO = {
   name: 'jq',
   url: 'https://github.com/jqlang/jq/releases/download/',
-  version: 'jq-1.7.1',
+  version: 'jq-1.8.1',
 }
 
 const JQ_NAME_MAP = {

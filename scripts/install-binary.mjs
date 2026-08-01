@@ -28,6 +28,7 @@ if (process.env.npm_config_jq_path) {
 import { spawn } from 'node:child_process'
 import {
   chmodSync,
+  createReadStream,
   createWriteStream,
   existsSync,
   mkdirSync,
@@ -35,8 +36,10 @@ import {
 } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { Readable } from 'node:stream'
+import { pipeline } from 'node:stream/promises'
 import { fileURLToPath } from 'node:url'
-import { extract } from 'tar'
+import { createGunzip } from 'node:zlib'
+import { unpackTar } from 'modern-tar/fs'
 import { temporaryDirectory } from 'tempy'
 
 const PLATFORM = process.platform
@@ -134,10 +137,11 @@ async function buildJqSource(url) {
     const tarballPath = join(tempDir, `${JQ_INFO.version}.tar.gz`)
     await downloadFile(url, tarballPath)
 
-    await extract({
-      file: tarballPath,
-      cwd: tempDir,
-    })
+    await pipeline(
+      createReadStream(tarballPath),
+      createGunzip(),
+      unpackTar(tempDir),
+    )
 
     const sourceDir = join(tempDir, JQ_INFO.version)
     await runCommand(

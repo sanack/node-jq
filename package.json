@@ -25,7 +25,8 @@
     "typecheck": "tsc --noEmit"
   },
   "engines": {
-    "node": ">= 18"
+    "node": ">= 18",
+    "npm": ">= 10"
   },
   "keywords": [
     "jq",
